@@ -52,7 +52,8 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 ## 等待用户
 
 - 下载付费墙 PDF（**8 条**），清单见 [pdfs_pending.md](projects/autonomous-driving/pdfs_pending.md)
-- **只剩两项待你回**（[preparation.md §7](projects/autonomous-driving/ideas/preparation.md)）：**7.1 可用 GPU 与预算**（决定走"只训 scorer"还是端到端）、**7.2 是否升级为正式课题**（你的表态指向要做实验）——其余两项已定（方向已重排、主基准 = NAVSIM v2 navhard）
+- 为路线 B 实验取得 SimScale 的 DiffusionDrive checkpoint，并准备 NAVSIM v2 `navhard` 数据；协议已写在 [experiments/protocol.md](projects/autonomous-driving/experiments/protocol.md)
+- 如要正式立项，仍需用户明确确认；GPU、预算和主基准已经确定，不再作为待决策项
 
 ## 想细看时
 
