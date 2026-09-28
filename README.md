@@ -15,10 +15,11 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第四十七轮（2026-09-24）**——**传播核查：第四十一至四十三轮的结论没传到 `preparation.md`**：那三轮把方向 B 的**目标 / 起点 / 第一步**三样都改了，但只改在 `sota-plan.md` 内部（`preparation.md` 对 §7.2/§7.6/§8/§9 的引用 **= 0 处**）→ **6 处 stale，其中 2 处硬错误**（方向 README 的"门槛只有 45.0"、`preparation.md` 的「三句话结论」三句全旧）。**逐轮详情见 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 29 卷）**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**最新一轮：第四十八轮（2026-09-28）**——**授权弹窗的根因：把临时产物搬出了工作空间**：用户第二次提"经常需要授权，特别是去 `/tmp`"→ 诊断出**三层根因**（我违反纪律第 6 条 / **`/tmp` 在工作空间外 → 每一次访问都走授权** / 工作空间无 git）→ **用户拍板**：临时根迁到 **`inbox/scratch/`**（工作空间内）、**`git init` + 每轮收尾提交一次**（初始提交 `c9fba6e`）。**逐轮详情见 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 30 卷）**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
+| **第四十八轮** | [rounds-48.md](projects/autonomous-driving/history/rounds-48.md) — 授权弹窗根因 + 临时根迁入工作空间 + `git init`（→ [ai/rules.md §执行与清理纪律](ai/rules.md)、[inbox/scratch/](inbox/scratch/)） |
 | **第四十七轮** | [rounds-47.md](projects/autonomous-driving/history/rounds-47.md) — 41–43 轮结论的传播核查（→ [preparation.md §5.1](projects/autonomous-driving/ideas/preparation.md)） |
 | **第四十六轮** | [rounds-46.md](projects/autonomous-driving/history/rounds-46.md) — CSV 与 md 的 ID 一致性入检查 |
 | **第四十五轮** | [rounds-45.md](projects/autonomous-driving/history/rounds-45.md) — 17 处悬空章节引用（→ [check_links.py](shared/scripts/check_links.py) 第五项） |
@@ -46,6 +47,7 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 等待用户
 
+- **（一次性）授权清理 `/tmp/ai4r/` 遗留**（约 28 MB，第二十九至四十七轮的产物）——一条命令，见 [inbox/cleanup.md](inbox/cleanup.md) §当前待清理；跑完 `/tmp/ai4r/` 不再产生新内容
 - 下载付费墙 PDF（**8 条**），清单见 [pdfs_pending.md](projects/autonomous-driving/pdfs_pending.md)
 - **只剩两项待你回**（[preparation.md §7](projects/autonomous-driving/ideas/preparation.md)）：**7.1 可用 GPU 与预算**（决定走"只训 scorer"还是端到端）、**7.2 是否升级为正式课题**（你的表态指向要做实验）——其余两项已定（方向已重排、主基准 = NAVSIM v2 navhard）
 

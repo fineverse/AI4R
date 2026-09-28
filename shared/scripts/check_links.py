@@ -18,7 +18,8 @@
   10. CSV 与 markdown 表的 ID 一致性 —— 每一对 `<x>.csv` + `<x>.md`（**双表示时 CSV 是权威源**），
       两边出现的 ID 集合必须**完全相同**（双向都报）；对子登记在下方 `CSV_ID_PAIRS`
 
-跳过目录：`.git` / `repos`（第三方代码快照）/ `__pycache__` / `node_modules` / `archive` / `.trae`。
+跳过目录：`.git` / `repos`（第三方代码快照）/ `scratch`（临时产物根）/ `__pycache__` / `node_modules` / `archive` / `.trae`。
+**为什么跳过 `scratch`**：`inbox/scratch/` 是工作空间的**临时产物根**（2026-09-28 起取代 `/tmp/ai4r/`，见 `ai/rules.md` §执行与清理纪律第 1 条）——里面放的是 PDF 解压文本、下载的 tarball、子代理缓存等**中间产物**，本就不是知识树内容，且会被 .gitignore 忽略。
 **为什么跳过 `archive`**：该目录按工作空间约定「默认不加载」，其中的历史方案记录的是重构**前**
 的路径（如 `projects/diffusiondrive/`），相对链接失效属预期，且各文件头已声明。
 若把 archive 计入，其固定 8 条死链会永久淹没真正的新死链 —— 排除后「死链 0」才有信号意义。
@@ -30,7 +31,7 @@
 import os, re, sys, csv
 
 ROOT = "/home/verse/dev/AI4R"
-SKIP_DIRS = {".git", "repos", "__pycache__", "node_modules", "archive", ".trae"}
+SKIP_DIRS = {".git", "repos", "scratch", "__pycache__", "node_modules", "archive", ".trae"}
 
 link_re = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 # 同上，但同时取出**链接文字**（分册引用归属检查要用文字里的 §X）

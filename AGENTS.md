@@ -22,4 +22,4 @@
 项目内固定**领域—专题两级树**：`direction/` 是大方向（脉络、基准、领域级综述与笔记），`topics/<小方向>/` 是小方向（`README.md` 声明角色与待回答问题、`lineage.md`、论文表、笔记）。跨专题资产（`sources.md`、`pdfs_pending.md`、`raw/`、`code/`）放项目根。
 
 AI 详细行为规范在 [`ai/rules.md`](ai/rules.md)，工作流在 [`ai/workflows.md`](ai/workflows.md)，仅在需要引用具体规范时读取。
-**执行与清理纪律**（每次都遵守）：中间产物只放 `/tmp/ai4r/`；流程中不做删除；待删清单累积到 `inbox/cleanup.md`，收尾时用一条命令一次授权。**不可逆操作（拆分、批量改写）前先 `cp` 备份到 `/tmp/ai4r/`，完成后立即比对体积**。详见 [`ai/rules.md`](ai/rules.md) §执行与清理纪律。
+**执行与清理纪律**（每次都遵守）：中间产物只放 **`inbox/scratch/`**（**工作空间内**——`/tmp` 在权限自动允许范围之外，每一次访问都会弹授权，见 [`ai/rules.md`](ai/rules.md) §执行与清理纪律第四十八轮修正）；**只读一律用 Read/Grep/Glob，不起 shell**；流程中不做删除；待删清单累积到 `inbox/cleanup.md`，收尾时用一条命令一次授权；**不可逆操作（拆分、批量改写）前先 `cp` 备份到 `inbox/scratch/`，完成后立即比对体积**；**每轮收尾提交一次 git**。详见 [`ai/rules.md`](ai/rules.md) §执行与清理纪律。
