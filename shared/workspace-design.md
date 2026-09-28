@@ -39,13 +39,13 @@ AGENTS.md
 1. **单一事实源**：同一信息只允许一处权威副本，其余删除或指向它；发现重复立即清理。
 2. **更新纪律与冲突裁决**：`state.md` 在阶段推进、核验完成、决策作出时更新；与实际文件矛盾时，内容以文件为准、进度以 `state.md` 为准，发现矛盾先修 `state.md`。
 3. **文件尺寸预算与拆分**：**规则与判定阈值见 [ai/rules.md](../ai/rules.md) §文件更新**（三条阈值：`index`/`state` ≤100 行、任何文档 ≤64 KB、笔记一篇一文件）。**本节只记"何时拆了什么"的执行台账**：
-   - **2026-09-23 第一次**：`state.md` 超 100 行 → 逐轮记录拆到项目根 `history.md`；`history.md` 超 200 行再拆卷（原 965 行 → 索引 + 5 卷，每卷 86–250 行）；此后第二十五、二十六、二十七轮各新增 1 卷（`rounds-25/26/27.md`），**当时共 9 卷**（第三十六轮后为 **18 卷**）。
-   - **2026-09-23 第二次（体积超限）**：实测 5 个文件超 64 KB → `state.md`（100 行 / 65 KB）拆出 [judgments.md](../projects/autonomous-driving/judgments.md)（`state.md` 只留分组索引；57 条判断 2026-09-23 再按主题分为 A–H 八组，**2026-09-24 增至 58 条**）；`vla/papers.md`（110 KB）拆出 `verification.md` + `verification-2.md`；`world-model/papers.md`（73 KB）拆出 `verification.md`；`code/traces/` 两份（103 / 67 KB）各拆出 `-2.md`。
+   - **2026-09-23 第一次**：`state.md` 超 100 行 → 逐轮记录拆到项目根 `history.md`；`history.md` 超 200 行再拆卷（原 965 行 → 索引 + 5 卷，每卷 86–250 行）；此后第二十五轮起**每轮新增 1 卷**（**当前卷数与最新一卷见 [history.md](../projects/autonomous-driving/history.md)**，本台账不追记数字）。
+   - **2026-09-23 第二次（体积超限）**：实测 5 个文件超 64 KB → `state.md`（100 行 / 65 KB）拆出 [judgments.md](../projects/autonomous-driving/judgments.md)（`state.md` 只留分组索引；判断随后按主题分为 A–H 八组，**当前条数、分组与分册见 [state.md](../projects/autonomous-driving/state.md) §当前判断边界**）；`vla/papers.md`（110 KB）拆出 `verification.md` + `verification-2.md`；`world-model/papers.md`（73 KB）拆出 `verification.md`；`code/traces/` 两份（103 / 67 KB）各拆出 `-2.md`。
    - **2026-09-24 第三次（体积超限）**：`preparation.md` 写到 60.8 KB / 64 KB（95%）→ 把冲 SOTA 的 §5.1 整块（8446 字节）拆出为 [ideas/sota-plan.md](../projects/autonomous-driving/ideas/sota-plan.md)，`preparation.md` 只留 922 字节指针 + 三句话结论（60.8 → 53.3 KB）。
    - **2026-09-24 第四次（体积逼近上限）**：`judgments.md` 写到 62.8 KB / 64 KB（96%，且每加一条判断涨约 1.3 KB）→ 按既定分册约定拆为 [judgments.md](../projects/autonomous-driving/judgments.md)（第一册 **§A–§D**，31 KB）+ [judgments-2.md](../projects/autonomous-driving/judgments-2.md)（第二册 **§E–§H**，33 KB）。**这次拆法与前面几次不同的一点**：拆点是**章节边界而非体积均分**，选"§A–§D 留第一册"是为了**让所有现有 `§A–§D` 引用都不用改**（只有 3 处指向 §F/§H 的引用需要改指第二册）；拆分为机械搬运，**正文一字未动**，拆后跑第五项检查（分册引用归属）确认册别 0 错。
    - **踩过的两个坑**：① 拆卷后分卷文件多一层目录，正文相对链接要整体补一层 `../`（首次实测 254 条死链，修完归零）；② **机械拆分脚本必须自证**——一次因运算符优先级 bug 静默丢失两个文件的后半部分（59 KB + 24 KB），**安全要求与事故记录见 [ai/rules.md](../ai/rules.md) §执行与清理纪律第 8 条**。
 4. **格式可检索**：纯 Markdown、无二进制；文件内保持稳定标题与固定字段名（如证据等级表）供 Grep 定位；论文 PDF 留在 Zotero，工作空间只放笔记。
-5. **inbox 生命周期**：`inbox/` 材料最多 2 次会话内分拣到项目或 `shared/`，未分拣视为可清理。
+5. **inbox 生命周期**：`inbox/` 里**待人工分拣的材料**最多 2 次会话内分拣到项目或 `shared/`，未分拣视为可清理。**⚠ 例外**：`inbox/scratch/` 是**长期临时产物根**（第四十八轮起，见 [ai/rules.md](../ai/rules.md) §执行与清理纪律第 1 条），**不受此条约束**，其内容按需清理、且不进 git。
 6. **健康自检**：结构变动后或用户要求时，审计死链、孤儿文件、`state.md` 失真、超限文件、单一事实源违反（细则见 [ai/rules.md](../ai/rules.md) §主动优化）。
 7. **决策留痕**：重要判断（放弃 idea、选定基线、修改评价协议）记录理由与日期，保证「为什么当时这么做」可追溯。
 8. **单会话单项目**：同一项目同时只在一条会话中推进，避免并行写入互相覆盖。

@@ -10,9 +10,12 @@ Pipeline:
 import re, html, json, sys, collections
 
 import os as _os
-SRC = _os.environ.get('CCF_BBOX_HTML', '/tmp/ccf2026_bbox.html')
-RAW = _os.environ.get('CCF_RAW_TXT', '/tmp/ccf2026_raw.txt')
-OUT = _os.environ.get('CCF_OUT_JSON', '/tmp/ccf2026_parsed.json')
+# 中间产物根：工作空间**内**（第四十八轮起；/tmp 在权限自动允许范围之外，每次访问都会弹授权）
+# 见 ai/rules.md §执行与清理纪律第 1 条。可用环境变量覆盖。
+_SCRATCH = _os.path.normpath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', '..', 'inbox', 'scratch'))
+SRC = _os.environ.get('CCF_BBOX_HTML', _os.path.join(_SCRATCH, 'ccf2026_bbox.html'))
+RAW = _os.environ.get('CCF_RAW_TXT', _os.path.join(_SCRATCH, 'ccf2026_raw.txt'))
+OUT = _os.environ.get('CCF_OUT_JSON', _os.path.join(_SCRATCH, 'ccf2026_parsed.json'))
 
 AREAS = [
  '计算机体系结构/并行与分布计算/存储系统',
