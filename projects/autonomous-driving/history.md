@@ -41,6 +41,8 @@
 
 | [rounds-49.md](history/rounds-49.md) | **第四十九轮（2026-09-28）** | **把路线 B 的第一步落成预注册协议**：冻结 DiffusionDrive，定义 floor / selected / 离线 oracle ceiling / 扩池 ceiling 四项纯推理测量与比较指标；固定 navhard / EPDMS 口径，登记 GT 隔离、记录字段、判定规则和启动阻塞。**协议仍是草案，未运行**；同步 state.md、index.md 与根 README.md 指针。 |
 
+| [rounds-50.md](history/rounds-50.md) | **第五十轮（2026-09-28）** | **把“只读优先”改成明确工具规则**：Read / Grep / Glob 负责读取、搜索和定位；命令行仅用于程序执行、检查与产物生成；内置工具遇权限边界时不绕道 shell。同步根 AGENTS.md 与 ai/rules.md。 |
+
 ## 写新记录的约定
 
 - **追加到最新的那一卷**；当该卷超过 **200 行**时，新建下一卷（命名沿用 `rounds-<起始>-<结束>.md`）并回到本表登记。
