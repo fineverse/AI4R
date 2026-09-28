@@ -1,0 +1,21 @@
+# AI4R 工作空间 · git 忽略规则
+# 建立于 2026-09-28（第四十八轮）。意图见 ai/rules.md §执行与清理纪律。
+
+# ── 第三方代码快照：1.6 GB，按工作空间约定「只克隆、不安装、不运行」 ──
+# 完整仓库清单与下载方式见 projects/autonomous-driving/code/repositories.md
+projects/*/code/repos/
+code/repos/
+
+# ── 临时产物根（工作空间内，取代原先的 /tmp/ai4r/）──
+# 见 ai/rules.md §执行与清理纪律 第 1 条；待删清单仍累积到 inbox/cleanup.md
+inbox/scratch/
+
+# ── Python ──
+__pycache__/
+*.pyc
+
+# ── IDE 产物（不属于知识树；check_links.py 的 SKIP_DIRS 亦跳过）──
+.trae/
+
+# ── 系统 ──
+.DS_Store
