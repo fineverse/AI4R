@@ -66,7 +66,7 @@
 
 | 目录 | 内容 |
 |---|---|
-| `experiments/protocol.md` | 实验方案（待建设） |
+| [experiments/protocol.md](experiments/protocol.md) | **路线 B 第一阶段预注册协议**：冻结 DiffusionDrive，测 floor / selected / oracle ceiling / 扩池 ceiling；尚未运行 |
 | `experiments/records/` | 实验记录（待建设） |
 | `experiments/results/` | 实验原始结果（待建设） |
 | `writing/outline.md` | 论文大纲（待建设） |

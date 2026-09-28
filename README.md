@@ -19,6 +19,7 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 | 轮次 | 指针 |
 |---|---|
+| **第四十九轮** | 路线 B 第一阶段实验协议已建，尚未运行（→ [实验协议](projects/autonomous-driving/experiments/protocol.md)） |
 | **第四十八轮** | [rounds-48.md](projects/autonomous-driving/history/rounds-48.md) — 授权弹窗根因 + 临时根迁入工作空间 + `git init`（→ [ai/rules.md §执行与清理纪律](ai/rules.md)、[inbox/scratch/](inbox/scratch/)） |
 | **第四十七轮** | [rounds-47.md](projects/autonomous-driving/history/rounds-47.md) — 41–43 轮结论的传播核查（→ [preparation.md §5.1](projects/autonomous-driving/ideas/preparation.md)） |
 | **第四十六轮** | [rounds-46.md](projects/autonomous-driving/history/rounds-46.md) — CSV 与 md 的 ID 一致性入检查 |
