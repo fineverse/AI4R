@@ -47,7 +47,6 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 等待用户
 
-- **（一次性）授权清理 `/tmp/ai4r/` 遗留**（约 28 MB，第二十九至四十七轮的产物）——一条命令，见 [inbox/cleanup.md](inbox/cleanup.md) §当前待清理；跑完 `/tmp/ai4r/` 不再产生新内容
 - 下载付费墙 PDF（**8 条**），清单见 [pdfs_pending.md](projects/autonomous-driving/pdfs_pending.md)
 - **只剩两项待你回**（[preparation.md §7](projects/autonomous-driving/ideas/preparation.md)）：**7.1 可用 GPU 与预算**（决定走"只训 scorer"还是端到端）、**7.2 是否升级为正式课题**（你的表态指向要做实验）——其余两项已定（方向已重排、主基准 = NAVSIM v2 navhard）
 

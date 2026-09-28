@@ -66,6 +66,6 @@
 | 状态 / 索引 | [state.md](../state.md)、[history.md](../history.md)（**30 卷**）、[index.md](../index.md)、[README.md](../../../README.md) |
 | 中间产物 | 本轮**未产生**（证据用 Grep/Read 收集，不落盘） |
 
-**验证**：`check_links.py` **十项全绿**（138 个 md 文件，死链 0）。
+**验证**：`check_links.py` **十项全绿**（139 个 md 文件，死链 0）。
 
-> **待用户一次授权**：`/tmp/ai4r/` 遗留清理（约 28 MB）——命令已在 [inbox/cleanup.md](../../../inbox/cleanup.md) 备好；**此后 `/tmp/ai4r/` 不再产生新内容**。
+> **`/tmp/ai4r/` 遗留清理已执行**（用户一次授权）：**28 MB / 65 条目**删除，复查残留 **0**——**这是最后一批** `/tmp/ai4r/` 产物；此后新中间产物一律进 `inbox/scratch/`（工作空间内，不弹授权）。逐项记录见 [inbox/cleanup.md](../../../inbox/cleanup.md) §执行记录。
