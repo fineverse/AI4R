@@ -15,16 +15,20 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第五十五轮（2026-09-29）**——网络排查（GitHub 的 TUN fake-ip 根因 + `huggingface.co` 阻塞解除）+ 论文检索工具固化（→ [rounds-55.md](projects/autonomous-driving/history/rounds-55.md)）。
+**最新一轮：第五十六轮（2026-09-29）**——补齐第四十九至五十四轮漏掉的指针 + **HF checkpoint 定位**（待续清单第 17 项的下载阻塞解除）（→ [rounds-56.md](projects/autonomous-driving/history/rounds-56.md)）。
 
-> **⚠ 已发现的失真（本轮未修）**：本节与 `state.md`「当前阶段」此前停在**第四十八轮**，而 `rounds-49`~`rounds-54` 六个轮次文件均已存在；本节内「第五十一轮」与「最新一轮：第四十八轮」两处**自相矛盾**。**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 30 卷）为准**。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 31 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
+| **第五十六轮** | [rounds-56.md](projects/autonomous-driving/history/rounds-56.md) — 补 49–54 轮指针 + HF checkpoint 定位（`datasets/OpenDriveLab/SimScale`） |
 | **第五十五轮** | [rounds-55.md](projects/autonomous-driving/history/rounds-55.md) — 网络排查（TUN fake-ip / HF 解锁）+ [工具与凭据](shared/tools.md) 固化 + VLA 表补 S2 口径引用数 |
-| **第四十九至五十四轮** | ⚠ **未收录**（轮次文件在 [history/](projects/autonomous-driving/history/)，README 未同步） |
-| **第五十轮** | 只读查找改为优先用内置 Read/Grep/Glob（→ [AGENTS.md](AGENTS.md)、[ai/rules.md](ai/rules.md)） |
-| **第四十九轮** | 路线 B 第一阶段实验协议已建，尚未运行（→ [实验协议](projects/autonomous-driving/experiments/protocol.md)） |
+| **第五十四轮** | [rounds-54.md](projects/autonomous-driving/history/rounds-54.md) — 把完整政策分与候选池诊断分开（→ [protocol.md](projects/autonomous-driving/experiments/protocol.md)） |
+| **第五十三轮** | [rounds-53.md](projects/autonomous-driving/history/rounds-53.md) — 修正选优协议的聚合口径：`C_N` 降级为 oracle 诊断量 |
+| **第五十二轮** | [rounds-52.md](projects/autonomous-driving/history/rounds-52.md) — 收敛等待项为两类真实阻塞 |
+| **第五十一轮** | [rounds-51.md](projects/autonomous-driving/history/rounds-51.md) — 当前态传播核查 |
+| **第五十轮** | [rounds-50.md](projects/autonomous-driving/history/rounds-50.md) — 只读任务优先走内置工具（→ [AGENTS.md](AGENTS.md)、[ai/rules.md](ai/rules.md)） |
+| **第四十九轮** | [rounds-49.md](projects/autonomous-driving/history/rounds-49.md) — 路线 B 第一步写成预注册实验协议（→ [protocol.md](projects/autonomous-driving/experiments/protocol.md)） |
 | **第四十八轮** | [rounds-48.md](projects/autonomous-driving/history/rounds-48.md) — 授权弹窗根因 + 临时根迁入工作空间 + `git init`（→ [ai/rules.md §执行与清理纪律](ai/rules.md)、[inbox/scratch/](inbox/scratch/)） |
 | **第四十七轮** | [rounds-47.md](projects/autonomous-driving/history/rounds-47.md) — 41–43 轮结论的传播核查（→ [preparation.md §5.1](projects/autonomous-driving/ideas/preparation.md)） |
 | **第四十六轮** | [rounds-46.md](projects/autonomous-driving/history/rounds-46.md) — CSV 与 md 的 ID 一致性入检查 |
