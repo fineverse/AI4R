@@ -37,7 +37,26 @@
 
 - **全部摘要级**：本表 14 篇**均未读正文**；频率数字除 π0（50 Hz）、OpenVLA（3–5 Hz，OFT 正文引）、OFT（26×）、FAST（750 ms）外，**多为二手来源**（博客 / 聚合站）。
 - **venue 取不到**（按 T4 处理）：CogACT、GR00T N1、GR-3、SmolVLA。
-- **引用数不可用**：OpenVLA 43、RT-2 273、GR00T N1 5 等均为 **arXiv 存根**；**GR00T N1 在 Semantic Scholar 记 1342，与 OpenAlex 差两个数量级** → 无法定论。
+- **引用数两个口径不可混用**：OpenAlex 侧 OpenVLA 43、RT-2 273、GR00T N1 5 等均为 **arXiv 存根**（系统性低估）；**GR00T N1 在 Semantic Scholar 记 1342，与 OpenAlex 差两个数量级** → 无法定论。S2 口径的实测数见 §4，**两个口径不可直接比较，也不用于排序**。
 - **频率冲突**：GR00T N1 System 1 有 **120 Hz**（NVIDIA 博客）与 30 Hz（他源）两说。
 - **未找到官方代码**：RT-H、GR-3。
 - **候选名不存在**：arXiv 全库无独立 "RoboVLM"（疑指 RoboMamba）；"GR00T N1.5" 无 arXiv（仅模型卡更新）。
+
+## 4. 引用数（Semantic Scholar 口径）
+
+2026-09-29 经 Ai4Scholar（S2 代理）`paper/batch` 批量取得，**在表 14 篇中覆盖 7 篇**：
+
+| 编号 | 论文 | S2 引用数 | 影响力引用数 |
+|---|---|---|---|
+| E-VLA-01 | RT-2 | 4352 | 238 |
+| E-VLA-02 | OpenVLA | 3527 | 515 |
+| E-VLA-03 | π0-FAST | 679 | 98 |
+| E-VLA-04 | ACT | 2447 | 384 |
+| E-VLA-05 | OpenVLA-OFT | 913 | 186 |
+| E-VLA-07 | Octo | 1897 | 139 |
+| E-VLA-08 | CogACT | 452 | 54 |
+
+- **`influentialCitationCount` 为 S2 独有字段**，OpenAlex / Crossref / Consensus 均无 → 可作「实际影响力」的补充判据（OpenVLA 515 高于 RT-2 238，与「OpenVLA 是开源基线、被大量工作微调」的定性判断一致）
+- **口径警告**：S2 数为全版本合并（含预印本引用），与 OpenAlex 正式版记录可差一到两个数量级（§3 已记 GR00T N1 案例）→ **两个口径不可混用、不可直接比较**
+- **覆盖不全**：其余 7 篇（Diffusion Policy、SpatialVLA、DexVLA、SmolVLA、RT-H、GR00T N1、GR-3）本次未查，因不在已获 ID 清单内
+- 成本与数据质量：Ai4Scholar 批量查 7 篇 = **2 积分**；同批响应中 `publicationTypes`（全标 JournalArticle）与 `isOpenAccess`（OpenVLA / Octo 误标为「否」）**不可信**，详见 [shared/tools.md](../../../../shared/tools.md)

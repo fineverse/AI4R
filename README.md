@@ -15,12 +15,14 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**第五十一轮（2026-09-28）**——传播核查已统一当前轮次指针；实验协议已建但尚未运行。
+**最新一轮：第五十五轮（2026-09-29）**——网络排查（GitHub 的 TUN fake-ip 根因 + `huggingface.co` 阻塞解除）+ 论文检索工具固化（→ [rounds-55.md](projects/autonomous-driving/history/rounds-55.md)）。
 
-**最新一轮：第四十八轮（2026-09-28）**——**授权弹窗的根因：把临时产物搬出了工作空间**：用户第二次提"经常需要授权，特别是去 `/tmp`"→ 诊断出**三层根因**（我违反纪律第 6 条 / **`/tmp` 在工作空间外 → 每一次访问都走授权** / 工作空间无 git）→ **用户拍板**：临时根迁到 **`inbox/scratch/`**（工作空间内）、**`git init` + 每轮收尾提交一次**（初始提交 `c9fba6e`）。**逐轮详情见 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 30 卷）**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+> **⚠ 已发现的失真（本轮未修）**：本节与 `state.md`「当前阶段」此前停在**第四十八轮**，而 `rounds-49`~`rounds-54` 六个轮次文件均已存在；本节内「第五十一轮」与「最新一轮：第四十八轮」两处**自相矛盾**。**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 30 卷）为准**。
 
 | 轮次 | 指针 |
 |---|---|
+| **第五十五轮** | [rounds-55.md](projects/autonomous-driving/history/rounds-55.md) — 网络排查（TUN fake-ip / HF 解锁）+ [工具与凭据](shared/tools.md) 固化 + VLA 表补 S2 口径引用数 |
+| **第四十九至五十四轮** | ⚠ **未收录**（轮次文件在 [history/](projects/autonomous-driving/history/)，README 未同步） |
 | **第五十轮** | 只读查找改为优先用内置 Read/Grep/Glob（→ [AGENTS.md](AGENTS.md)、[ai/rules.md](ai/rules.md)） |
 | **第四十九轮** | 路线 B 第一阶段实验协议已建，尚未运行（→ [实验协议](projects/autonomous-driving/experiments/protocol.md)） |
 | **第四十八轮** | [rounds-48.md](projects/autonomous-driving/history/rounds-48.md) — 授权弹窗根因 + 临时根迁入工作空间 + `git init`（→ [ai/rules.md §执行与清理纪律](ai/rules.md)、[inbox/scratch/](inbox/scratch/)） |

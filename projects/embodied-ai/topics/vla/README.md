@@ -3,14 +3,14 @@
 - **角色**：**借鉴来源**
 - **所属领域**：具身智能（本项目）
 - **状态**：**已建表**（第二十五轮）：**在表 14 篇**、脉络初稿已写 → **全部摘要级**（**已读全文 0 篇、已源码核验 0 篇**；逐篇状态见 [papers.md](papers.md) 末列）。**待续**：把"有官方代码 + 有受控消融"的几篇升全文级
-- **更新时间**：2026-09-24
-- **产出**：[papers.md](papers.md)（14 篇，含动作形式 / 是否生成式 / 频率 / 代码）、[lineage.md](lineage.md)（三段 + 三条判断）
+- **更新时间**：2026-09-29
+- **产出**：[papers.md](papers.md)（14 篇，含动作形式 / 是否生成式 / 频率 / 代码；**§4 为 7 篇的 S2 口径引用数**）、[lineage.md](lineage.md)（三段 + 三条判断）
 
 ## 本小方向的文件
 
 | 文件 | 回答什么 |
 |---|---|
-| [papers.md](papers.md) | 14 篇代表工作（动作形式 / 是否生成式 / 频率 / 代码可用性） |
+| [papers.md](papers.md) | 14 篇代表工作（动作形式 / 是否生成式 / 频率 / 代码可用性 / §4 引用数） |
 | [lineage.md](lineage.md) | 三段（V1 语言解释 → V2 离散 token → V3 连续动作头）+ 三条判断 |
 | [../diffusion-policy/papers/](../diffusion-policy/papers/diffusion_planner_embodied.md) | 与之同源的**扩散策略**表（DP-Exx，含 π0 / π0.5 / FLOWER / RDT-1B 等 VLA 相关条目） |
 

@@ -19,3 +19,9 @@ __pycache__/
 
 # ── 系统 ──
 .DS_Store
+
+# ── 本地凭据（不进版本历史）──
+# 记录在本文件内的 API key；用法见 shared/index.md §工具说明
+shared/tools.env
+*.env
+!.env.example
