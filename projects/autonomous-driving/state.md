@@ -1,14 +1,14 @@
 # 自动驾驶项目状态
 
-更新时间：2026-09-30（第六十六轮：机制实测 + 修规则自相矛盾 + 落盘第三篇投递）
-逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 47 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**进行中轮次 + 待整合投递**，是并行会话的软通道）；本文件只保留当前阶段、待续清单与判断边界。
+更新时间：2026-09-30（第六十七轮：整合两篇投递 + 理正收尾步序 + 取消 `CURRENT.md` 投递登记区）
+逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 49 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**本轮「在改」文件清单**（软通道，单写者 = 主线程；**第六十七轮起不再登记投递物**——登记表就是 `inbox/` 本身））；本文件只保留当前阶段、待续清单与判断边界。
 
 ## 当前阶段
 
-**项目未立项**。文献调研与代码核验已完成（第一至六十六轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第六十六轮（2026-09-30）**——机制实测（硬机制全通）+ 修掉一条**规则自相矛盾**（`CURRENT.md` 登记）+ 落盘第三篇投递（沙箱边界 / 覆盖无闸 / HF 代理根因 / 数据盘白名单）。
+**项目未立项**。文献调研与代码核验已完成（第一至六十七轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第六十七轮（2026-09-30）**——整合两篇支线投递（**规则矛盾** 与 **机制复核**）：**理正轮次收尾步序**（第 7 步检查须在第 9 步整合之后跑，第 8 步 `exit 0` 门槛只约束轮次收尾提交）+ **取消 `CURRENT.md` 的「待整合投递」区**（恢复单写者，登记表就是 `inbox/` 本身）+ 补 §一.4 的第二条理由（投递后提交是恢复程序的前提）。
 
-- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 47 卷，第一至六十六轮全覆盖）。
-- **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 的「inbox 待整合」检查）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
+- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 49 卷，第一至六十七轮全覆盖）。
+- **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)（**单写者 = 主线程**，只写「在改」清单）；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 的「inbox 待整合」检查）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
 - **决策核心**：[sota-plan.md](ideas/sota-plan.md)（冲 SOTA 作战文件）、[preparation.md](ideas/preparation.md)（S1–S30 设计前提 + 候选方向）。
 - **关键阻塞**：路线 B 第一步（纯推理四项测量）协议已建、**未运行**，受 SimScale checkpoint（243.6 MB，已定位）与 navhard 数据阻塞。
 
@@ -28,7 +28,7 @@
 | 机制 | [transfer.md](topics/diffusion-planner/transfer.md)（来源 → 对象，**§1 现 15 条**——**⚠ 第四十四轮更正**：此处原写 16 条，第三十二轮把 §1 条数改正后漏改的两处之一） |
 | 规范 | [文献质量分档](../../shared/literature-quality.md)、[工作空间设计](../../shared/workspace-design.md) |
 | idea | [sota-plan.md](ideas/sota-plan.md)（**冲 SOTA 作战文件**：navhard 13 行分数格局与逐行代码状态 + 子榜门槛 + 七方向重排 + 四条推荐路线）；[preparation.md](ideas/preparation.md)（**§2 = S1–S30 设计前提清单**、§5.0 = 七方向横向比较、§5 = 7 个候选方向，均未验证）；[judgments.md](judgments.md)（判断边界详细版**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**） |
-| 工作流 | [ai/rules.md](../../ai/rules.md)（证据等级含**代码核验 L1/L2/L3**、**子代理纪律**、**支线协作纪律**（第六十轮新增、**第六十一/六十二轮补强**）、尺寸阈值、**执行与清理纪律 9 条**）、[ai/workflows.md](../../ai/workflows.md)（**§轮次开始 pre-flight**（第六十二轮新增）+ **§轮次收尾 9 步**、**Idea 讨论准备**节）；**检查器**（[check_links.py](../../shared/scripts/check_links.py)；**逐项清单见脚本 docstring**——第六十五轮起本处不写数字、不枚举）；**工作空间已 git**（`.gitignore` 忽略 `code/repos/` + `inbox/scratch/` + `.trae/`；**收尾用 `git add -u` + 显式列新文件，不用 `-A`**），临时产物根 = **`inbox/scratch/`** |
+| 工作流 | [ai/rules.md](../../ai/rules.md)（证据等级含**代码核验 L1/L2/L3**、**子代理纪律**、**支线协作纪律**（第六十轮新增、**第六十一/六十二/六十七轮修订**）、尺寸阈值、**执行与清理纪律 10 条**）、[ai/workflows.md](../../ai/workflows.md)（**§轮次开始 pre-flight**（第六十二轮新增）+ **§轮次收尾 9 步**（第六十七轮理正第 7/8/9 步的先后）、**Idea 讨论准备**节）；**检查器**（[check_links.py](../../shared/scripts/check_links.py)；**逐项清单见脚本 docstring**——第六十五轮起本处不写数字、不枚举）；**工作空间已 git**（`.gitignore` 忽略 `code/repos/` + `inbox/scratch/` + `.trae/`；**收尾用 `git add -u` + 显式列新文件，不用 `-A`**），临时产物根 = **`inbox/scratch/`** |
 
 ## 待续清单（没做完的，按优先级）
 
@@ -51,6 +51,7 @@
 | 19 | **8 张论文表的「质量依据 / 证据等级 / 代码状态」已补齐**（第五十七轮，**第六十轮补上具身两表的缺口**） | **✅ 已完成**：驾驶侧 VLA / 世界模型加「§1.1 逐行证据等级与代码状态」；DP-A / DP-S / 具身 DP-E 加「逐行质量依据（T 档）」；**具身 VLA / 具身 WM 的 §1.1 由第六十轮补上**（第 57 轮声称 8 张、实际只落 6 张）；综述 S 只归档已读全文的 5 篇、其余标「未核」。<br>**剩余缺口的分档（第六十三轮逐条看过，四类）**：① **判据问题、不是信息缺口**——venue 本就不在白名单（DP-S03 Frontiers / S05 IoT-J / S12 TechRxiv）→ 要么扩白名单、要么按 T5 归，**没有"去核"这个动作**；② **值得动且便宜**——**具身 4 条「代码未核验」**（DP-E13/E24/E26/E27，走 GitHub API/raw 即可，本空间已核过 40+ 仓）＋ **DP-A29 DriveFine**（只需补团队/录用信号；其"零代码"已由 [C003 §K](code/traces/diffusion_planner_code_traces-2.md) 结账）＋ **DP-E16**（无代码，只剩团队信号）；③ **无入口 / 等外部事件**（搁置）——DP-A04/A19/A25/A30/A32/A34、DP-S06/S08/S13、DP-E07、B011；④ **需用户**（付费墙）——DP-S10（ICTC 2025）。**S 表其余 40 条「未核」按第 57 轮结论永久搁置**（非选题依赖）；**具身 VLA+WM 升全文级**仍属"按需"，未动 | [rounds-57.md](history/rounds-57.md)、[rounds-60.md](history/rounds-60.md)、[rounds-63.md](history/rounds-63.md) |
 | 20 | **`/tmp/ai4r-*`（2026-09-29 支线产物）清理** | **✅ 已完成（2026-09-30，命令由用户执行）**：`/tmp/ai4r-clonetest/`（16 MB）+ 19 个 `/tmp/ai4r-*`（约 88 KB）已删；主线程只读复查（Glob）**残留 0**。**该批违规（落 `/tmp`）已在规则层堵住**：见 [ai/rules.md](../../ai/rules.md) §支线协作纪律第 7 条 | [inbox/cleanup.md](../../inbox/cleanup.md) §执行记录 |
 | 21 | **实验数据的落盘位置会触到沙箱白名单**（2026-09-30 实测，支线第三篇投递） | **NAVSIM 数据不能放工作空间**（**`navtrain` 300–445 GB、`navtest` 223 GB**）→ 若落在数据盘（如 `/data`、`/mnt/xxx`），**该路径必须加进沙箱允许区**，否则**连读取都做不到**（允许区的形状 = 工作空间 + 临时目录 + 包缓存，见 [ai/rules.md](../../ai/rules.md) §执行与清理纪律第 10 条下方的说明块）。**等数据盘定下来再处理** | [rounds-66.md](history/rounds-66.md) |
+| 22 | **防"成果搞丢"的用户侧三件事**（第六十七轮从 README「等待用户」同步进来，避免被后续轮次淹没） | **均未完成（第六十七轮实测）**：① **加私有远端** ❌（`git remote -v` 为空）；② **备份 `.git`** ❌（**实测 `.git` = 18 MB**——⚠ **更正**：第四十八轮记的"2.2 MB"是**初始提交**时的体积，已随轮次增长；异地成本极低）；③ **`~/.bashrc` 加代理两行** ❌（`grep` 无命中）。**为何只有这三条**：**"删除有闸、覆盖没有闸"**（见 [ai/rules.md](../../ai/rules.md) §执行与清理纪律第 10 条下方）→ **搞丢成果的真实路径是覆盖**，而**版本控制 + 异地副本是唯一解**，沙箱白名单管不到 | [rounds-67.md](history/rounds-67.md)、[README.md](../../README.md) §等待用户 |
 
 ## 当前判断边界（索引）
 
