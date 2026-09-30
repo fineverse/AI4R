@@ -15,14 +15,15 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第六十五轮（2026-09-30）**——**收敛三处冗余**（做第 58 轮遗留项，判据是上一轮刚给出的"**冗余会制造改一处漏一处**"实证）：检查项清单**三处→一处**且**连"N 项"这个数字一起删**（派生标签本身也是冗余）、git 提交命令**两处→一处**、`research-workflow.md` 的「工作空间使用原则」整节→指针（→ [rounds-65.md](projects/autonomous-driving/history/rounds-65.md)）。
+**最新一轮：第六十六轮（2026-09-30）**——**机制实测**（第三篇投递触发）：硬机制全通（机器兜底 / 通道 B / 孤儿豁免 / 恢复程序前提），**查出并修掉一条规则自相矛盾**（第 61 轮要求支线登记 `CURRENT.md`、第 62 轮又定"已存在文件一律投递"）；落盘投递物实质内容：**沙箱边界**、**"删除有闸、覆盖没有闸"**、HF 代理根因、**数据盘需加白名单**（→ [rounds-66.md](projects/autonomous-driving/history/rounds-66.md)）。
 
-**上一轮：第六十四轮（2026-09-30）**——**把"文档 ≤64 KB"从人工目测变成机器检查**：自检确认全部合规（最大 [preparation.md](projects/autonomous-driving/ideas/preparation.md) 占上限 **97%**），但这条约定一直只是人工"看体积"，而超限会**静默**导致"该文件从此 Read 不整"（→ [rounds-64.md](projects/autonomous-driving/history/rounds-64.md)）。
+**上一轮：第六十五轮（2026-09-30）**——**收敛三处冗余**：检查项清单**三处→一处**且**连"N 项"这个数字一起删**、git 提交命令**两处→一处**、`research-workflow.md` 的「工作空间使用原则」整节→指针（→ [rounds-65.md](projects/autonomous-driving/history/rounds-65.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 46 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 47 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
+| **第六十六轮** | [rounds-66.md](projects/autonomous-driving/history/rounds-66.md) — 机制实测 + 修规则自相矛盾 + 落盘沙箱/覆盖边界（→ [ai/rules.md §执行与清理纪律](ai/rules.md) 第 10 条） |
 | **第六十五轮** | [rounds-65.md](projects/autonomous-driving/history/rounds-65.md) — 收敛三处冗余（检查清单 / git 命令 / 两文原则节） |
 | **第六十四轮** | [rounds-64.md](projects/autonomous-driving/history/rounds-64.md) — `check_links` 的「文档体积预算」检查（→ [check_links.py](shared/scripts/check_links.py)） |
 | **第六十三轮** | [rounds-63.md](projects/autonomous-driving/history/rounds-63.md) — 传播核查（第 55–62 轮）+ 待核清单分档（→ [state.md](projects/autonomous-driving/state.md) 待续第 19 项） |
@@ -68,8 +69,18 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 等待用户
 
+- **⚠ 防"成果搞丢"的两件事**（2026-09-30 实测：**删除有审批闸、覆盖没有闸**——写文件不弹窗，覆盖就是覆盖了；所以只有版本控制 + 异地副本能救）：
+  1. **加私有远端**（代理已通）——目前所有工作只在**一块盘**上；
+  2. **备份 `.git`**（打 tar 到别的盘/远端）——**`.git` 是不可再生资产**：工作文件丢了能重写，**提交历史丢了永远没了**。
+- **`~/.bashrc` 加代理两行**（HF 直连不通的根因就是它，不是权限问题）：
+
+```bash
+export https_proxy=http://127.0.0.1:7897
+export http_proxy=http://127.0.0.1:7897
+```
+
 - 下载付费墙 PDF（**8 条**），清单见 [pdfs_pending.md](projects/autonomous-driving/pdfs_pending.md)
-- 为路线 B 实验取得 SimScale 的 DiffusionDrive checkpoint，并准备 NAVSIM v2 `navhard` 数据；协议已写在 [experiments/protocol.md](projects/autonomous-driving/experiments/protocol.md)
+- 为路线 B 实验取得 SimScale 的 DiffusionDrive checkpoint，并准备 NAVSIM v2 `navhard` 数据；协议已写在 [experiments/protocol.md](projects/autonomous-driving/experiments/protocol.md)（**数据盘路径需加沙箱白名单**，见 [state.md](projects/autonomous-driving/state.md) 待续第 21 项）
 - 如要正式立项，仍需用户明确确认；GPU、预算和主基准已经确定，不再作为待决策项
 
 ## 想细看时

@@ -121,3 +121,5 @@ export http_proxy=http://127.0.0.1:7897
 - ⚠ **只用 API 时不需要代理**（`api.github.com` 直连可达）；**`git clone` 才需要走代理**（`github.com` 直连不通，见上）
 - ⚠ 该 token 曾以明文出现在对话记录中，建议轮换（低风险：仅公开仓库只读、无写权限）
 - 曾出现 `/repos/*` 稳定返回 500，2026-09-29 复查已恢复，判断为 GitHub 侧瞬时故障或权限传播延迟，**非 token 配置问题**
+
+**HuggingFace**（2026-09-30 实测，落盘自支线第三篇投递）：**直连不通（`http 000`）、走 `127.0.0.1:7897` 代理可达**。**根因同上**——`https_proxy` / `http_proxy` 未导出到 shell，**不是权限问题、不需要沙箱白名单**（沙箱的 `network.default = allow`，网络本身不设限）。**同一批实测**：`api.github.com` / `codeload.github.com` / `arxiv.org` / `semanticscholar.org` **直连与代理均通**，**只有 HF 直连不通** → **下载 checkpoint 前先确认代理已生效**（见 `state.md` 待续清单里已定位的 SimScale ckpt 直链）。
