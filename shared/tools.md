@@ -47,6 +47,7 @@ source /home/verse/dev/AI4R/shared/tools.env
 - **批量更省**：`POST https://api.semanticscholar.org/graph/v1/paper/batch?fields=...`，body `{"ids":[...]}`，支持 DOI / arXiv ID / PMID / S2 ID
 - **引用数随时间变化**：同一篇 RT-2，2026-09-29 经 Ai4Scholar 记 **4352**、2026-09-30 经官方 API 记 **4407** → **引用类数字必须标注取数日期**
 - 若需更稳的通道（自带高配 key、无 429），可走 Ai4Scholar 代理，但**按次付费**
+- **现成工具**：[`scripts/fetch_citations.py`](scripts/fetch_citations.py) 已封装上述重试逻辑（批量 + 指数退避 + TSV 输出，末列自动写取数日期）。冒烟测试实测：连续 4 次 429 → 退避 3/6/12/24 秒 → 第 5 次成功返回
 
 ### Consensus REST API
 - 端点：`GET https://api.consensus.app/v1/search?query=<关键词>`
