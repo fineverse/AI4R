@@ -9,7 +9,7 @@
 - [研究上下文与约束](context.md)
 - [当前状态](state.md)（当前阶段 / 待续清单 / 判断边界**索引**）
 - [判断边界（详细）](judgments.md)（每条判断的完整论证、出处与代码事实；**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**）
-- [逐轮工作记录](history.md)（**索引 + 49 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
+- [逐轮工作记录](history.md)（**索引 + 50 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
 - [工作空间设计](../../shared/workspace-design.md)
 
 ## 大方向层 `direction/`
@@ -30,7 +30,7 @@
 | [README.md](topics/diffusion-planner/README.md) | 角色、边界、进度 |
 | [lineage.md](topics/diffusion-planner/lineage.md) | 扩散规划器发展脉络（2022→2026，五阶段 + 三次转移） |
 | [transfer.md](topics/diffusion-planner/transfer.md) | 来源 → 对象 的可借鉴机制表（待验证假设） |
-| [papers/](topics/diffusion-planner/papers) | AD 扩散规划器论文表（DP-A01–A34）+ CSV |
+| [papers/](topics/diffusion-planner/papers) | AD 扩散规划器论文表（DP-A01–A34）+ CSV；**[navhard 竞品登记表](topics/diffusion-planner/papers/navhard_competitors.md)**（DP-C01–C05：非扩散 / 选择式**对手**，含逐行代码状态）；**[选优器 / 候选池专线](topics/diffusion-planner/papers/scoring_line.md)**（方向 B 的文献地基：4 条**摘要级**已核 + 17 条线索级，含 TOAD / Vault 两篇强对手） |
 | [surveys/](topics/diffusion-planner/surveys) | 扩散规划器综述表（DP-S01–S15）+ CSV |
 | [notes/](topics/diffusion-planner/notes) | 单篇笔记 **14 篇**（DP-A×12 + DP-S11/DP-S15） |
 

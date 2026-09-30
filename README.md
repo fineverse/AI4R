@@ -15,14 +15,15 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第六十七轮（2026-09-30）**——**整合两篇支线投递**（规则矛盾 / 机制复核）：**理正轮次收尾步序**（第 7 步检查须在第 9 步整合之后跑；第 8 步 `exit 0` 门槛只约束轮次收尾提交）+ **取消 `CURRENT.md` 的「待整合投递」区**（恢复单写者——该区既是唯一被豁免的多写者文件，又是 `ls inbox/` 的冗余副本）（→ [rounds-67.md](projects/autonomous-driving/history/rounds-67.md)）。
+**最新一轮：第六十八轮（2026-09-30）**——**整合支线投递**：新增 [navhard 竞品登记表](projects/autonomous-driving/topics/diffusion-planner/papers/navhard_competitors.md)（DP-C01–C05）与 [选优器/候选池专线](projects/autonomous-driving/topics/diffusion-planner/papers/scoring_line.md)，并**独立复核**其中 4 篇最强对手 → **TOAD 报 v2 56.3 EPDMS 但未指明 split，若为 navhard 则榜一易主**（已在三处标 ⚠、进待续第 23 项）；`AGENTS.md` 入口加「并行会话」一行（→ [rounds-68.md](projects/autonomous-driving/history/rounds-68.md)）。
 
-**上一轮：第六十六轮（2026-09-30）**——**机制实测**（第三篇投递触发）：硬机制全通（机器兜底 / 通道 B / 孤儿豁免 / 恢复程序前提），**查出并修掉一条规则自相矛盾**（第 61 轮要求支线登记 `CURRENT.md`、第 62 轮又定"已存在文件一律投递"）；落盘投递物实质内容：**沙箱边界**、**"删除有闸、覆盖没有闸"**、HF 代理根因、**数据盘需加白名单**（→ [rounds-66.md](projects/autonomous-driving/history/rounds-66.md)）。
+**上一轮：第六十七轮（2026-09-30）**——**整合两篇支线投递**（规则矛盾 / 机制复核）：**理正轮次收尾步序**（第 7 步检查须在第 9 步整合之后跑；第 8 步 `exit 0` 门槛只约束轮次收尾提交）+ **取消 `CURRENT.md` 的「待整合投递」区**（恢复单写者——该区既是唯一被豁免的多写者文件，又是 `ls inbox/` 的冗余副本）（→ [rounds-67.md](projects/autonomous-driving/history/rounds-67.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 49 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 50 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
+| **第六十八轮** | [rounds-68.md](projects/autonomous-driving/history/rounds-68.md) — 整合竞品表 + 选优专线；复核 TOAD/Vault/DriveVer/BeyondDrive（→ [sota-plan.md §9.7](projects/autonomous-driving/ideas/sota-plan.md)） |
 | **第六十七轮** | [rounds-67.md](projects/autonomous-driving/history/rounds-67.md) — 整合两篇投递：理正收尾步序 + 取消 `CURRENT.md` 投递登记区（→ [ai/workflows.md §轮次收尾](ai/workflows.md)、[ai/rules.md §支线协作纪律](ai/rules.md)） |
 | **第六十六轮** | [rounds-66.md](projects/autonomous-driving/history/rounds-66.md) — 机制实测 + 修规则自相矛盾 + 落盘沙箱/覆盖边界（→ [ai/rules.md §执行与清理纪律](ai/rules.md) 第 10 条） |
 | **第六十五轮** | [rounds-65.md](projects/autonomous-driving/history/rounds-65.md) — 收敛三处冗余（检查清单 / git 命令 / 两文原则节） |
