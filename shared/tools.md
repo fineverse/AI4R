@@ -15,6 +15,7 @@ source /home/verse/dev/AI4R/shared/tools.env
 |---|---|---|
 | `CONSENSUS_API_KEY` | Consensus | 免费档（30 次/月） |
 | `AI4SCHOLAR_API_KEY` | Ai4Scholar | **付费积分**，用前必查余额 |
+| `GITHUB_TOKEN` | GitHub API | fine-grained PAT，仅公开仓库只读；5000/小时 |
 
 ## 论文检索工具总表
 
@@ -109,4 +110,7 @@ export http_proxy=http://127.0.0.1:7897
 - 取仓库：`curl -L -o repo.tar.gz https://api.github.com/repos/{owner}/{repo}/tarball/{ref}`（302 到 codeload，实测 2.3 MB/s）
 - 列 Release 资产：`https://api.github.com/repos/{owner}/{repo}/releases`
 
-**GitHub API token**：fine-grained（仅 `Contents: Read-only` + 自动的 `Metadata: Read-only`，账户权限全留空）可用，5000/小时（未认证仅 60/小时）。曾出现 `/repos/*` 稳定返回 500，2026-09-29 复查已恢复，判断为 GitHub 侧瞬时故障或权限传播延迟，**非 token 配置问题**。
+**GitHub API token**（`GITHUB_TOKEN`，见 [tools.env](tools.env)）：fine-grained，仅 `Contents: Read-only` + 自动的 `Metadata: Read-only`，账户权限全空。**认证后 5000/小时**（未认证 60/小时），**搜索 30/分钟**（未认证 10/分钟）。请求头用 `Authorization: Bearer $GITHUB_TOKEN`。
+- ⚠ **只用 API 时不需要代理**（`api.github.com` 直连可达）；**`git clone` 才需要走代理**（`github.com` 直连不通，见上）
+- ⚠ 该 token 曾以明文出现在对话记录中，建议轮换（低风险：仅公开仓库只读、无写权限）
+- 曾出现 `/repos/*` 稳定返回 500，2026-09-29 复查已恢复，判断为 GitHub 侧瞬时故障或权限传播延迟，**非 token 配置问题**
