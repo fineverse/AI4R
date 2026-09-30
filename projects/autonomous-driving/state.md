@@ -1,13 +1,13 @@
 # 自动驾驶项目状态
 
-更新时间：2026-09-30（第六十二轮：整合支线第二篇——把"整合投递物"变成机器检查）
-逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 43 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**进行中轮次 + 待整合投递**，是并行会话的软通道）；本文件只保留当前阶段、待续清单与判断边界。
+更新时间：2026-09-30（第六十三轮：传播核查 + 待核清单分档）
+逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 44 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**进行中轮次 + 待整合投递**，是并行会话的软通道）；本文件只保留当前阶段、待续清单与判断边界。
 
 ## 当前阶段
 
-**项目未立项**。文献调研与代码核验已完成（第一至六十二轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第六十二轮（2026-09-30）**——整合支线第二篇（`check_links` 新增第 11 项「inbox 待整合」+ 开轮 pre-flight + 放宽支线可新建 + git 三小项）。
+**项目未立项**。文献调研与代码核验已完成（第一至六十三轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第六十三轮（2026-09-30）**——传播核查（第 55–62 轮，修 2 处 stale）＋ 待核清单分档（**约 60 条里真正值得动的只有约 6 条**）。
 
-- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 43 卷，第一至六十二轮全覆盖）。
+- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 44 卷，第一至六十三轮全覆盖）。
 - **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 第 11 项「inbox 待整合」）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
 - **决策核心**：[sota-plan.md](ideas/sota-plan.md)（冲 SOTA 作战文件）、[preparation.md](ideas/preparation.md)（S1–S30 设计前提 + 候选方向）。
 - **关键阻塞**：路线 B 第一步（纯推理四项测量）协议已建、**未运行**，受 SimScale checkpoint（243.6 MB，已定位）与 navhard 数据阻塞。
@@ -48,8 +48,8 @@
 | 16 | **`preparation.md` 逼近 64 KB** | **实测 62.2 KB**（第四十七轮加了三处更正块，涨约 3 KB；第三十七轮时 57.2 KB、第三十五轮拆出 `sota-plan.md` 时 53.3 KB）→ **下一次往 §2（S1–S30）/ §3（P1–P9）/ §5.1 / §6.1 加条目时，先按既定约定拆出 `preparation-2.md`**（建议 **§1–§4 留第一册、§5–§7 进第二册**——`§5` 已在第三十五轮降级为指针，拆点取 §5 之前可让 `§2/§3/§4` 的引用全不用改；拆完跑第五项检查确认册别） | [preparation.md](ideas/preparation.md)、[ai/templates.md](../../ai/templates.md) §分册约定 |
 | 17 | **`huggingface.co` 可达性**（第三十八轮记为"不可达"） | **✅ 网络阻塞已解除（第五十五轮）**：**直连 `http 000`、走系统代理 `127.0.0.1:7897` 为 `200`**；**文件下载实测成功**（`bert-base-uncased` 的 `config.json` → 200 / 570 字节）。**一处更正**：官方排行榜是 **Space**（`spaces/AGC2025/e2e-driving-navhard`，200 可达），旧记录写成 dataset（`datasets/...` 返 401）。**仍未解决**：~~SimScale / GTRS 的 checkpoint 仓库名需重新确认~~ → **✅ 已定位（第五十六轮）**：在 **HF `datasets`** 仓库 `datasets/OpenDriveLab/SimScale`（**不是 `models`**），446 文件 / **12 个 `.ckpt`**；目标 `SimScale_ckpts/DiffusionDrive/diffusiondrive_sim_navhard.ckpt` **HTTP 200，243.6 MB 可下载**（ModelScope 有镜像）。**注意两个易混点**：① 搜索要用 `datasets` 端点（`models` 找不到，且 HF 对不存在的 model 返 **401 而非 404**）；② `datasets/OpenDriveLab-org/SimScale` 是**另一个仓库**（388 文件、**0 个 ckpt**，只放合成数据）。**剩余成本**：243.6 MB 下载 + 环境搭建 | [rounds-56.md](history/rounds-56.md) §二 |
 | 18 | **`/tmp/ai4r/` 遗留清理**（第四十八轮迁临时根后遗留） | **✅ 已完成（2026-09-28，用户一次授权）**：`/tmp/ai4r/` **28 MB / 65 条目**已删，复查残留 **0**——**这是最后一批** `/tmp/ai4r/` 产物，此后新中间产物一律进 `inbox/scratch/`（工作空间内、不弹授权） | [inbox/cleanup.md](../../inbox/cleanup.md) §执行记录 |
-| 19 | **8 张论文表的「质量依据 / 证据等级 / 代码状态」已补齐**（第五十七轮，**第六十轮补上具身两表的缺口**） | **✅ 已完成**：驾驶侧 VLA / 世界模型加「§1.1 逐行证据等级与代码状态」；DP-A / DP-S / 具身 DP-E 加「逐行质量依据（T 档）」；**具身 VLA / 具身 WM 的 §1.1 由第六十轮补上**（第 57 轮声称 8 张、实际只落 6 张）；综述 S 只归档已读全文的 5 篇、其余标「未核」。**剩余（按需）**：具身 VLA+WM 升全文级、S 表其余 40 条 venue 逐条核、各表「待核」条目补 venue/团队信号 | [rounds-57.md](history/rounds-57.md)、[rounds-60.md](history/rounds-60.md) |
-| 20 | **`/tmp/ai4r-*`（2026-09-29 支线产物）待清理**（约 16 MB / 20 条目） | **⏳ 未执行**：第六十轮的清理命令被跳过，只读核实**仍有 14 个文件 + `ai4r-clonetest/` 目录** → 命令见 [inbox/cleanup.md](../../inbox/cleanup.md) §当前待清理，可由用户自行执行或下一轮授权。**该批违规（落 `/tmp`）已在规则层堵住**：见 [ai/rules.md](../../ai/rules.md) §支线协作纪律第 7 条 | [inbox/cleanup.md](../../inbox/cleanup.md) |
+| 19 | **8 张论文表的「质量依据 / 证据等级 / 代码状态」已补齐**（第五十七轮，**第六十轮补上具身两表的缺口**） | **✅ 已完成**：驾驶侧 VLA / 世界模型加「§1.1 逐行证据等级与代码状态」；DP-A / DP-S / 具身 DP-E 加「逐行质量依据（T 档）」；**具身 VLA / 具身 WM 的 §1.1 由第六十轮补上**（第 57 轮声称 8 张、实际只落 6 张）；综述 S 只归档已读全文的 5 篇、其余标「未核」。<br>**剩余缺口的分档（第六十三轮逐条看过，四类）**：① **判据问题、不是信息缺口**——venue 本就不在白名单（DP-S03 Frontiers / S05 IoT-J / S12 TechRxiv）→ 要么扩白名单、要么按 T5 归，**没有"去核"这个动作**；② **值得动且便宜**——**具身 4 条「代码未核验」**（DP-E13/E24/E26/E27，走 GitHub API/raw 即可，本空间已核过 40+ 仓）＋ **DP-A29 DriveFine**（只需补团队/录用信号；其"零代码"已由 [C003 §K](code/traces/diffusion_planner_code_traces-2.md) 结账）＋ **DP-E16**（无代码，只剩团队信号）；③ **无入口 / 等外部事件**（搁置）——DP-A04/A19/A25/A30/A32/A34、DP-S06/S08/S13、DP-E07、B011；④ **需用户**（付费墙）——DP-S10（ICTC 2025）。**S 表其余 40 条「未核」按第 57 轮结论永久搁置**（非选题依赖）；**具身 VLA+WM 升全文级**仍属"按需"，未动 | [rounds-57.md](history/rounds-57.md)、[rounds-60.md](history/rounds-60.md)、[rounds-63.md](history/rounds-63.md) |
+| 20 | **`/tmp/ai4r-*`（2026-09-29 支线产物）清理** | **✅ 已完成（2026-09-30，命令由用户执行）**：`/tmp/ai4r-clonetest/`（16 MB）+ 19 个 `/tmp/ai4r-*`（约 88 KB）已删；主线程只读复查（Glob）**残留 0**。**该批违规（落 `/tmp`）已在规则层堵住**：见 [ai/rules.md](../../ai/rules.md) §支线协作纪律第 7 条 | [inbox/cleanup.md](../../inbox/cleanup.md) §执行记录 |
 
 ## 当前判断边界（索引）
 
