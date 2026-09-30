@@ -36,27 +36,39 @@
 ## 3. 证据边界与不确定项
 
 - **全部摘要级**：本表 14 篇**均未读正文**；频率数字除 π0（50 Hz）、OpenVLA（3–5 Hz，OFT 正文引）、OFT（26×）、FAST（750 ms）外，**多为二手来源**（博客 / 聚合站）。
-- **venue 取不到**（按 T4 处理）：CogACT、GR00T N1、GR-3、SmolVLA。
-- **引用数两个口径不可混用**：OpenAlex 侧 OpenVLA 43、RT-2 273、GR00T N1 5 等均为 **arXiv 存根**（系统性低估）；**GR00T N1 在 Semantic Scholar 记 1342，与 OpenAlex 差两个数量级** → 无法定论。S2 口径的实测数见 §4，**两个口径不可直接比较，也不用于排序**。
+- **venue**：CogACT、GR00T N1、GR-3、SmolVLA 四篇原记"取不到（按 T4 处理）"，**2026-09-30 经 S2 补到，均为 `arXiv.org`** → **T4 判定得到确认**；但 S2 的 `venue` 本身也有误记（π0-FAST / OpenVLA-OFT / SpatialVLA 被记成期刊 `Robotics`），**只作第四渠道**，详见 §4 第 3 条。
+- **引用数两个口径不可混用**：OpenAlex 侧 OpenVLA 43、RT-2 273、GR00T N1 5 等均为 **arXiv 存根**（系统性低估）；而 S2 侧同一篇 GR00T N1 记 **1390** → **S2 数字为真，原"无法定论"已撤回**（见 §4）。**两个口径不可直接比较，也不用于排序**。
 - **频率冲突**：GR00T N1 System 1 有 **120 Hz**（NVIDIA 博客）与 30 Hz（他源）两说。
 - **未找到官方代码**：RT-H、GR-3。
 - **候选名不存在**：arXiv 全库无独立 "RoboVLM"（疑指 RoboMamba）；"GR00T N1.5" 无 arXiv（仅模型卡更新）。
 
 ## 4. 引用数（Semantic Scholar 口径）
 
-2026-09-29 经 Ai4Scholar（S2 代理）`paper/batch` 批量取得，**在表 14 篇中覆盖 7 篇**：
+**覆盖 14/14**（此前只覆盖 7 篇）。2026-09-30 经 S2 官方 API 一次 batch 取得，**单一来源、同一日期**，工具见 [fetch_citations.py](../../../../shared/scripts/fetch_citations.py)。
 
 | 编号 | 论文 | S2 引用数 | 影响力引用数 |
 |---|---|---|---|
-| E-VLA-01 | RT-2 | 4352 | 238 |
-| E-VLA-02 | OpenVLA | 3527 | 515 |
-| E-VLA-03 | π0-FAST | 679 | 98 |
-| E-VLA-04 | ACT | 2447 | 384 |
-| E-VLA-05 | OpenVLA-OFT | 913 | 186 |
-| E-VLA-07 | Octo | 1897 | 139 |
-| E-VLA-08 | CogACT | 452 | 54 |
+| E-VLA-01 | RT-2 | 4407 | 239 |
+| E-VLA-02 | OpenVLA | 3597 | 522 |
+| E-VLA-03 | π0-FAST | 695 | 102 |
+| E-VLA-04 | ACT | 2482 | 388 |
+| E-VLA-05 | OpenVLA-OFT | 936 | 190 |
+| E-VLA-06 | Diffusion Policy | 4410 | **877** |
+| E-VLA-07 | Octo | 1925 | 139 |
+| E-VLA-08 | CogACT | 462 | 54 |
+| E-VLA-09 | SpatialVLA | 567 | 62 |
+| E-VLA-10 | DexVLA | 238 | 9 |
+| E-VLA-11 | SmolVLA | 573 | 101 |
+| E-VLA-12 | RT-H | 253 | 14 |
+| E-VLA-13 | GR00T N1 | 1390 | 208 |
+| E-VLA-14 | GR-3 | 118 | 3 |
 
-- **`influentialCitationCount` 为 S2 独有字段**，OpenAlex / Crossref / Consensus 均无 → 可作「实际影响力」的补充判据（OpenVLA 515 高于 RT-2 238，与「OpenVLA 是开源基线、被大量工作微调」的定性判断一致）
-- **口径警告**：S2 数为全版本合并（含预印本引用），与 OpenAlex 正式版记录可差一到两个数量级（§3 已记 GR00T N1 案例）→ **两个口径不可混用、不可直接比较**
-- **覆盖不全**：其余 7 篇（Diffusion Policy、SpatialVLA、DexVLA、SmolVLA、RT-H、GR00T N1、GR-3）本次未查，因不在已获 ID 清单内
-- 成本与数据质量：Ai4Scholar 批量查 7 篇 = **2 积分**；同批响应中 `publicationTypes`（全标 JournalArticle）与 `isOpenAccess`（OpenVLA / Octo 误标为「否」）**不可信**，详见 [shared/tools.md](../../../../shared/tools.md)
+- **`influentialCitationCount` 为 S2 独有字段**（OpenAlex / Crossref / Consensus 均无），可作"实际影响力"的补充判据。两处值得注意：**Diffusion Policy 877 为全表最高**；**OpenVLA 的影响力引用（522）高于 RT-2（239）**，与"OpenVLA 是开源基线、被大量工作微调"的定性判断一致
+- **口径警告**：S2 数为全版本合并（含预印本引用），与 OpenAlex 正式版记录可差一到两个数量级 → **两个口径不可混用、不可直接比较**
+- **取数日期**：引用数随时间变化（同一篇 RT-2，09-29 记 4352、09-30 记 4407）→ 引用类数字必须标注日期
+
+**本轮解决的遗留问题**：
+
+1. **GR00T N1 的引用数悬案关闭**：§3 原记"OpenAlex 5 vs Semantic Scholar 1342，差两个数量级 → **无法定论**"。现在 S2 官方 API 记 **1390**，与之前的 1342 一致 → **S2 的数字是真实的，OpenAlex 的 5 是 arXiv 存根记录**（该模式本表已多处记录）。**"无法定论"可撤回**
+2. **四篇"venue 取不到"的补上了**：CogACT / SmolVLA / GR00T N1 / GR-3 在 S2 里**均为 `arXiv.org`** → **与表里 T4 的判定一致**，该分档得到第四个渠道确认
+3. ⚠ **但 S2 的 `venue` 字段本身也有可靠性问题，不能盲信**：π0-FAST / OpenVLA-OFT / SpatialVLA 三篇在 S2 里被记成期刊 **`Robotics`**（MDPI），而表里依 arXiv `comments` + OpenAlex + Crossref 记的是 RSS'25 / RSS'25 / RSS'25；DexVLA 在 S2 记 `arXiv.org`，而表里记 **CoRL'25 / T2**。→ **S2 只作第四渠道，不替代前三渠道；冲突处保留原判定并标记**

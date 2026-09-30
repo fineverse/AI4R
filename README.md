@@ -15,16 +15,17 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第五十八轮（2026-09-30）**——工作流与工作空间整理：审计 8 份工作流文档 + 目录结构，修 8 处 stale（→ [rounds-58.md](projects/autonomous-driving/history/rounds-58.md)）。
+**最新一轮：第五十九轮（2026-09-30）**——用免费 S2 官方 API 补齐之前拿不到的信息：VLA 表引用数 **7 → 14 篇**、四篇 venue 缺口补上（T4 判定确认）、**GR00T N1 引用数悬案关闭**；同时发现 S2 的 `venue` 字段会**系统性误记**（→ [rounds-59.md](projects/autonomous-driving/history/rounds-59.md)）。
 
-**上一轮：第五十七轮（2026-09-30）**——按需补齐 8 张论文表的「质量依据 T 档 / 证据等级 / 代码状态」（→ [rounds-57.md](projects/autonomous-driving/history/rounds-57.md)）。
+**上一轮：第五十八轮（2026-09-30）**——工作流与工作空间整理：审计 8 份工作流文档 + 目录结构，修 8 处 stale（→ [rounds-58.md](projects/autonomous-driving/history/rounds-58.md)）。
 
 **逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 40 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
+| **第五十九轮** | [rounds-59.md](projects/autonomous-driving/history/rounds-59.md) — S2 官方 API 补齐 VLA 表缺口（引用数 14/14、venue、GR00T N1 悬案）+ 发现 S2 venue 系统性误记 |
 | **第五十八轮** | [rounds-58.md](projects/autonomous-driving/history/rounds-58.md) — 工作流与工作空间整理（审计 + 修 stale） |
-| **第五十七轮** | [rounds-57.md](projects/autonomous-driving/history/rounds-57.md) — 按需补齐 8 张论文表的质量依据/证据等级/代码状态 |
+| **第五十七轮** | [rounds-57.md](projects/autonomous-driving/history/rounds-57.md) — 按需补齐 8 张论文表的质量依据/证据等级/代码状态（⚠ **实际只提交了 6 张**，具身侧 VLA / 世界模型两张未做） |
 | **第五十六轮** | [rounds-56.md](projects/autonomous-driving/history/rounds-56.md) — 补 49–54 轮指针 + HF checkpoint 定位（`datasets/OpenDriveLab/SimScale`） |
 | **第五十五轮** | [rounds-55.md](projects/autonomous-driving/history/rounds-55.md) — 网络排查（TUN fake-ip / HF 解锁）+ [工具与凭据](shared/tools.md) 固化 + VLA 表补 S2 口径引用数 |
 | **第五十四轮** | [rounds-54.md](projects/autonomous-driving/history/rounds-54.md) — 把完整政策分与候选池诊断分开（→ [protocol.md](projects/autonomous-driving/experiments/protocol.md)） |
