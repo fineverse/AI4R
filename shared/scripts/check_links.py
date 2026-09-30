@@ -17,6 +17,8 @@
      （**措辞改了要更新登记表**，"声明处没匹配到"也会报出来）
   10. CSV 与 markdown 表的 ID 一致性 —— 每一对 `<x>.csv` + `<x>.md`（**双表示时 CSV 是权威源**），
       两边出现的 ID 集合必须**完全相同**（双向都报）；对子登记在下方 `CSV_ID_PAIRS`
+  11. inbox 待整合 —— `inbox/` 根下的 `.md`（`cleanup.md` 除外）即"待整合投递物"，**非 0 即报**
+      （2026-09-30 第六十二轮加；把"整合投递物"从人工 checklist 变成机器检查，见下）
 
 跳过目录：`.git` / `repos`（第三方代码快照）/ `scratch`（临时产物根）/ `__pycache__` / `node_modules` / `archive` / `.trae`。
 **为什么跳过 `scratch`**：`inbox/scratch/` 是工作空间的**临时产物根**（2026-09-28 起取代 `/tmp/ai4r/`，见 `ai/rules.md` §执行与清理纪律第 1 条）——里面放的是 PDF 解压文本、下载的 tarball、子代理缓存等**中间产物**，本就不是知识树内容，且会被 .gitignore 忽略。
@@ -611,7 +613,29 @@ print(f"不一致: {len(csv_issues)}")
 for c in csv_issues:
     print(f"  {c}")
 
+# ---- inbox 待整合检查（2026-09-30 第六十二轮新增，第 11 项；见 ai/rules.md §支线协作纪律）----
+# 起因：支线投递物原靠 `workflows.md` §轮次收尾第 9 步的**人工 checklist** 整合，
+# **而本工作空间自己的历史证明 checklist 会漏**——第 49–54 轮都漏了收尾第 2/3 步，且**没有任何警报**。
+# 把它变成机器检查，才能形成闭环：**不整合，提交就不干净**（第 7 步跑检查 → 第 8 步提交）。
+# 规则：`inbox/` **根**下的 `.md`（`cleanup.md` 除外）即"待整合投递物"，非 0 即报。
+# **不查子目录**：`inbox/scratch/` 是临时产物根（已被 SKIP_DIRS 跳过），不属于投递物。
+# 处置：采纳 / 否决 / 搁置都要移出 `inbox/`（移入 `archive/`），否则本项会永久报警而被无视。
+INBOX = os.path.join(ROOT, "inbox")
+INBOX_KEEP = {"cleanup.md"}
+pending = []
+if os.path.isdir(INBOX):
+    for _name in sorted(os.listdir(INBOX)):
+        _p = os.path.join(INBOX, _name)
+        if os.path.isfile(_p) and _name.endswith(".md") and _name not in INBOX_KEEP:
+            pending.append(f"inbox/{_name}")
+
+print(f"\n--- inbox 待整合（第 11 项；`cleanup.md` 除外）---")
+print(f"待整合投递物: {len(pending)} 篇")
+for c in pending:
+    print(f"  {c}")
+
 sys.exit(1 if (dead or bad_tables or orphan or bad_vol or missing_note_sec
-               or missing_topic_sec or count_issues or count2_issues or csv_issues) else 0)
+               or missing_topic_sec or count_issues or count2_issues or csv_issues
+               or pending) else 0)
 
 

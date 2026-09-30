@@ -1,14 +1,14 @@
 # 自动驾驶项目状态
 
-更新时间：2026-09-30（第六十一轮：完善并行会话的同步机制）
-逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 42 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**进行中轮次 + 待整合投递**，是并行会话的软通道）；本文件只保留当前阶段、待续清单与判断边界。
+更新时间：2026-09-30（第六十二轮：整合支线第二篇——把"整合投递物"变成机器检查）
+逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 43 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**进行中轮次 + 待整合投递**，是并行会话的软通道）；本文件只保留当前阶段、待续清单与判断边界。
 
 ## 当前阶段
 
-**项目未立项**。文献调研与代码核验已完成（第一至六十一轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第六十一轮（2026-09-30）**——完善并行会话的同步机制（补"通道 B + 恢复程序 + 投递物模板"）。
+**项目未立项**。文献调研与代码核验已完成（第一至六十二轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第六十二轮（2026-09-30）**——整合支线第二篇（`check_links` 新增第 11 项「inbox 待整合」+ 开轮 pre-flight + 放宽支线可新建 + git 三小项）。
 
-- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 42 卷，第一至六十一轮全覆盖）。
-- **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`）；投递物模板见 [ai/templates.md](../../ai/templates.md) §支线投递物。
+- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 43 卷，第一至六十二轮全覆盖）。
+- **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 第 11 项「inbox 待整合」）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
 - **决策核心**：[sota-plan.md](ideas/sota-plan.md)（冲 SOTA 作战文件）、[preparation.md](ideas/preparation.md)（S1–S30 设计前提 + 候选方向）。
 - **关键阻塞**：路线 B 第一步（纯推理四项测量）协议已建、**未运行**，受 SimScale checkpoint（243.6 MB，已定位）与 navhard 数据阻塞。
 
@@ -28,7 +28,7 @@
 | 机制 | [transfer.md](topics/diffusion-planner/transfer.md)（来源 → 对象，**§1 现 15 条**——**⚠ 第四十四轮更正**：此处原写 16 条，第三十二轮把 §1 条数改正后漏改的两处之一） |
 | 规范 | [文献质量分档](../../shared/literature-quality.md)、[工作空间设计](../../shared/workspace-design.md) |
 | idea | [sota-plan.md](ideas/sota-plan.md)（**冲 SOTA 作战文件**：navhard 13 行分数格局与逐行代码状态 + 子榜门槛 + 七方向重排 + 四条推荐路线）；[preparation.md](ideas/preparation.md)（**§2 = S1–S30 设计前提清单**、§5.0 = 七方向横向比较、§5 = 7 个候选方向，均未验证）；[judgments.md](judgments.md)（判断边界详细版**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**） |
-| 工作流 | [ai/rules.md](../../ai/rules.md)（证据等级含**代码核验 L1/L2/L3**、**子代理纪律**、**支线协作纪律**（第六十轮新增、**第六十一轮补强**）、尺寸阈值、**执行与清理纪律 9 条**（第四十八轮新增**每轮收尾提交 git**））、[ai/workflows.md](../../ai/workflows.md)（**Idea 讨论准备**节；**§轮次收尾 9 步**——第 9 步为第六十轮新增的「整合 inbox 投递物」）；**工作空间已 git**（`.gitignore` 忽略 `code/repos/` + `inbox/scratch/` + `.trae/`），临时产物根 = **`inbox/scratch/`** |
+| 工作流 | [ai/rules.md](../../ai/rules.md)（证据等级含**代码核验 L1/L2/L3**、**子代理纪律**、**支线协作纪律**（第六十轮新增、**第六十一/六十二轮补强**）、尺寸阈值、**执行与清理纪律 9 条**）、[ai/workflows.md](../../ai/workflows.md)（**§轮次开始 pre-flight**（第六十二轮新增）+ **§轮次收尾 9 步**、**Idea 讨论准备**节）；**检查器十一项**（[check_links.py](../../shared/scripts/check_links.py)，第六十二轮新增第 11 项「inbox 待整合」）；**工作空间已 git**（`.gitignore` 忽略 `code/repos/` + `inbox/scratch/` + `.trae/`；**收尾用 `git add -u` + 显式列新文件，不用 `-A`**），临时产物根 = **`inbox/scratch/`** |
 
 ## 待续清单（没做完的，按优先级）
 
