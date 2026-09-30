@@ -22,7 +22,7 @@
 | [state.md](../state.md) | 写"拆为 7 卷" | → **5 卷**（与 `workspace-design.md` 对齐） |
 | [templates.md](../../../ai/templates.md) | "两份 `papers` 按 `-2` 命名"（**工作空间无任何 `papers-2.md`**） | 改述为"同名分册 / 换 basename"两种真实形态 |
 | [templates.md](../../../ai/templates.md) | 代码脉络分册范围只写了一种 | 补三种脉络各自的 §范围与分册点 |
-| [index.md](index.md) | 把 `experiments/records/` 等**不存在**的目录列为"待建设" | 改为"尚未建立"并说明触发条件 |
+| [index.md](../index.md) | 把 `experiments/records/` 等**不存在**的目录列为"待建设" | 改为"尚未建立"并说明触发条件 |
 | [.gitignore](../../../.gitignore) | 未忽略 `.vscode/` | 补上 |
 
 ## 验证
