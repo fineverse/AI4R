@@ -76,6 +76,48 @@
 3. 区分受控比较与系统级比较
 4. 实验失败不等于 idea 错误；记录失败原因和调整建议
 
+## 周扫（每周一次的外部复核，2026-09-30 第七十轮定）
+
+**定位**：周扫**不是**"增量读论文"，而是**对工作空间里「易失效的断言」做定期外部复核**，外加增量扫描新工作。**易失效断言有三类**：① **"无代码 / 未发布"标签**；② **榜单数字与格局**；③ **venue 与代码可用性**。
+**依据（首次实测）**：2026-09-30 两张几天前刚建的表里，**"无代码"标签当天就有 3 条被推翻**；`sota-plan.md` §1 的 13 行分数格局与官方实时榜差到 **"榜首完全换人、且榜一根本不在榜上"**（见 [§1.0](../projects/autonomous-driving/ideas/sota-plan.md)）。
+
+**触发**：用户说一句「跑周扫」→ 主线程起 **1–3 个只读子代理**（用最便宜的模型）。**不自动定时**——节奏由用户控制。
+
+**三条线**（按实测命中率排序）：
+
+1. **榜单线**（每周必跑，成本 = 1 次 POST）
+   ```bash
+   export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897
+   curl -X POST -H "Content-Type: application/json" -d '{"lb":"public"}' \
+     https://agc2025-e2e-driving-navhard.hf.space/leaderboard
+   ```
+   返回 `{"response": "<markdown 表>"}`，字段：`rank` / `id`（**代码链接以 `<a href=...>` 内嵌在 id 里**）/ `extended_pdm_score_combined` / 18 个子指标（stage_one/two 各 9）/ `submission_datetime`。
+   动作：与 [sota-plan.md §1.0](../projects/autonomous-driving/ideas/sota-plan.md) 的快照 diff → 报**新增条目 / 分数变化 / 新放代码**。健康检查 `GET /competition_info`；降级方案（接口被关时）= SimScale README 的 navhard 表作代理信号。
+   - **⚠ 两处易错**：gated 的是**数据集**（`AGC2025/e2e-driving-navhard`，匿名 401），**不是 Space 本体**（`gated:false`）；`{"lb":"private"}` 需比赛结束 + OAuth，**不可读**。
+   - **⚠ 快照必须带取数日期**——榜单每天都在变（2026-09-30 取的 20 行里有 11 行是当月提交）。
+2. **代码线**（**实测命中率最高**）
+   - 名单**自动从工作空间派生**：所有记「无代码 / 未发布 / 占位仓库 / 只有项目页 / 代码不全」的条目（来源：`sota-plan.md`、`code/repositories.md`、各 `papers.md`）。
+   - **检索必须双通道**：`GET /search/repositories?q=<方法名>` **＋** `GET /repos/<org>/<方法名>`。**翻案的根因就是只按论文 `comments` 里的链接判定、没做方法名检索**（实测：`valeoai/DrivoR` 早在 2026-01 就存在，而本空间写的是"无仓库、无 project page"）。
+   - **⚠⚠ 反方向的错也要防——"仓库存在" ≠ "有代码"**：实测 `Rtwotwo/DriveTTO` 是 **5 KB 占位仓**（只有 LICENSE + README "Paper and code coming soon"），却被当成"有代码" → **必须看 `contents` 里有没有实际源码，不只看仓库 200**。
+   - **看榜上链接也要小心**：链接指向**项目页** ≠ 无代码（TOAD / DrivoR 都是只链项目页、实有仓库）。
+   - 已确认项记入**排除表**，避免每周重复报。
+3. **论文线**
+   - arXiv API：`curl -L`（**`http://` 会 301，必须跟跳转**；`python urllib` 会被 406）。
+   - **首跑回溯 30 天，之后固定 7 天**（实测 7 天只覆盖 30 天入报量的 28%，且 15–30 天区间边际收益未饱和）。
+   - **不限分类**：加 `cat:cs.RO OR cat:cs.CV` 只砍噪声、却会漏 `cs.AI`-only 的驾驶论文（实测一例）。建议放宽为 `cs.RO OR cs.CV OR cs.AI OR cs.LG`，靠标题二次过滤。
+   - 查询词：`end-to-end driving` / `diffusion planner` / `trajectory scoring` / `trajectory vocabulary` / `VLA driving` / `world model planning` / `NAVSIM` / `navhard`。
+   - 去重后**只留三类**：① 与候选方向撞车 ② 动摇已落盘结论（数字/榜单）③ 高质量且与研究对象直接同构。
+
+**成本上限**：子代理 ≤ 3 个；GitHub API ≤ 60 次（搜索端点 30/分钟）；arXiv ≤ 12 次查询；**产出条目 ≤ 8 条**；缓存落 `inbox/scratch/`。
+
+**产出**：`inbox/周扫-YYYY-MM-DD.md`，按 [templates.md](templates.md) §支线投递物 的四节结构写。**空报也要落盘**（明写"本周无变化"），不留空档。
+
+**开轮纪律**：跑之前先 `git log --oneline -3` + `git status --short`——**主线程可能正在做同一议题**（2026-09-30 实测：第 68/69 轮与首次周扫高度重复）。
+
+**与主线程的分工**：周扫**不写任何权威文件**，产出一律走 `inbox/` 投递物。
+
+> **周扫的独特价值不是"再读一遍论文"，而是"用外部事实核工作空间里的标签"**——2026-09-30 实测：第 69 轮做了深核（读论文正文、问对了 split）却漏了"TOAD 代码其实早已发布"；周扫做的是广扫（查外部状态）却抓到了它。**两者互补，不可互相替代。**
+
 ## 轮次开始（pre-flight，2026-09-30 第六十二轮新增）
 
 开工前花几秒做三件事——**收尾检查管"本轮产出对不对"，开轮检查管"本轮是不是基于旧信息"**：

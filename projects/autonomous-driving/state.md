@@ -1,13 +1,13 @@
 # 自动驾驶项目状态
 
-更新时间：2026-09-30（第六十九轮：核实 TOAD 的 split → navhard 榜一易主）
-逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 51 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**本轮「在改」文件清单**（软通道，单写者 = 主线程；**第六十七轮起不再登记投递物**——登记表就是 `inbox/` 本身））；本文件只保留当前阶段、待续清单与判断边界。
+更新时间：2026-09-30（第七十轮：整合"周扫"投递——官方榜重建分数格局 + 三处代码翻案 + §周扫机制）
+逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 52 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**本轮「在改」文件清单**（软通道，单写者 = 主线程；**第六十七轮起不再登记投递物**——登记表就是 `inbox/` 本身））；本文件只保留当前阶段、待续清单与判断边界。
 
 ## 当前阶段
 
-**项目未立项**。文献调研与代码核验已完成（第一至六十九轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第六十九轮（2026-09-30）**——**核实 TOAD 的 v2 56.3 EPDMS 就是 navhard**（论文 §4.1 原文 `navhard-two-stage`）→ **navhard 榜一由 DriveFuture 55.5 变为 TOAD + DrivoR 的 56.3**（但 TOAD **代码未发布**，故"头部拿不到代码"仍成立）；**附带更硬的发现是"头部被压平"**（六个 base planner 原 34.7–54.6 → 搜后全落 49.0–56.3，且**无需重训**）→ 削弱"把 base planner 做好"这条叙事；已落成 [judgments.md D 组第 12 条](judgments.md)。
+**项目未立项**。文献调研与代码核验已完成（第一至七十轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第七十轮（2026-09-30）**——整合"周扫"投递：**① 官方公开榜 20 行取回并独立复核**（与 §1 的论文口径 13 行**对不上：榜首完全换人、且 `DriveFuture` 根本不在官方榜上**）→ 落成 [sota-plan.md §1.0](ideas/sota-plan.md)；**② 三处"无代码"翻案**（TOAD / DrivoR 代码实已发布；三条 VLA）——**推翻第 69 轮**；**③ 新增 §周扫 机制**（[ai/workflows.md](../../ai/workflows.md)）；**④ 判断 66 → 67**（B 组新增"论文里的表 ≠ 官方榜"）。
 
-- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 51 卷，第一至六十九轮全覆盖）。
+- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 52 卷，第一至七十轮全覆盖）。
 - **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)（**单写者 = 主线程**，只写「在改」清单）；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 的「inbox 待整合」检查）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
 - **决策核心**：[sota-plan.md](ideas/sota-plan.md)（冲 SOTA 作战文件）、[preparation.md](ideas/preparation.md)（S1–S30 设计前提 + 候选方向）。
 - **关键阻塞**：路线 B 第一步（纯推理四项测量）协议已建、**未运行**，受 SimScale checkpoint（243.6 MB，已定位）与 navhard 数据阻塞。
@@ -52,18 +52,20 @@
 | 20 | **`/tmp/ai4r-*`（2026-09-29 支线产物）清理** | **✅ 已完成（2026-09-30，命令由用户执行）**：`/tmp/ai4r-clonetest/`（16 MB）+ 19 个 `/tmp/ai4r-*`（约 88 KB）已删；主线程只读复查（Glob）**残留 0**。**该批违规（落 `/tmp`）已在规则层堵住**：见 [ai/rules.md](../../ai/rules.md) §支线协作纪律第 7 条 | [inbox/cleanup.md](../../inbox/cleanup.md) §执行记录 |
 | 21 | **实验数据的落盘位置会触到沙箱白名单**（2026-09-30 实测，支线第三篇投递） | **NAVSIM 数据不能放工作空间**（**`navtrain` 300–445 GB、`navtest` 223 GB**）→ 若落在数据盘（如 `/data`、`/mnt/xxx`），**该路径必须加进沙箱允许区**，否则**连读取都做不到**（允许区的形状 = 工作空间 + 临时目录 + 包缓存，见 [ai/rules.md](../../ai/rules.md) §执行与清理纪律第 10 条下方的说明块）。**等数据盘定下来再处理** | [rounds-66.md](history/rounds-66.md) |
 | 22 | **防"成果搞丢"的用户侧三件事**（第六十七轮从 README「等待用户」同步进来，避免被后续轮次淹没） | **均未完成（第六十七轮实测）**：① **加私有远端** ❌（`git remote -v` 为空）；② **备份 `.git`** ❌（**实测 `.git` = 18 MB**——⚠ **更正**：第四十八轮记的"2.2 MB"是**初始提交**时的体积，已随轮次增长；异地成本极低）；③ **`~/.bashrc` 加代理两行** ❌（`grep` 无命中）。**为何只有这三条**：**"删除有闸、覆盖没有闸"**（见 [ai/rules.md](../../ai/rules.md) §执行与清理纪律第 10 条下方）→ **搞丢成果的真实路径是覆盖**，而**版本控制 + 异地副本是唯一解**，沙箱白名单管不到 | [rounds-67.md](history/rounds-67.md)、[README.md](../../README.md) §等待用户 |
-| 23 | **"选优器专线"的 4 项待核**（第六十八轮立、**第六十九轮解掉第 ①**） | ~~① TOAD 的 56.3 属哪个 split~~ → **✅ 已核（第六十九轮）：是 `navhard-two-stage`**（论文 §4.1 原文）→ **navhard 榜一由 DriveFuture 55.5 变为 TOAD+DrivoR 的 56.3**，已落进 [judgments.md D 组](judgments.md) 新条目与 [sota-plan.md §9.7](ideas/sota-plan.md)。**剩余 3 项**：② **Vault 是否已中稿**（摘要写"Under review at ICLR 2027"）**与有无代码**；③ [scoring_line.md](topics/diffusion-planner/papers/scoring_line.md) **§二的 17 条线索级**（arXiv ID / venue / 代码全未核）；④ BeyondDrive 的 **"MeanFuser 同组"与"有代码"**（摘要均未提）。**另新增两项**：⑤ **TOAD 代码是否/何时发布**（"will be made publicly available"，发布后 56.3 即变可复现，需重估 §3）；⑥ **TOAD 的 56.3 数字本身**（来自论文正文，**未独立复现**） | [scoring_line.md](topics/diffusion-planner/papers/scoring_line.md)、[sota-plan.md §9.7](ideas/sota-plan.md)、[rounds-68.md](history/rounds-68.md)、[rounds-69.md](history/rounds-69.md) |
+| 23 | **"选优器专线"的待核**（第六十八轮立；**第六十九轮解 ①、第七十轮解 ⑤**） | ~~① TOAD 的 56.3 属哪个 split~~ → **✅ `navhard-two-stage`**；~~⑤ TOAD 代码是否发布~~ → **✅ 已发布**（`valeoai/TOAD` 25★，`scorer.py` + `train_pdm_scorer.py` 都在）——**它因此成为方向 B 的"可运行直接对手"**。**剩余**：② **Vault 是否已中稿**（摘要写 "Under review at ICLR 2027"）**与有无代码**；③ [scoring_line.md](topics/diffusion-planner/papers/scoring_line.md) **§二 17 条线索级**（arXiv ID / venue / 代码全未核）；④ BeyondDrive 的 **"MeanFuser 同组"与"有代码"**（摘要均未提）；⑥ **TOAD 的 56.3 / 56.512 两个数字均未被独立复现**（论文自报 vs 官方榜，差 0.2） | [scoring_line.md](topics/diffusion-planner/papers/scoring_line.md)、[rounds-69.md](history/rounds-69.md) |
+| 24 | **官方榜的三项未查事项**（第七十轮立） | ① **`DriveFuture` 为何不在官方榜**（全文检索 0 命中）——未提交？还是用了另一套评测？**这个决定了 §1 与 §1.0 能否被看成"同一基准的两套数字"**；② **官方榜前 6 名里 4 个匿名队**（`guest9527` 60.561 / `CooWAIM` / `Aqua10086` / `zzzzz` / `Joctor`）身份未知，**榜首不可追溯**；③ **榜二的 `EABOT.AI&NJU` 与 `Rtwotwo/DriveTTO` 的对应关系未证实**（榜上无链接，且该仓是占位仓）。→ **这三项直接影响"子榜辩护"能不能写**，优先级高于 ②③④ | [sota-plan.md §1.0](ideas/sota-plan.md)、[judgments.md B 组](judgments.md) |
+| 25 | **官方榜是"易失效事实"，需定期重取**（第七十轮立） | 榜单**每天都在变**（20 行里有 11 行的提交日期在 2026-09）→ §1.0 的快照**会过期**。**已固化做法**：`ai/workflows.md` **§周扫**的"榜单线"（成本 = 1 次 POST）。**取数日期必须随数字一起写**（现为 2026-09-30） | [ai/workflows.md](../../ai/workflows.md) §周扫、[sota-plan.md §1.0](ideas/sota-plan.md) |
 
 ## 当前判断边界（索引）
 
-**66 条判断的完整论证、出处与代码事实见 [judgments.md](judgments.md)（第一册 §A–§D）+ [judgments-2.md](judgments-2.md)（第二册 §E–§H）**（已按 A–H 分组；本表只留分组索引，便于整读）。**第三十六轮已按既定约定拆册**（第一册 31 KB / 第二册 33 KB，均远低于 64 KB 上限）。
+**67 条判断的完整论证、出处与代码事实见 [judgments.md](judgments.md)（第一册 §A–§D）+ [judgments-2.md](judgments-2.md)（第二册 §E–§H）**（已按 A–H 分组；本表只留分组索引，便于整读）。**第三十六轮已按既定约定拆册**（第一册 31 KB / 第二册 33 KB，均远低于 64 KB 上限）。
 
 | 组 | 主题 | 条数 |
 |---|---|---|
 | **A** | 证据边界与工作空间状态（立项、只克隆、未复现、引用数口径） | 6 |
-| **B** | 指标与基准口径——为什么跨论文数字不可横比（含 **navhard 13 行对照**、**"scorer ≈ +20" 的成立条件**、**三份 navhard 表的交叉核对**、**EPDMS 的两套官方实现**、**EC 不进分 + 本地 devkit 口径 + changelog 时间线**） | 10 |
+| **B** | 指标与基准口径——为什么跨论文数字不可横比（含 **navhard 13 行对照**、**"scorer ≈ +20" 的成立条件**、**三份 navhard 表的交叉核对**、**EPDMS 的两套官方实现**、**EC 不进分 + 本地 devkit 口径 + changelog 时间线**、**"论文里的表 ≠ 官方榜" + "仓库存在 ≠ 有代码"**） | 11 |
 | **C** | "生成式 / 扩散"这个词的真伪（含**八类"名字≠实际"陷阱**） | 7 |
-| **D** | 锚点 · 词表 · 选优（含**"选优损失"是可测量**：`PDMS@1` = 池子天花板；**"候选池越大越好"是错的**；**"做选优"已被 TOAD 的"测试时搜索"占据**——navhard 榜一 → 56.3） | 12 |
+| **D** | 锚点 · 词表 · 选优（含**"选优损失"是可测量**：`PDMS@1` = 池子天花板；**"候选池越大越好"是错的**；**"做选优"已被 TOAD 的"测试时搜索"占据**——论文口径榜一 56.3 / 官方榜 #8 56.512、头部被压平、**代码已发布**） | 12 |
 | **E** | RL 与可行性 | 7 |
 | **F** | 逐方法的代码级结论（世界模型侧 + 研究对象侧，含 36 仓结账） | 12 |
 | **G** | 非生成式基线与特权信息 | 6 |

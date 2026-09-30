@@ -8,7 +8,52 @@
 
 ---
 
-## 1. navhard 的完整分数格局（**navtest 已饱和，必须打 navhard**）
+## 1.0 官方公开榜快照（NAVSIM v2 navhard，2026-09-30）
+
+**为什么单独留一节**：下面 §1 的来源是 **DriveFuture 论文的 Table 1**（13 行，**论文自报口径**），**不是官方榜**。两者**口径不同、行数不同、格局也不同**（官方榜 20 行、**榜首完全换人**）→ **并列保留才有防御力**，引用时**必须写明是哪一套**。
+
+**取数**：2026-09-30，`POST https://agc2025-e2e-driving-navhard.hf.space/leaderboard`，body `{"lb":"public"}`（**HTTP 200 / 18,059 字节**）。**第七十轮由主线程独立复取，逐行与支线投递物一致**。
+**字段**：官方 `extended_pdm_score_combined`（= `EPDMS`），另含 stage-1/2 各 9 个子指标与 `submission_datetime`。
+
+| rank | EPDMS | 提交日期 | 方法（`id`） | 代码 |
+|---|---|---|---|---|
+| 1 | **60.561** | 2026-09-27 | guest9527（**匿名**） | — |
+| 2 | **58.634** | 2026-09-22 | EABOT.AI&NJU | 榜上**无链接**；支线称对应 [Rtwotwo/DriveTTO](https://github.com/Rtwotwo/DriveTTO)——**⚠ 该仓是占位仓**（5 KB，仅 LICENSE + README "Paper and code coming soon"），**归属未证实、且无代码** |
+| 3 | **58.066** | 2026-09-23 | FPD-Drive-Pro | 项目页 `countnemochan.github.io/FPD-Drive/` |
+| 4 | 57.613 | 2026-09-14 | CooWAIM（**匿名**） | — |
+| 5 | 57.408 | 2026-09-09 | Aqua10086（**匿名**） | — |
+| 6 | 57.237 | 2026-09-23 | zzzzz（**匿名**） | — |
+| 7 | **56.813** | 2026-09-06 | DriveZero | [XiaomiAutoL3/DriveZero](https://github.com/XiaomiAutoL3/DriveZero)（117★ / 2026-09-15 / 含 `DriveRL/`）→ **榜上"有仓库"的最高一条** |
+| 8 | **56.512** | 2026-09-16 | **TOAD** | 榜上链到项目页；**代码实有** [valeoai/TOAD](https://github.com/valeoai/TOAD)（25★，**第七十轮核实**） |
+| 9 | 55.875 | 2026-09-25 | FPD-Drive | 项目页同上 |
+| 10 | **54.574** | 2026-01-30 | DrivoR | [valeoai/DrivoR](https://github.com/valeoai/DrivoR)（280★） |
+| 11 | **53.248** | 2025-11-27 | SimScale | [OpenDriveLab/SimScale](https://github.com/OpenDriveLab/SimScale) |
+| 12 | 51.503 | 2025-12-22 | GuideFlow | [adept-thu/GuideFlow](https://github.com/adept-thu/GuideFlow) |
+| 13 | 48.116 | 2025-11-04 | ZTRS | 榜上无链接（仓库见 [DP-C04](../topics/diffusion-planner/papers/navhard_competitors.md)） |
+| 14 | 39.612 | 2025-10-25 | RAP | `alan-lanfeng.github.io/RAP` |
+| 15 | 38.187 | 2026-09-16 | Joctor（**匿名**） | — |
+| 16 | 34.108 | 2026-03-19 | Baseline: NavFormer | [OpenDriveLab/Navformer](https://github.com/OpenDriveLab/Navformer) |
+| 17 | 31.910 | 2025-11-21 | LEAD-LTFv6 | [kesai-labs/lead](https://github.com/kesai-labs/lead) |
+| 18–20 | 25.122 / 14.173 / 11.482 | 2025-10-21 | Baseline LTF / MLP / CV | navsim 官方 |
+
+**⚠ 四条限定（不要当精度用）**
+
+1. **榜内含匿名队名**（`guest9527` / `zzzzz` / `Aqua10086` / `Joctor` / `CooWAIM`）→ **可能含未复核提交**；**前 6 名里 4 名无法追溯**。
+2. **这是官方 `EPDMS` 口径**，与 §1 的论文自报（多为 `EPDMS*`）**不可混比**（同方法差 2.0–5.2 分，见 [benchmarks.md §2.9](../direction/benchmarks.md)）→ **列内排序可用、跨表行间分差不可用**。
+3. **"是否有代码"只对榜上内嵌了链接的条目可判**，且**链接指向项目页 ≠ 有代码**（TOAD / DrivoR 属此类，实有仓库；FPD-Drive / RAP 未见仓库）。**⚠ 第七十轮实测**：**DriveTTO 是占位仓**（"code coming soon"）→ **"仓库存在"与"有代码"是两件事**（本空间的 L2 / L1 之分正是为此）。
+4. **`DriveFuture` 在官方榜上一次都没出现**（全文检索 0 命中）→ 见下表。
+
+**与 §1（论文口径）的三处实质冲突**
+
+| # | 冲突 | 处理 |
+|---|---|---|
+| 1 | **榜一不同**：官方榜是 `guest9527` **60.561**（**匿名、无代码**）；§1 记 DriveFuture 55.5 | **两者都保留**——§1 = "论文自报口径"，本节 = "官方公开榜" |
+| 2 | **DriveFuture 不在官方榜** | **原因未查**（未提交？或另一套评测？）→ 记入 `state.md` 待续 |
+| 3 | **"有代码的最高"变了**：§3 记 SimScale 53.2；官方榜里 **DriveZero 56.813（#7）与 TOAD 56.512（#8）都有仓库** | **§3 的子榜持有者按口径分开写**，见该节 ⚠ |
+
+## 1. navhard 的完整分数格局（**navtest 已饱和，必须打 navhard**；**论文自报口径快照**）
+
+> **⚠ 第七十轮**：**本节是论文口径**（来源见下行），**不是官方公开榜**——官方榜 20 行、榜首完全不同，见 [§1.0](sota-plan.md)。**两套不可混比**。
 
 来源：DriveFuture（arXiv 2605.09701）Table 1，PDF 逐格核验；**代码状态一列由 2026-09-24 子代理逐仓库核验补齐**（**第三十六、三十七轮又逐行核到文件级/论文原文，已更正 DiffVLA / SimScale / GTRS-E / DIVER 四行**）。
 
@@ -32,7 +77,7 @@
 
 ## 2. 四条关键结论
 
-1. **"榜上 SOTA ≠ 可复现 SOTA"**——第一名 **55.5 无代码**；第二名 **54.6（DrivoR）也无代码**（只承诺"will be made available"）；**GuideFlow 自报 43.0 与社区口径 27.1 差 15.9 分且不可复现**。→ **navhard 前二都拿不到代码，这个基准的"头部"目前是空的。** **⚠ 第六十九轮更正**：**TOAD（arXiv 2606.07170）的 NAVSIM-v2 结果已核实就是 navhard**（论文 §4.1 原文 "navhard-two-stage split"）→ **榜一由 55.5（DriveFuture）变为 56.3（TOAD + DrivoR）**；**但 TOAD 代码未发布**（"will be made publicly available"）→ **本条"头部拿不到代码"的结论仍然成立，只是换了名字**（见 [§9.7](sota-plan.md)）。
+1. **"榜上 SOTA ≠ 可复现 SOTA"**——第一名 **55.5 无代码**；第二名 **54.6（DrivoR）也无代码**（只承诺"will be made available"）；**GuideFlow 自报 43.0 与社区口径 27.1 差 15.9 分且不可复现**。→ **navhard 前二都拿不到代码，这个基准的"头部"目前是空的。** **⚠ 第六十九轮更正**：**TOAD 的 NAVSIM-v2 结果已核实就是 navhard**（论文 §4.1 原文 "navhard-two-stage split"）→ **论文口径下榜一由 55.5（DriveFuture）变为 56.3（TOAD + DrivoR）**。**⚠⚠ 第七十轮再更正两处**：① **TOAD 与 DrivoR 的代码其实都已发布**（[valeoai/TOAD](https://github.com/valeoai/TOAD) 25★、[valeoai/DrivoR](https://github.com/valeoai/DrivoR) 280★，`created` 分别为 2026-08-27 / **2026-01-05**）——第六十九轮写的"TOAD 代码未发布"**是错的**（依据只有摘要那句 "will be made publicly available"）；② **换到官方公开榜口径后，"头部拿不到代码"更强**：官方榜**前 9 名里只有第 7 名 DriveZero 有实仓**（前 6 名中 4 名匿名、第 2 名对应的仓是占位仓、第 3 名只有项目页）→ **结论方向不变、依据更硬**（见 [§1.0](sota-plan.md)）。
 2. **scorer（选优器）的量级远大于机制**——DriveFuture 同文受控消融**不含 scorer 只有 34.6，含 scorer 是 55.5** → **scorer ≈ +20**，而"加未来条件"这类机制只有 **+3.7**。→ **提分的最高杠杆不在"再加一轴机制"，而在"把选优这一环做好"**（这条修正了 `preparation.md` §5 原来的横切读法）。**⚠ 第四十一轮补**：这个 **+20 有三个成立条件**（基线**无**选择环节 / 候选池 **100 条** / 同文受控，见 [§7.2](sota-plan.md)）——**起点 DiffusionDrive 只有 20 锚点，拿不到它**（[§8.2](sota-plan.md)）→ **B 的目标与第一步已据此改写**（[§8.4](sota-plan.md)、[§8.5](sota-plan.md)）。
 3. **navhard 的分数被乘性违规项支配**——PDMS/EPDMS 的 NC 是 **0/1 乘性项**（一次碰撞即把该帧乘 0），navhard 全是困难场景 → **降违规的边际收益是非线性的**，与 navtest"挤在 88–91"完全不同。
 4. **我们的"小同行"比想象的小得多**——13 行里 **DrivoR / ZTRS / DriveSuprim 都是选择/评分式（非生成式）**，GTRS-E 是半生成，**只有 DriveFuture 与 DiffVLA 是纯生成式规划器**。→ **"小方向 SOTA"的分母很小**，这是"退而求其次"那条路的直接依据。**⚠ 第三十六轮更正**：DiffVLA 的**发布代码已把扩散头换成 EPDM 打分头**（§7.6）→ 按"**发布代码**"这个口径，**纯生成式规划器只剩 DriveFuture 一个，而它无代码**。→ **"有代码的纯扩散规划器"这个子榜在发布代码层面是空的**（DIVER 43.4 的代码跑不通、DiffVLA 45.0 的头被换掉）。
@@ -44,7 +89,7 @@
 | 子榜定义 | 当前持有者 | 需超过 | 空位？ |
 |---|---|---|---|
 | navhard 上**有代码的生成式/扩散规划器** | **GTRS-E 49.4**（半生成，含扩散生成器）；纯扩散最高是 **DiffVLA 45.0**（**⚠ 第三十六轮：发布代码无扩散头，45.0 不可复现**，见 §7.6） | **49.4**；**纯扩散在"发布代码"这个口径下为空** | 否 |
-| navhard 上**有代码的任意方法** | **SimScale 53.2**（但它**是框架不是规划器**；**✅ 第三十八轮：53.2 是新实现 `EPDMS`，其自报的 48.0 是旧实现 `EPDMS*`**，见 §7.7.5）；**✅ 第六十九轮核实**：**榜上最高已是 TOAD + DrivoR 的 56.3，但 TOAD 代码未发布 → 本行"有代码"的持有者仍是 SimScale 53.2**（"有代码的最高"与"榜上最高"自此不是同一个数，引用时注意，见 §9.7） | 53.2（**新实现口径**） | 否 |
+| navhard 上**有代码的任意方法** | **按论文口径（本节）**：**SimScale 53.2**（它**是框架不是规划器**；**✅ 第三十八轮：53.2 是新实现 `EPDMS`，其自报的 48.0 是旧实现 `EPDMS*`**，见 §7.7.5）。**⚠⚠ 第七十轮**：**按官方公开榜口径，有仓库的最高是 DriveZero 56.813（#7），其次是 TOAD 56.512（#8）、DrivoR 54.574（#10）**（见 [§1.0](sota-plan.md)）→ **"持有者"随口径不同**，**引用时必须写明是哪一套** | 论文口径 53.2 / 官方口径 56.813 | 否 |
 | navhard 上**可复现的约束类** | **空**（GuideFlow 43.0 不可复现；PC-Diffuser 不在 NAVSIM） | — | **是** |
 | navhard 上**实时（≥10 Hz）** | **空**（navhard 侧**没有任何 FPS 报告**） | — | **是** |
 | navhard 上**无 scorer**（纯生成不选优） | DriveFuture 34.6 / GuideFlow 27.1 | 34.6 | 否 |
@@ -457,7 +502,7 @@ DriveFuture 论文 **§3.3 原文**给出了区分：
 
 **三条直接影响**：
 
-1. **✅ 已核实（第六十九轮）：TOAD 的 56.3 就是 navhard**——论文 §4.1 原文 "NAVSIM-v2 (**navhard-two-stage** split)"，§4.2 又写明 "DrivoR … gains +3.1% to reach **56.3 EPDMS**, outperforming the strongest learned method (**DriveFuture**, 55.5) … only 0.3 behind the privileged PDM-Closed (56.6)"。→ **§1 的榜一易主**：DriveFuture 55.5 → **TOAD + DrivoR 56.3**；§3 表里"navhard 上有代码的任意方法"一行的**持有者仍是 SimScale 53.2**（因为 **TOAD 代码未发布**，摘要只写 "will be made publicly available"）→ **"榜一拿不到代码"这条性质没变，只是换了名字**。**⚠ 但有一条更硬的发现**：TOAD 把头部**压平**了——六个 base planner 原本 **34.7–54.6**（差近 20 分），搜索后**全部落在 49.0–56.3**（iPad **+43.6%**、最强的 DrivoR 只 **+3.1%**）→ **"base planner 本身好不好"被大幅削弱**，而 TOAD **无需重训、只用公开 ckpt**（Hydra-MDP / GTRS / ZTRS / iPad / RAP / DrivoR）。
+1. **✅ 已核实（第六十九轮）：TOAD 的 56.3 就是 navhard**——论文 §4.1 原文 "NAVSIM-v2 (**navhard-two-stage** split)"，§4.2 又写明 "DrivoR … gains +3.1% to reach **56.3 EPDMS**, outperforming the strongest learned method (**DriveFuture**, 55.5) … only 0.3 behind the privileged PDM-Closed (56.6)"。→ **§1 的榜一易主**：DriveFuture 55.5 → **TOAD + DrivoR 56.3**。**⚠⚠ 第七十轮两处更正**：(a) **TOAD 与 DrivoR 的代码都已发布**（[valeoai/TOAD](https://github.com/valeoai/TOAD) 25★ / [valeoai/DrivoR](https://github.com/valeoai/DrivoR) 280★，后者 `created` 早在 **2026-01-05**）——**本文此前"TOAD 代码未发布"是错的**，依据只有摘要那句话；**(b) 换到官方公开榜口径后**，TOAD 是 **56.512（#8）**、DrivoR 是 **54.574（#10）**、**榜一另有其人**（`guest9527` 60.561，匿名无代码）→ 见 [§1.0](sota-plan.md)。**⚠ 但有一条更硬的发现**：TOAD 把头部**压平**了——六个 base planner 原本 **34.7–54.6**（差近 20 分），搜索后**全部落在 49.0–56.3**（iPad **+43.6%**、最强的 DrivoR 只 **+3.1%**）→ **"base planner 本身好不好"被大幅削弱**，而 TOAD **无需重训、只用公开 ckpt**（Hydra-MDP / GTRS / ZTRS / iPad / RAP / DrivoR）。
 2. **区分点必须落在"监督信号"上**：TOAD 用**现成冻结 scorer 当 reward 做搜索**、Vault 直接**学 scorer 去预测官方分**——"做选优"与"扩池"都已被占据 → 我们的卖点只能是**在线可得 vs 离线 GT 打分**这一轴（与 §9.6 ④ 一致，**现在多了两个必须避开的近邻**，且 TOAD 的"无需重训"恰好打在我们"冻结 + 小规模"的算力优势上）。
 3. **重合风险最高的是 DriveVer**（条件聚类 + 均衡采样造候选）——它几乎就是"候选池构造 × 监督"的同一命题，**差异化必须写清楚**。
 
