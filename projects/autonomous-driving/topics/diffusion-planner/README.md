@@ -19,13 +19,13 @@
 | [notes/](notes) | **14 篇**单篇笔记（DP-A×12 + DP-S11/DP-S15） |
 | [transfer.md](transfer.md) | 从借鉴来源（VLA / 世界模型 / 具身）能拿什么 |
 | [../../ideas/preparation.md](../../ideas/preparation.md) | 研究地图、9 个未解决问题、7 个潜在方向（§5.0 横向比较、§7 四项待拍板） |
-| [../../ideas/sota-plan.md](../../ideas/sota-plan.md) | **冲 SOTA 作战文件**：navhard 13 行分数格局与逐行代码状态、子榜门槛、七方向重排、四条推荐路线 |
+| [../../ideas/sota-plan.md](../../ideas/sota-plan.md) | **冲 SOTA 作战文件**：navhard 分数格局（**§1.0 官方公开榜 20 行** + §1 论文口径 13 行）与逐行代码状态、子榜门槛、七方向重排、四条推荐路线 |
 
 **代码不在本目录**：37 个仓库快照与**三份**代码脉络跨**四个**层级（研究对象 / 领域级 E2E 主干 / 具身侧 / 世界模型侧），放在项目根 [code/](../../code)。
 
 ## 为什么关注
 
-它是本项目**唯一要产出成果**的方向，而 2025–2026 的困难基准（NAVSIM v2 **navhard**）暴露出一个可被直接攻击的缺口：**榜上 SOTA 与可复现 SOTA 之间有 10 分以上**——前二（55.5 / 54.6）都没有代码，而"有代码的纯扩散规划器"门槛只有 **45.0**（[sota-plan.md §1](../../ideas/sota-plan.md)）。**⚠ 第三十六轮更正**：**45.0（DiffVLA）已不成立**——其**发布代码里没有论文那个扩散头**（README §5 自述换成自研 Transformer 头 + EPDM 子指标 reward loss）→ **在"发布代码"这个口径下，"有代码的纯扩散规划器"为空**；可复现的纯扩散起点改为 **DiffusionDrive 24.2**（见 [sota-plan.md §7.6](../../ideas/sota-plan.md)）。**这个缺口就是本项目的机会**。
+它是本项目**唯一要产出成果**的方向，而 2025–2026 的困难基准（NAVSIM v2 **navhard**）暴露出一个可被直接攻击的缺口：**榜上 SOTA 与可复现 SOTA 之间有 10 分以上**——前二（55.5 / 54.6）都没有代码，而"有代码的纯扩散规划器"门槛只有 **45.0**（[sota-plan.md §1](../../ideas/sota-plan.md)）。**⚠ 第七十一轮**：**"前二都没有代码"已不成立**——**DrivoR（54.6）有代码**（`valeoai/DrivoR`）；且**榜首在官方公开榜上另有其人**（匿名队 `guest9527` 60.561，**DriveFuture 不在官方榜**）→ 见 [sota-plan.md §1.0](../../ideas/sota-plan.md)。**⚠ 第三十六轮更正**：**45.0（DiffVLA）已不成立**——其**发布代码里没有论文那个扩散头**（README §5 自述换成自研 Transformer 头 + EPDM 子指标 reward loss）→ **在"发布代码"这个口径下，"有代码的纯扩散规划器"为空**；可复现的纯扩散起点改为 **DiffusionDrive 24.2**（见 [sota-plan.md §7.6](../../ideas/sota-plan.md)）。**这个缺口就是本项目的机会**。
 
 ## 要回答的问题
 
@@ -43,7 +43,7 @@
 | 语言条件会涨分（EMMA +6.7%） | 升为 [VLA 小方向](../vla/README.md) 的 **VLA-06/07/08**，并回填 [transfer.md](transfer.md) 第 2 节 |
 | 世界模型可当规划器的"条件"或"选优依据" | 升为 [世界模型小方向](../world-model/README.md) 的**五条接口路线**，并回填 [transfer.md](transfer.md) 第 3 节 |
 | "生成式"不止扩散一条路（GenAD 是隐变量生成） | 升为 [judgments.md §C](../../judgments.md) 的"**第四类**"，成为"生成式 vs 非生成式"对照的必需类别 |
-| navhard 前二都没有代码 | 升为 [sota-plan.md §1](../../ideas/sota-plan.md) 的**逐行代码状态**列，并据此定义"可复现 SOTA"门槛 |
+| navhard 前二都没有代码 → **⚠ 第七十一轮**：**DrivoR（54.6）实有代码**，**且榜首在官方榜上另有其人** | 升为 [sota-plan.md §1](../../ideas/sota-plan.md) 的**逐行代码状态**列，并据此定义"可复现 SOTA"门槛；**官方榜口径见同文件 §1.0** |
 
 ## 边界
 

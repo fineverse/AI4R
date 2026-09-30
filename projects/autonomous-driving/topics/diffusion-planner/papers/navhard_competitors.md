@@ -19,11 +19,13 @@
 | DP-C06 | **DriveZero** | **56.813**（**官方榜 #7**） | 待核 | [XiaomiAutoL3/DriveZero](https://github.com/XiaomiAutoL3/DriveZero) | 真实仓（117★ / pushed 2026-09-15 / 含 `DriveRL/` + 一份 9.4 MB 报告 PDF）→ **官方公开榜里"有仓库"的最高一条**；**机制标签未核** | **待核** |
 | DP-C07 | **TOAD** | **56.512**（**官方榜 #8**；论文自报 navhard **56.3**） | arXiv 2606.07170（预印本 / valeoai） | [valeoai/TOAD](https://github.com/valeoai/TOAD) | **真实现**（25★ / Apache-2.0 / created 2026-08-27 / pushed 2026-09-11）；`navsim/agents/drivoR/score_module/` 下含 `scorer.py`、`train_pdm_scorer.py`（24 KB）、`compute_navsim_score.py`（**第七十轮核实**） | **否**（**测试时 CEM 搜索**：把冻结 scorer 当轨迹级 reward、从 proposals 热启动、**无需重训**） |
 
-## 在榜但已登记在别处的（指针）
+## 在（**论文口径**的）榜上但已登记在别处的（指针）
+
+> **⚠ 第七十一轮**：本节的"在榜"指 **DriveFuture 论文 Table 1**（[sota-plan.md §1](../../../ideas/sota-plan.md)）；**官方公开榜是另一张表**（§1.0，20 行），**两者不可混比**。
 
 | 方法 | navhard EPDMS | 登记位置 |
 |---|---|---|
-| **DriveFuture** | **55.5**（榜一） | [DP-A31](diffusion_planner_ad.md)（= WM-09）；**无代码** |
+| **DriveFuture** | **55.5**（**论文口径**榜一；**⚠ 官方榜上没有它**） | [DP-A31](diffusion_planner_ad.md)（= WM-09）；**无代码** |
 | **DiffVLA** | 45.0 | [DP-A27](diffusion_planner_ad.md)（= VLA-06）；**发布版已换头，45.0 不可复现** |
 | **DIVER** | 43.4 | [DP-A16](diffusion_planner_ad.md)；真实现 |
 | **GuideFlow** | 27.1（社区口径）/ 43.0（自报） | [DP-A12](diffusion_planner_ad.md)；**43.0 不可复现** |

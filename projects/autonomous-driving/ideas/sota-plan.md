@@ -62,7 +62,7 @@
 | 方法 | navhard EPDMS | 论文 / venue | 官方代码 | 代码实际状态 | 生成式？ |
 |---|---|---|---|---|---|
 | **DriveFuture** | **55.5** | arXiv 2605.09701 | **无** | 全文只有 HF 榜链接 | **是**（条件扩散 DDPM） |
-| **DrivoR** | **54.6** | arXiv 2601.05083 / **CVPR 2026** | **无** | 摘要仅写 "Code and checkpoints **will be made available**"，**无仓库、无 project page** | **否**（纯 Transformer，proposal 生成 + 评分） |
+| **DrivoR** | **54.6** | arXiv 2601.05083 / **CVPR 2026** | [valeoai/DrivoR](https://github.com/valeoai/DrivoR) | **⚠ 第七十一轮更正**：原记"**无** / 摘要仅写 will be made available，**无仓库、无 project page**"——**实为直接错误**：仓库 **2026-01-05 就存在**（280★ / Apache-2.0 / pushed 2026-08-27），Release `Scaling` 含 `..._54.6.pth`。**判据只有论文摘要那句承诺**（"凭承诺判代码"，见 [judgments.md B 组](../judgments.md) 末条）。**官方榜 #10 = 54.574** | **否**（纯 Transformer，proposal 生成 + 评分） |
 | **SimScale** | **53.2** | arXiv 2511.23369 / **CVPR 2026 Oral** | [OpenDriveLab/SimScale](https://github.com/OpenDriveLab/SimScale) | **真实现 + checkpoints**（327★ / Apache-2.0 / 2026-09-18 仍在更新）；**✅ 53.2 的谜底（第三十八轮）**：**不是错误，是口径差**——它自报的 **48.0 是旧实现 `EPDMS*`**，本表的 **53.2 是新实现 `EPDMS`**，两者逐阶段子指标显示是同一个 V2-99 模型（见 §7.7.5） | **不是规划器**——是 **sim-real co-training 框架，模型无关**（已测 LTF / DiffusionDrive / GTRS-Dense 三类） |
 | **GTRS-E** | **49.4** | arXiv 2506.06664（CVPR 2025 AGC **冠军方案**；**表 2 = navhard 表**） | [NVlabs/GTRS](https://github.com/NVlabs/GTRS) | **真实现，但 49.4 不可复现**——第三十七轮在论文 Table 2 找到定义：**GTRS-E = "ensemble of all six models from GTRS-Dense and GTRS-Aug"**（题注原文）；而仓库只发 **4 个 checkpoint，其中只有 2 个属于这六个**（`gtrs_dense_vov.ckpt` 41.7、`gtrs_aug_vov.ckpt` 42.1，**都是 V2-99**）→ **可复现单模最高 42.1**（见 §7.7.2） | **半生成**（含扩散轨迹生成器，主体是词表评分）；**49.4 是六模型集成** |
 | **ZTRS** | **48.1** | arXiv 2510.24108 / **ECCV 2026** | [woxihuanjiangguo/ZTRS](https://github.com/woxihuanjiangguo/ZTRS) | **真实现 + checkpoint**（77★） | **否**（离散词表 + RL/EPO，选择式） |
@@ -116,13 +116,13 @@
 |---|---|---|
 | ① **有代码的纯扩散规划器 SOTA** | **45.0**（DiffVLA） | ⚠ **第三十六轮更正**：45.0 是**论文（扩散头）**的成绩，**发布代码已把扩散头换成 EPDM 打分头** → **不可复现**（§7.6）。→ 该层需重估：**有代码 + 锚点公开可得 + 真扩散头**三条件同时满足的，目前只有 **DiffusionDrive 24.2**（DIVER 43.4 的代码跑不通、锚点未发布） |
 | ② **有代码的生成式规划器 SOTA** | **49.4**（GTRS-E，半生成） | ⚠ **第三十七轮更正**：49.4 是**六模型集成**，而仓库只发 4 个 ckpt、其中只有 2 个属于这六个 → **不可复现**；**可复现单模最高 42.1**（GTRS-Aug V2-99），**最佳单模 45.3（GTRS-Dense + ViT-L）也没发**（§7.7.2） |
-| ③ **navhard 前二 / 逼近框架类最高** | **53.2**（SimScale）/ **54.6**（DrivoR，无代码） | ⚠ **第三十七轮**：**53.2 来源未核实**——SimScale 论文与仓库的最高都是 **48.0**（§7.7.1）→ 这一层的实际门槛待定 |
-| ④ **数据集 SOTA** | **55.5**（DriveFuture，无代码） | 最难 |
+| ③ **navhard 前二 / 逼近框架类最高** | **53.2**（SimScale）/ ~~54.6（DrivoR，无代码）~~ → **⚠ 第七十一轮**：**DrivoR 有代码**（`valeoai/DrivoR`），且按官方榜口径**有仓库的最高是 DriveZero 56.813** | ⚠ **第三十七轮**：**53.2 来源未核实**——SimScale 论文与仓库的最高都是 **48.0**（§7.7.1）→ 这一层的实际门槛待定 |
+| ④ **数据集 SOTA** | **55.5**（DriveFuture，无代码）→ **⚠ 第七十一轮**：**官方榜榜一其实是匿名队 `guest9527` 60.561**，且 **DriveFuture 根本不在官方榜上**（见 §1.0） | 最难 |
 
 ### 5.2 路线 ①（主推）：**"复现 + 拆解" navhard 榜首**
 
 - **做法**：把 DriveFuture 那套（**未来潜状态条件** + **100 条候选** + **scorer 选优**）实现成**可复现**版本，再叠合规/约束项。
-- **自圆其说**：「navhard 榜首 55.5 与第二 54.6 **都没有代码**；GuideFlow 自报 43.0 与社区口径 27.1 差 15.9 分且不可复现。**我们给出第一个可复现的 navhard 高分扩散规划器，并首次拆解其收益来源（未来条件 vs 选优器 vs 约束）**。」——同时命中 S20 提出的"收益来源拆解"空白。
+- **自圆其说**：「navhard 榜首 55.5 与第二 54.6 **都没有代码**；GuideFlow 自报 43.0 与社区口径 27.1 差 15.9 分且不可复现。**我们给出第一个可复现的 navhard 高分扩散规划器，并首次拆解其收益来源（未来条件 vs 选优器 vs 约束）**。」——同时命中 S20 提出的"收益来源拆解"空白。**⚠⚠ 第七十一轮：这段拟用话术有两处已不成立，直接引用会出错**——① **第二名 DrivoR 其实有代码**（`valeoai/DrivoR`，2026-01 就在）；② **榜首在官方榜上另有其人**（匿名队 `guest9527` 60.561，**DriveFuture 不在官方榜**）→ **话术应改成"官方榜前 6 名里 5 名无链接或为匿名队、榜二对应的仓是占位仓"**（见 [§1.0](sota-plan.md)）。
 - **需要**：NAVSIM v2 数据（`navhard_two_stage` 892 MB log + 31 GB 传感器）+ 端到端训练 GPU。
 
 ### 5.3 路线 ②（成本最低，可先跑）：**只做选优器**

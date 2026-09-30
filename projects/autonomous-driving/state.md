@@ -1,13 +1,13 @@
 # 自动驾驶项目状态
 
-更新时间：2026-09-30（第七十轮：整合"周扫"投递——官方榜重建分数格局 + 三处代码翻案 + §周扫机制）
-逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 52 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**本轮「在改」文件清单**（软通道，单写者 = 主线程；**第六十七轮起不再登记投递物**——登记表就是 `inbox/` 本身））；本文件只保留当前阶段、待续清单与判断边界。
+更新时间：2026-09-30（第七十一轮：传播核查第 70 轮的三处前提级改动）
+逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 53 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**本轮「在改」文件清单**（软通道，单写者 = 主线程；**第六十七轮起不再登记投递物**——登记表就是 `inbox/` 本身））；本文件只保留当前阶段、待续清单与判断边界。
 
 ## 当前阶段
 
-**项目未立项**。文献调研与代码核验已完成（第一至七十轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第七十轮（2026-09-30）**——整合"周扫"投递：**① 官方公开榜 20 行取回并独立复核**（与 §1 的论文口径 13 行**对不上：榜首完全换人、且 `DriveFuture` 根本不在官方榜上**）→ 落成 [sota-plan.md §1.0](ideas/sota-plan.md)；**② 三处"无代码"翻案**（TOAD / DrivoR 代码实已发布；三条 VLA）——**推翻第 69 轮**；**③ 新增 §周扫 机制**（[ai/workflows.md](../../ai/workflows.md)）；**④ 判断 66 → 67**（B 组新增"论文里的表 ≠ 官方榜"）。
+**项目未立项**。文献调研与代码核验已完成（第一至七十一轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第七十一轮（2026-09-30）**——**传播核查**：第 70 轮改的三处前提级事实（论文表 ≠ 官方榜 / TOAD·DrivoR 代码已发布 + VLA 三条翻案 / "有代码的最高"随口径变），在**16 个文件里留下约 20 处旧话**（含 `sota-plan.md §5.2` 那段**准备写进论文"自圆其说"的拟用话术**）→ **全部就地标 `⚠ 第七十一轮` 修掉**；顺带抓到 `world-model/lineage.md` 两处**从第三十五轮就带错的**"24.2→55.5 是换条件的收益"（受控只值 +3.7）。
 
-- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 52 卷，第一至七十轮全覆盖）。
+- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 53 卷，第一至七十一轮全覆盖）。
 - **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)（**单写者 = 主线程**，只写「在改」清单）；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 的「inbox 待整合」检查）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
 - **决策核心**：[sota-plan.md](ideas/sota-plan.md)（冲 SOTA 作战文件）、[preparation.md](ideas/preparation.md)（S1–S30 设计前提 + 候选方向）。
 - **关键阻塞**：路线 B 第一步（纯推理四项测量）协议已建、**未运行**，受 SimScale checkpoint（243.6 MB，已定位）与 navhard 数据阻塞。
@@ -27,7 +27,7 @@
 | 代码 | **37 个官方仓库快照（1.65 GB，未安装未运行）** + 三份[代码脉络](code/traces/)（[扩散规划器侧](code/traces/diffusion_planner_code_traces.md)（**研究对象侧 13 个仓库全部结账：12 逐文件核验 + DriveFine 零代码**）、[世界模型→规划器接口](code/traces/world_model_code_traces.md)（**§E 为 WoTE**）、[E2E 主干](code/traces/e2e_trunk_code_traces.md)）；**VLA 侧在列 8 个仓库全部已源码核验**（结论写在 [vla/verification.md](topics/vla/verification.md) **§4.4**（第三十六轮新增 DiffVLA）与 §5–§7，未另开 trace 文件；其中 7 个**未落盘**，走 API/raw 逐文件取证） |
 | 机制 | [transfer.md](topics/diffusion-planner/transfer.md)（来源 → 对象，**§1 现 15 条**——**⚠ 第四十四轮更正**：此处原写 16 条，第三十二轮把 §1 条数改正后漏改的两处之一） |
 | 规范 | [文献质量分档](../../shared/literature-quality.md)、[工作空间设计](../../shared/workspace-design.md) |
-| idea | [sota-plan.md](ideas/sota-plan.md)（**冲 SOTA 作战文件**：navhard 13 行分数格局与逐行代码状态 + 子榜门槛 + 七方向重排 + 四条推荐路线）；[preparation.md](ideas/preparation.md)（**§2 = S1–S30 设计前提清单**、§5.0 = 七方向横向比较、§5 = 7 个候选方向，均未验证）；[judgments.md](judgments.md)（判断边界详细版**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**） |
+| idea | [sota-plan.md](ideas/sota-plan.md)（**冲 SOTA 作战文件**：navhard 分数格局——**§1.0 官方公开榜 20 行 + §1 论文口径 13 行**——与逐行代码状态 + 子榜门槛 + 七方向重排 + 四条推荐路线）；[preparation.md](ideas/preparation.md)（**§2 = S1–S30 设计前提清单**、§5.0 = 七方向横向比较、§5 = 7 个候选方向，均未验证）；[judgments.md](judgments.md)（判断边界详细版**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**） |
 | 工作流 | [ai/rules.md](../../ai/rules.md)（证据等级含**代码核验 L1/L2/L3**、**子代理纪律**、**支线协作纪律**（第六十轮新增、**第六十一/六十二/六十七轮修订**）、尺寸阈值、**执行与清理纪律 10 条**）、[ai/workflows.md](../../ai/workflows.md)（**§轮次开始 pre-flight**（第六十二轮新增）+ **§轮次收尾 9 步**（第六十七轮理正第 7/8/9 步的先后）、**Idea 讨论准备**节）；**检查器**（[check_links.py](../../shared/scripts/check_links.py)；**逐项清单见脚本 docstring**——第六十五轮起本处不写数字、不枚举）；**工作空间已 git**（`.gitignore` 忽略 `code/repos/` + `inbox/scratch/` + `.trae/`；**收尾用 `git add -u` + 显式列新文件，不用 `-A`**），临时产物根 = **`inbox/scratch/`** |
 
 ## 待续清单（没做完的，按优先级）

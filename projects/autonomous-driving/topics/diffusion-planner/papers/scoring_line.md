@@ -50,5 +50,5 @@
 ## 四、下一步（未做）
 
 - 把 §二 的线索级条目**逐条核验**（arXiv ID / venue / 代码），合格的并入本表 §一或 DP-A 表；
-- ~~核实 TOAD 的 56.3 split~~ **✅ 已完成（第六十九轮：是 navhard-two-stage）**；**待办**：Vault 的 venue（是否已中稿）与有无代码、**TOAD 代码是否/何时发布**；
+- ~~核实 TOAD 的 56.3 split~~ **✅ 已完成（第六十九轮：是 navhard-two-stage）**；~~TOAD 代码是否/何时发布~~ **✅ 已发布（第七十轮）**；**待办**：Vault 的 venue（是否已中稿）与有无代码、**TOAD / Vault 是否已有独立复现**；
 - 把 §三 第 1、3 条写进 [sota-plan.md](../../../ideas/sota-plan.md) 的"重合风险"与 [judgments.md](../../../judgments.md) D 组。

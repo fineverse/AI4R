@@ -119,7 +119,7 @@
 
 | 工作 | 搬了什么 | 搬到哪一层 | 结果 |
 |---|---|---|---|
-| **DriveMoE**（VLA-04，`2505.16278`） | **底座就是 π0**（论文 §3.1 标题即 "Drive-π0 Baseline"），复用其 **flow matching 动作头** | VLM + 动作头 → 驾驶轨迹层 | 输出 10 waypoint；Bench2Drive **DS 74.22 / SR 48.64%**；**无官方仓库** |
+| **DriveMoE**（VLA-04，`2505.16278`） | **底座就是 π0**（论文 §3.1 标题即 "Drive-π0 Baseline"），复用其 **flow matching 动作头** | VLM + 动作头 → 驾驶轨迹层 | 输出 10 waypoint；Bench2Drive **DS 74.22 / SR 48.64%**；**无官方仓库** → **⚠ 第七十一轮更正：官方仓存在**（[Thinklab-SJTU/DriveMoE](https://github.com/Thinklab-SJTU/DriveMoE)，235★） |
 | **VaViM/VaVAM**（VLA-22，`2502.15672`） | 与具身 VLA 同构的 **flow matching 动作头 + 逐层 joint attention** | 视频-动作模型 → 6 waypoint @2 Hz | **主干 VaViM 被冻结**（`requires_grad_(False)`，**论文未声明**）；NeuroNCAP 碰撞 57.9%（闭式口径）；**无受控消融** |
 | **DriveLaW**（WM-11，`2512.23421`） | `action_expert: true` + `num_inference_steps: 5` —— **与 π0 的 action expert 同构**（接口 A） | 世界模型视频 transformer **内部** | Table 5：BEV 84.1 → 视频潜状态 **89.1（+5.0 PDMS）**；接口 B 的"喂给谁"是**死引用、未发布** |
 | **ReCogDrive**（DP-A28，`2506.08052`） | VLM + 扩散规划器（DriveLaW 的上游） | 语言 → 扩散规划器 | NAVSIM **90.8**（RL 阶段 +4.3） |

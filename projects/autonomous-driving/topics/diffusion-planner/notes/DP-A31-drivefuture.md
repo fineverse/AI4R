@@ -1,4 +1,4 @@
-# DP-A31 · DriveFuture（当前 navhard 榜首）
+# DP-A31 · DriveFuture（~~当前 navhard 榜首~~ → **⚠ 第七十一轮：这只在"论文自报口径"下成立；官方公开榜上另有其人，且 DriveFuture 根本没出现在官方榜上**，见 [sota-plan.md §1.0](../../../ideas/sota-plan.md)）
 
 - **原题**：DriveFuture: Future-Aware Latent World Models for Autonomous Driving
 - **作者/载体**：Yufeng Hong 等；arXiv [2605.09701](https://arxiv.org/abs/2605.09701) v1（2026-05-10）；24 页

@@ -113,7 +113,7 @@
 
 ### 5.3 本节结论
 
-- **"有代码"要分三档**：完整发布（AutoVLA）/ 部分发布（OpenDriveVLA：只有推理与 0.5B 权重）/ 只有项目页（ExploreVLA、DriveMoE）。本表 19 篇里**已核验 4 篇的代码状态**（2 有仓库 + 2 只有项目页），**其余 15 篇的代码状态未核**。
+- **"有代码"要分三档**：完整发布（AutoVLA）/ 部分发布（OpenDriveVLA：只有推理与 0.5B 权重）/ 只有项目页（ExploreVLA、DriveMoE）——**⚠ 第七十一轮更正**：**这两篇其实都有官方仓库**（`zihaosheng/ExploreVLA` 30★ / `Thinklab-SJTU/DriveMoE` 235★），原判"只有项目页"是**只按论文 `comments` 里的链接判定、未做方法名检索**所致。本表 19 篇里**已核验 4 篇的代码状态**（2 有仓库 + 2 只有项目页），**其余 15 篇的代码状态未核**。
 - **VLA 侧的"生成机制"与扩散规划器侧完全不同**：本表没有任何一篇用扩散/流匹配出轨迹（唯一例外是 VLA-06 DiffVLA / VLA-07 ReCogDrive / VLA-08 KnowDiffuser，它们正是与研究对象的交集）。主流是 **自回归离散 token** 或 **VLM 出 waypoint 后回归**。
 - **两篇都在 NAVSIM 上把扩散规划器当对照**（AutoVLA PDMS 92.12、ExploreVLA EPDMS 88.8 vs DiffusionDrive 84.5）→ **"VLM/VLA 规划器已经超过扩散规划器"这件事已有第三方数字**，本项目选题时必须正面处理这个对照。
 

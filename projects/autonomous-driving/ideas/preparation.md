@@ -15,7 +15,7 @@
 | §6 | 比较口径（讨论前必须先固定） | 任何数字比较前先读这节 |
 | §7 | **需要你拍板的四项**（每项已给建议默认值） | 讨论的收尾——认可默认值就回一句"按默认走" |
 
-> **决策核心不在此文件**：用户 2026-09-24 定下"提分成为 SOTA 优先、创新只需自圆其说"的标准后，**冲 SOTA 的完整作战方案已独立为 [sota-plan.md](sota-plan.md)**（navhard 13 行分数格局与逐行代码状态、子榜定义与门槛、七方向重排、四条推荐路线）。**本文负责"前提与方向空间"，那份负责"怎么拿 SOTA"。**
+> **决策核心不在此文件**：用户 2026-09-24 定下"提分成为 SOTA 优先、创新只需自圆其说"的标准后，**冲 SOTA 的完整作战方案已独立为 [sota-plan.md](sota-plan.md)**（navhard 分数格局（**§1.0 官方公开榜 20 行** + §1 论文口径 13 行）与逐行代码状态、子榜定义与门槛、七方向重排、四条推荐路线）。**本文负责"前提与方向空间"，那份负责"怎么拿 SOTA"。**
 
 证据来源：`摘要` / `全文` / `代码静态检查` 三级，逐条标注；来源编号见 [papers/diffusion_planner_ad.md](../topics/diffusion-planner/papers/diffusion_planner_ad.md)（DP-Axx）、[papers/diffusion_planner_embodied.md](../../embodied-ai/topics/diffusion-policy/papers/diffusion_planner_embodied.md)（DP-Exx）、[surveys/diffusion_planner_surveys.md](../topics/diffusion-planner/surveys/diffusion_planner_surveys.md)（DP-Sxx）。  
 其中 DP-A08、DP-A14、DP-A16、DP-A31、DP-E08 的表格数字已用 arXiv PDF + `pdftotext -layout` 逐格核对；官方代码快照见 [code/repositories.md](../code/repositories.md)（**仅克隆，未安装、未运行**）。  
@@ -189,9 +189,10 @@
 
 ### 5.1 冲 SOTA 的作战方案 → **已独立为 [sota-plan.md](sota-plan.md)**
 
-用户 2026-09-24 定的标准是"**提分成为新 SOTA 优先、创新只需自圆其说**"，这**推翻了上面 §5.0 按"空白大小"排序的依据**。该标准下的完整分析——navhard 13 行分数格局与逐行代码状态、子榜定义与门槛、七方向重排、四条推荐路线——**已拆到 [sota-plan.md](sota-plan.md)**（因本文件已达 60.8 KB / 64 KB 上限）。
+用户 2026-09-24 定的标准是"**提分成为新 SOTA 优先、创新只需自圆其说**"，这**推翻了上面 §5.0 按"空白大小"排序的依据**。该标准下的完整分析——navhard 分数格局（**§1.0 官方公开榜 20 行** + §1 论文口径 13 行）与逐行代码状态、子榜定义与门槛、七方向重排、四条推荐路线——**已拆到 [sota-plan.md](sota-plan.md)**（因本文件已达 60.8 KB / 64 KB 上限）。
 
 **三句话结论**（细节见该文件）：① **navhard 前二（55.5 / 54.6）都没有代码**，GuideFlow 自报 43.0 而社区口径 27.1 → **"有代码的纯扩散规划器"门槛只有 45.0（DiffVLA）**；② **scorer 的量级 ≈ +20，远大于机制本身 +3.7** → 提分的最高杠杆在"**把选优这一环做好**"；③ **推荐路线：先只训 scorer（成本最低）→ 再补未来条件与约束**。
+**⚠⚠ 第七十一轮再更正（本段是"读者会直接抄"的，故逐句标出）**：① 句中**"前二都没有代码"已错**——**DrivoR（54.6）有代码**（`valeoai/DrivoR`，2026-01 就在）；且**榜首在官方公开榜上不是 DriveFuture**（DriveFuture **不在官方榜**，榜首是匿名队 `guest9527` 60.561）→ 见 [sota-plan.md §1.0](../ideas/sota-plan.md)；② **"有代码的纯扩散规划器门槛 45.0"第四十六轮已作废**（发布版 DiffVLA 无扩散头），见下。
 
 > **⚠⚠ 第四十六轮就地更正——上面三句在第四十一至四十三轮之后都已过期**（这三句是"读者会直接抄"的那一段，故逐句标出）：
 > - **① 不成立**（**第三十六轮**）：**45.0（DiffVLA）的发布代码里没有论文那个扩散头**（README §5 自述换成自研 Transformer 头 + EPDM 子指标 reward loss，推理期手调权重 `argmax`）→ **"有代码的纯扩散规划器"在"发布代码"这个口径下为空**；可复现的纯扩散起点改为 **DiffusionDrive 24.2**（[sota-plan.md §7.6](sota-plan.md)）。
