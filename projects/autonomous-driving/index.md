@@ -9,7 +9,7 @@
 - [研究上下文与约束](context.md)
 - [当前状态](state.md)（当前阶段 / 待续清单 / 判断边界**索引**）
 - [判断边界（详细）](judgments.md)（每条判断的完整论证、出处与代码事实；**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**）
-- [逐轮工作记录](history.md)（**索引 + 53 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
+- [逐轮工作记录](history.md)（**索引 + 54 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
 - [工作空间设计](../../shared/workspace-design.md)
 
 ## 大方向层 `direction/`

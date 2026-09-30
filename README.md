@@ -15,14 +15,15 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第七十一轮（2026-09-30）**——**传播核查**：第 70 轮改的三处前提级事实在 **16 个文件里留下约 20 处旧话**（含 `sota-plan §5.2` 那段**准备写进论文"自圆其说"的拟用话术**）→ 全部就地标 ⚠ 修掉（→ [rounds-71.md](projects/autonomous-driving/history/rounds-71.md)）。
+**最新一轮：第七十二轮（2026-09-30）**——**整合"论文对比方案"投递**：`sota-plan.md` **新增 §10 论文对比协议**（**表要全、claim 要窄、排除要写理由、自己上榜**；`§10.3` 的 claim 分层**待你确认**）（→ [rounds-72.md](projects/autonomous-driving/history/rounds-72.md)）。
 
-**上一轮：第七十轮（2026-09-30）**——**整合"周扫"投递**：**取回官方公开榜（20 行）并与论文口径的 §1 并列**——**榜首完全换人、`DriveFuture` 根本不在官方榜上**（→ [sota-plan.md §1.0](projects/autonomous-driving/ideas/sota-plan.md)）；**三处"无代码"翻案**（TOAD / DrivoR 代码实已发布，**推翻第 69 轮**）；新增 **§周扫** 机制（→ [rounds-70.md](projects/autonomous-driving/history/rounds-70.md)、[ai/workflows.md §周扫](ai/workflows.md)）。
+**上一轮：第七十一轮（2026-09-30）**——**传播核查**：第 70 轮改的三处前提级事实在 **16 个文件里留下约 20 处旧话**（含 `sota-plan §5.2` 那段**准备写进论文"自圆其说"的拟用话术**）→ 全部就地标 ⚠ 修掉（→ [rounds-71.md](projects/autonomous-driving/history/rounds-71.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 53 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 54 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
+| **第七十二轮** | [rounds-72.md](projects/autonomous-driving/history/rounds-72.md) — 整合"论文对比方案"：`sota-plan.md` 新增 §10（→ [sota-plan.md §10](projects/autonomous-driving/ideas/sota-plan.md)） |
 | **第七十一轮** | [rounds-71.md](projects/autonomous-driving/history/rounds-71.md) — 传播核查第 70 轮的三处前提级改动（16 个文件） |
 | **第七十轮** | [rounds-70.md](projects/autonomous-driving/history/rounds-70.md) — 官方榜重建分数格局 + 三处代码翻案 + §周扫机制（→ [sota-plan.md §1.0](projects/autonomous-driving/ideas/sota-plan.md)） |
 | **第六十九届** | [rounds-69.md](projects/autonomous-driving/history/rounds-69.md) — 核实 TOAD split → navhard 榜一易主（⚠ 两处已被第 70 轮推翻）（→ [judgments.md](projects/autonomous-driving/judgments.md) D 组、[sota-plan.md §9.7](projects/autonomous-driving/ideas/sota-plan.md)） |
