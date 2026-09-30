@@ -1,9 +1,9 @@
 # VLA（具身侧）论文表
 
-更新时间：2026-09-23  
+更新时间：2026-09-30  
 检索范围：2023–2026，按 [literature-quality.md](../../../../shared/literature-quality.md) 分档后收录 **14 篇**。  
 证据状态：**全部为摘要级**（arXiv 摘要 + `comments` 元数据 + OpenAlex/Crossref 的 venue 记录 + 官方 README；**未读正文**）。工作空间另有 **π0 / π0.5 的全文级笔记**（[DP-E19](../diffusion-policy/notes/DP-E19-pi0.md)），以及 DP-E14 FLOWER、DP-E20 π0.5、DP-E21 RDT-1B、DP-E22 GR00T N1 的摘要级条目。  
-**质量依据**：T 档含义见 [literature-quality.md](../../../../shared/literature-quality.md) §4；venue 三渠道并行核验（arXiv `comments` / OpenAlex 按标题 / Crossref 按 DOI）。**引用数按 OpenAlex「标题」查得，多数命中 arXiv 存根、系统性低估**，故**不用于排序**。  
+**质量依据**：T 档含义见 [literature-quality.md](../../../../shared/literature-quality.md) §4；venue 三渠道并行核验（arXiv `comments` / OpenAlex 按标题 / Crossref 按 DOI）。引用数原按 OpenAlex「标题」查得、**多数命中 arXiv 存根、系统性低估**（**不用于排序**）；**2026-09-30 起 §4 改用 S2 官方口径（覆盖 14/14）**，两个口径**不可混用**。逐行证据等级与代码状态见 §1.1。  
 相关：[lineage.md](lineage.md)、[大方向脉络](../../direction/lineage.md)
 
 ## 1. 代表工作
@@ -26,6 +26,30 @@
 | E-VLA-14 | **GR-3** | `2507.15493` | 2025 | 仅 arXiv（tech report）/ **T4** | 连续动作块 | **flow matching**（MoT + DiT） | 自建 4B MoT VLA | 真机 ByteMini（餐桌整理 / 挂衣） | 未取得 | **无公开代码 / 权重** |
 
 **未入表但质量可**：TinyVLA（`2409.12514`，RA-L 2025，扩散解码器）、InternVLA-M1（`2510.13778`，技术报告）、RoboMamba（`2406.04339`，NeurIPS'24）。
+
+## 1.1 逐行证据等级与代码状态（2026-09-30 补，供跨表检索）
+
+> 证据等级定义见 [rules.md](../../../../ai/rules.md) §证据等级；代码状态取自本表「官方代码」列与 §3，**未新查**（体例同驾驶侧 [vla/papers.md §1.1](../../../autonomous-driving/topics/vla/papers.md)）。
+> **本表 14 篇全部为摘要级**（未读正文，见 §3）。
+
+| 编号 | 证据等级 | 代码状态 |
+|---|---|---|
+| E-VLA-01 RT-2 | 摘要级 | 无代码（闭源） |
+| E-VLA-02 OpenVLA | 摘要级 | **有代码 + 权重** |
+| E-VLA-03 π0-FAST | 摘要级 | **有代码 + 权重**（openpi） |
+| E-VLA-04 ACT | 摘要级 | 有代码（**无权重**） |
+| E-VLA-05 OpenVLA-OFT | 摘要级 | **有代码 + 权重** |
+| E-VLA-06 Diffusion Policy | 摘要级 | **有代码** |
+| E-VLA-07 Octo | 摘要级 | **有代码 + 权重** |
+| E-VLA-08 CogACT | 摘要级 | **有代码 + 权重** |
+| E-VLA-09 SpatialVLA | 摘要级 | **有代码 + 权重** |
+| E-VLA-10 DexVLA | 摘要级 | 有代码（未记权重） |
+| E-VLA-11 SmolVLA | 摘要级 | **有代码 + 权重**（lerobot） |
+| E-VLA-12 RT-H | 摘要级 | **未找到** |
+| E-VLA-13 GR00T N1 | 摘要级 | **有代码 + 权重** |
+| E-VLA-14 GR-3 | 摘要级 | **无公开代码 / 权重** |
+
+**小结**：**11/14 有官方代码**，其中 **8 篇同时有可下载权重**；无代码 2 篇（RT-2 闭源、GR-3）＋「未找到」1 篇（RT-H）。**但全部为摘要级** → **代码状态是自述未验证**（本工作空间的代码核验只覆盖驾驶侧）。引用数见 §4（S2 口径）。
 
 ## 2. 三个结论
 

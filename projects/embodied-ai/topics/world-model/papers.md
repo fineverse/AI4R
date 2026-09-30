@@ -1,6 +1,6 @@
 # 世界模型（具身侧）论文表
 
-更新时间：2026-09-23  
+更新时间：2026-09-30  
 检索范围：2018–2026，按 [literature-quality.md](../../../../shared/literature-quality.md) 分档后收录 **14 篇**（含奠基工作）。  
 证据状态：**全部为摘要级**（arXiv 摘要 + `comments` + OpenAlex/Crossref 的 venue 记录 + 官方 README；**未读正文**）。  
 **质量依据**：T 档含义见 [literature-quality.md](../../../../shared/literature-quality.md) §4；venue 三渠道并行核验。**引用数按 OpenAlex「标题」查得，多数命中 arXiv 存根、系统性低估**，**不用于排序**。  
@@ -26,6 +26,30 @@
 | E-WM-14 | **DiWA** | `2508.03645` | 2025 | CoRL'25 / T1 | 潜特征 | **预测 + 奖励** | **联合训练**（WM 微调扩散策略） | 真机 | [acl21/diwa](https://github.com/acl21/diwa)（**有权重**） |
 
 **未入表但质量可**：Dreamer v2（`2010.02193`，ICLR'21）、DIAMOND（`2405.12399`，NeurIPS'24 Spotlight，Atari 扩散 WM）、VPP（`2412.14803`，ICML'25 Spotlight）、NWM（`2412.03572`，CVPR'25）、WMPO（`2511.09515`）、RoboDreamer（`2404.12377`）、DreamGen（`2505.12705`）、Aether（`2503.18945`，ICCV'25）、EnerVerse（`2501.01895`，NeurIPS'25）、Cosmos（`2501.03575`）、Wan（`2503.20314`）、Emu3（`2409.18869`）、RoboVerse（`2504.18904`）、DayDreamer（`2206.14176`，CoRL'22）。
+
+## 1.1 逐行证据等级与代码状态（2026-09-30 补，供跨表检索）
+
+> 证据等级定义见 [rules.md](../../../../ai/rules.md) §证据等级；代码状态取自本表「官方代码」列与 §3，**未新查**（体例同驾驶侧 [world-model/papers.md §1.1](../../../autonomous-driving/topics/world-model/papers.md)）。
+> **本表 14 篇全部为摘要级**（未读正文，见 §3）。
+
+| 编号 | 证据等级 | 代码状态 |
+|---|---|---|
+| E-WM-01 World Models | 摘要级 | 有代码（**无权重**） |
+| E-WM-02 PlaNet | 摘要级 | 有代码（**无权重**） |
+| E-WM-03 Dreamer v1 | 摘要级 | 有代码（**无权重**） |
+| E-WM-04 Dreamer v3 | 摘要级 | **有代码 + 权重** |
+| E-WM-05 Dreamer 4 | 摘要级 | **未找到官方仓库** |
+| E-WM-06 TD-MPC2 | 摘要级 | **有代码 + 权重** |
+| E-WM-07 Genie | 摘要级 | 无官方代码 |
+| E-WM-08 UniSim | 摘要级 | 无官方代码 |
+| E-WM-09 iVideoGPT | 摘要级 | **有代码 + 权重** |
+| E-WM-10 Genie Envisioner | 摘要级 | **有代码 + 权重** |
+| E-WM-11 V-JEPA 2 | 摘要级 | **有代码 + 权重** |
+| E-WM-12 DINO-WM | 摘要级 | 有代码（**无权重**） |
+| E-WM-13 WorldVLA | 摘要级 | **有代码 + 权重** |
+| E-WM-14 DiWA | 摘要级 | **有代码 + 权重** |
+
+**小结**：**11/14 有官方代码**，其中 **7 篇同时有可下载权重**；无代码 3 篇（Genie、UniSim、Dreamer 4——均为 DeepMind / 作者未开源）。**全部为摘要级** → **代码状态是自述未验证**。**注意与驾驶侧的差别**：本表奠基工作（World Models / PlaNet / Dreamer v1）**有代码但无权重**，是"经典但不可直接跑"的一类。
 
 ## 2. 四个结论
 

@@ -48,6 +48,8 @@ source /home/verse/dev/AI4R/shared/tools.env
 - **引用数随时间变化**：同一篇 RT-2，2026-09-29 经 Ai4Scholar 记 **4352**、2026-09-30 经官方 API 记 **4407** → **引用类数字必须标注取数日期**
 - 若需更稳的通道（自带高配 key、无 429），可走 Ai4Scholar 代理，但**按次付费**
 - **现成工具**：[`scripts/fetch_citations.py`](scripts/fetch_citations.py) 已封装上述重试逻辑（批量 + 指数退避 + TSV 输出，末列自动写取数日期）。冒烟测试实测：连续 4 次 429 → 退避 3/6/12/24 秒 → 第 5 次成功返回
+- ⚠ **`venue` 字段也会系统性误记（2026-09-30 实测，不能盲信）**：**π0-FAST、OpenVLA-OFT、SpatialVLA 三篇不同的会议论文（均 RSS'25）被同一 S2 记成同一本期刊 `Robotics`（MDPI）**；DexVLA 被记 `arXiv.org` 而实为 CoRL'25。**三篇不同会议被记成同一本期刊 → 属系统性误记，不是个别噪声**（与下方的 `publicationTypes` / `isOpenAccess` 同类）。
+  - ⇒ **S2 只作第四渠道，不替代 arXiv `comments` / OpenAlex / Crossref 三渠道**；冲突处**保留前三渠道判定**并就地标记。引用数与 `influentialCitationCount` 仍是 S2 的强项（OpenAlex / Crossref / Consensus 均无后者）。
 
 ### Consensus REST API
 - 端点：`GET https://api.consensus.app/v1/search?query=<关键词>`
@@ -90,7 +92,7 @@ source /home/verse/dev/AI4R/shared/tools.env
 **数据质量坑（2026-09-29 实测）**
 - `publicationTypes` **不可信**：7 篇全部返回 `['JournalArticle']`，但其中含 CoRL、RSS 会议论文
 - `isOpenAccess` **有误**：OpenVLA（arXiv 2406.09246）、Octo 标注为「否」，但它们是公开 arXiv 论文
-- → 判会议/期刊**只看 `venue`**；判预印本用 **`venue == 'arXiv.org'`**；需要可靠的分区/预印本字段时改用 Consensus 的 `sjr_best_quartile` / `is_preprint`
+- → 判会议/期刊**优先用 `venue`，但 `venue` 本身也会误记**（S2 官方 API 2026-09-30 实测，见上「Semantic Scholar 官方 API」节最后一题）→ **单一渠道不足以定 venue**，判定仍以 arXiv `comments` / OpenAlex / Crossref 的**三渠道并行核验**为准；需要可靠的分区/预印本字段时改用 Consensus 的 `sjr_best_quartile` / `is_preprint`
 
 ### 其他
 - OpenReview API（`api2.openreview.net`）：可用，查投稿与评审记录
