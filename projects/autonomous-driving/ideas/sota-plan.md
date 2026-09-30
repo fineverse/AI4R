@@ -32,7 +32,7 @@
 
 ## 2. 四条关键结论
 
-1. **"榜上 SOTA ≠ 可复现 SOTA"**——第一名 **55.5 无代码**；第二名 **54.6（DrivoR）也无代码**（只承诺"will be made available"）；**GuideFlow 自报 43.0 与社区口径 27.1 差 15.9 分且不可复现**。→ **navhard 前二都拿不到代码，这个基准的"头部"目前是空的。** **⚠ 第六十八轮**：TOAD（arXiv 2606.07170）报 **v2 56.3 EPDMS** 但**未指明是哪个 split**——**若为 navhard 则本条与 §3 的两条前提都要改**（见 [§9.7](sota-plan.md)）；**核清楚之前按"当时成立"引用**。
+1. **"榜上 SOTA ≠ 可复现 SOTA"**——第一名 **55.5 无代码**；第二名 **54.6（DrivoR）也无代码**（只承诺"will be made available"）；**GuideFlow 自报 43.0 与社区口径 27.1 差 15.9 分且不可复现**。→ **navhard 前二都拿不到代码，这个基准的"头部"目前是空的。** **⚠ 第六十九轮更正**：**TOAD（arXiv 2606.07170）的 NAVSIM-v2 结果已核实就是 navhard**（论文 §4.1 原文 "navhard-two-stage split"）→ **榜一由 55.5（DriveFuture）变为 56.3（TOAD + DrivoR）**；**但 TOAD 代码未发布**（"will be made publicly available"）→ **本条"头部拿不到代码"的结论仍然成立，只是换了名字**（见 [§9.7](sota-plan.md)）。
 2. **scorer（选优器）的量级远大于机制**——DriveFuture 同文受控消融**不含 scorer 只有 34.6，含 scorer 是 55.5** → **scorer ≈ +20**，而"加未来条件"这类机制只有 **+3.7**。→ **提分的最高杠杆不在"再加一轴机制"，而在"把选优这一环做好"**（这条修正了 `preparation.md` §5 原来的横切读法）。**⚠ 第四十一轮补**：这个 **+20 有三个成立条件**（基线**无**选择环节 / 候选池 **100 条** / 同文受控，见 [§7.2](sota-plan.md)）——**起点 DiffusionDrive 只有 20 锚点，拿不到它**（[§8.2](sota-plan.md)）→ **B 的目标与第一步已据此改写**（[§8.4](sota-plan.md)、[§8.5](sota-plan.md)）。
 3. **navhard 的分数被乘性违规项支配**——PDMS/EPDMS 的 NC 是 **0/1 乘性项**（一次碰撞即把该帧乘 0），navhard 全是困难场景 → **降违规的边际收益是非线性的**，与 navtest"挤在 88–91"完全不同。
 4. **我们的"小同行"比想象的小得多**——13 行里 **DrivoR / ZTRS / DriveSuprim 都是选择/评分式（非生成式）**，GTRS-E 是半生成，**只有 DriveFuture 与 DiffVLA 是纯生成式规划器**。→ **"小方向 SOTA"的分母很小**，这是"退而求其次"那条路的直接依据。**⚠ 第三十六轮更正**：DiffVLA 的**发布代码已把扩散头换成 EPDM 打分头**（§7.6）→ 按"**发布代码**"这个口径，**纯生成式规划器只剩 DriveFuture 一个，而它无代码**。→ **"有代码的纯扩散规划器"这个子榜在发布代码层面是空的**（DIVER 43.4 的代码跑不通、DiffVLA 45.0 的头被换掉）。
@@ -44,7 +44,7 @@
 | 子榜定义 | 当前持有者 | 需超过 | 空位？ |
 |---|---|---|---|
 | navhard 上**有代码的生成式/扩散规划器** | **GTRS-E 49.4**（半生成，含扩散生成器）；纯扩散最高是 **DiffVLA 45.0**（**⚠ 第三十六轮：发布代码无扩散头，45.0 不可复现**，见 §7.6） | **49.4**；**纯扩散在"发布代码"这个口径下为空** | 否 |
-| navhard 上**有代码的任意方法** | **SimScale 53.2**（但它**是框架不是规划器**；**✅ 第三十八轮：53.2 是新实现 `EPDMS`，其自报的 48.0 是旧实现 `EPDMS*`**，见 §7.7.5）；**⚠ 第六十八轮待核**：若 TOAD 的 56.3 是 navhard 则**持有者易主**（见 §9.7） | 53.2（**新实现口径**） | 否 |
+| navhard 上**有代码的任意方法** | **SimScale 53.2**（但它**是框架不是规划器**；**✅ 第三十八轮：53.2 是新实现 `EPDMS`，其自报的 48.0 是旧实现 `EPDMS*`**，见 §7.7.5）；**✅ 第六十九轮核实**：**榜上最高已是 TOAD + DrivoR 的 56.3，但 TOAD 代码未发布 → 本行"有代码"的持有者仍是 SimScale 53.2**（"有代码的最高"与"榜上最高"自此不是同一个数，引用时注意，见 §9.7） | 53.2（**新实现口径**） | 否 |
 | navhard 上**可复现的约束类** | **空**（GuideFlow 43.0 不可复现；PC-Diffuser 不在 NAVSIM） | — | **是** |
 | navhard 上**实时（≥10 Hz）** | **空**（navhard 侧**没有任何 FPS 报告**） | — | **是** |
 | navhard 上**无 scorer**（纯生成不选优） | DriveFuture 34.6 / GuideFlow 27.1 | 34.6 | 否 |
@@ -457,9 +457,9 @@ DriveFuture 论文 **§3.3 原文**给出了区分：
 
 **三条直接影响**：
 
-1. **⚠⚠ 出现一条可能推翻 §1 / §3 前提的待核项**：**TOAD 的 56.3 EPDMS 属 NAVSIM-v2 的哪个 split，摘要没写**（第六十八轮复核确认摘要原文只有 `NAVSIM-v2 (56.3 EPDMS)`，**未指明 split**）。**若它是 navhard，则 §1 的榜一易主**（原榜一 DriveFuture 55.5），而 §3 表里"navhard 上**有代码的任意方法** = SimScale 53.2"与 §2.1"榜上 SOTA ≠ 可复现 SOTA（榜一 55.5 无代码）"**两条子榜辩护前提都要改**。→ **在核清楚之前，§1 / §3 这两条按"当时成立"对待，不得引用为现状。**
+1. **✅ 已核实（第六十九轮）：TOAD 的 56.3 就是 navhard**——论文 §4.1 原文 "NAVSIM-v2 (**navhard-two-stage** split)"，§4.2 又写明 "DrivoR … gains +3.1% to reach **56.3 EPDMS**, outperforming the strongest learned method (**DriveFuture**, 55.5) … only 0.3 behind the privileged PDM-Closed (56.6)"。→ **§1 的榜一易主**：DriveFuture 55.5 → **TOAD + DrivoR 56.3**；§3 表里"navhard 上有代码的任意方法"一行的**持有者仍是 SimScale 53.2**（因为 **TOAD 代码未发布**，摘要只写 "will be made publicly available"）→ **"榜一拿不到代码"这条性质没变，只是换了名字**。**⚠ 但有一条更硬的发现**：TOAD 把头部**压平**了——六个 base planner 原本 **34.7–54.6**（差近 20 分），搜索后**全部落在 49.0–56.3**（iPad **+43.6%**、最强的 DrivoR 只 **+3.1%**）→ **"base planner 本身好不好"被大幅削弱**，而 TOAD **无需重训、只用公开 ckpt**（Hydra-MDP / GTRS / ZTRS / iPad / RAP / DrivoR）。
 2. **区分点必须落在"监督信号"上**：TOAD 用**现成冻结 scorer 当 reward 做搜索**、Vault 直接**学 scorer 去预测官方分**——"做选优"与"扩池"都已被占据 → 我们的卖点只能是**在线可得 vs 离线 GT 打分**这一轴（与 §9.6 ④ 一致，**现在多了两个必须避开的近邻**，且 TOAD 的"无需重训"恰好打在我们"冻结 + 小规模"的算力优势上）。
 3. **重合风险最高的是 DriveVer**（条件聚类 + 均衡采样造候选）——它几乎就是"候选池构造 × 监督"的同一命题，**差异化必须写清楚**。
 
-> **证据边界**：上表四条**均为摘要级**（ID / 标题 / 数字已复核，**方法细节、split 归属、venue、有无代码均未核**）；[scoring_line.md](../topics/diffusion-planner/papers/scoring_line.md) §二另有 **17 条线索级**（子代理检索所得，**arXiv ID / venue / 代码均未核**）——**两者在核验前都不得写进论文正文或方向依据**。
+> **证据边界**：上表四条中，**TOAD 的 split 归属已核到论文正文（全文级）**，其余字段与另三条**均为摘要级**（ID / 标题 / 数字已复核，**方法细节、venue、有无代码均未核**）；[scoring_line.md](../topics/diffusion-planner/papers/scoring_line.md) §二另有 **17 条线索级**（子代理检索所得，**arXiv ID / venue / 代码均未核**）——**未核部分不得写进论文正文或方向依据**。
 

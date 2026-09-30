@@ -15,16 +15,16 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第六十八轮（2026-09-30）**——**整合支线投递**：新增 [navhard 竞品登记表](projects/autonomous-driving/topics/diffusion-planner/papers/navhard_competitors.md)（DP-C01–C05）与 [选优器/候选池专线](projects/autonomous-driving/topics/diffusion-planner/papers/scoring_line.md)，并**独立复核**其中 4 篇最强对手 → **TOAD 报 v2 56.3 EPDMS 但未指明 split，若为 navhard 则榜一易主**（已在三处标 ⚠、进待续第 23 项）；`AGENTS.md` 入口加「并行会话」一行（→ [rounds-68.md](projects/autonomous-driving/history/rounds-68.md)）。
+**最新一轮：第六十九轮（2026-09-30）**——**核实 TOAD 的 split**：其 v2 56.3 EPDMS **就是 navhard**（论文 §4.1 原文）→ **navhard 榜一由 DriveFuture 55.5 变为 TOAD+DrivoR 56.3**（TOAD 代码未发布，故"头部拿不到代码"仍成立）；**附带更硬的发现是"头部被压平"**（六个 base planner 原 34.7–54.6 → 搜后全落 49.0–56.3，且**无需重训**）→ 新增判断「**"做选优"已被"测试时搜索"占据**」，方向 B 的叙事须移到"监督信号"上（→ [rounds-69.md](projects/autonomous-driving/history/rounds-69.md)）。
 
-**上一轮：第六十七轮（2026-09-30）**——**整合两篇支线投递**（规则矛盾 / 机制复核）：**理正轮次收尾步序**（第 7 步检查须在第 9 步整合之后跑；第 8 步 `exit 0` 门槛只约束轮次收尾提交）+ **取消 `CURRENT.md` 的「待整合投递」区**（恢复单写者——该区既是唯一被豁免的多写者文件，又是 `ls inbox/` 的冗余副本）（→ [rounds-67.md](projects/autonomous-driving/history/rounds-67.md)）。
+**上一轮：第六十八轮（2026-09-30）**——**整合支线投递**：新增 [navhard 竞品登记表](projects/autonomous-driving/topics/diffusion-planner/papers/navhard_competitors.md)（DP-C01–C05）与 [选优器/候选池专线](projects/autonomous-driving/topics/diffusion-planner/papers/scoring_line.md)，并**独立复核**其中 4 篇最强对手（→ [rounds-68.md](projects/autonomous-driving/history/rounds-68.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 50 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 51 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
+| **第六十九轮** | [rounds-69.md](projects/autonomous-driving/history/rounds-69.md) — 核实 TOAD split → navhard 榜一易主（→ [judgments.md](projects/autonomous-driving/judgments.md) D 组、[sota-plan.md §9.7](projects/autonomous-driving/ideas/sota-plan.md)） |
 | **第六十八轮** | [rounds-68.md](projects/autonomous-driving/history/rounds-68.md) — 整合竞品表 + 选优专线；复核 TOAD/Vault/DriveVer/BeyondDrive（→ [sota-plan.md §9.7](projects/autonomous-driving/ideas/sota-plan.md)） |
-| **第六十七轮** | [rounds-67.md](projects/autonomous-driving/history/rounds-67.md) — 整合两篇投递：理正收尾步序 + 取消 `CURRENT.md` 投递登记区（→ [ai/workflows.md §轮次收尾](ai/workflows.md)、[ai/rules.md §支线协作纪律](ai/rules.md)） |
 | **第六十六轮** | [rounds-66.md](projects/autonomous-driving/history/rounds-66.md) — 机制实测 + 修规则自相矛盾 + 落盘沙箱/覆盖边界（→ [ai/rules.md §执行与清理纪律](ai/rules.md) 第 10 条） |
 | **第六十五轮** | [rounds-65.md](projects/autonomous-driving/history/rounds-65.md) — 收敛三处冗余（检查清单 / git 命令 / 两文原则节） |
 | **第六十四轮** | [rounds-64.md](projects/autonomous-driving/history/rounds-64.md) — `check_links` 的「文档体积预算」检查（→ [check_links.py](shared/scripts/check_links.py)） |
