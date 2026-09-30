@@ -15,15 +15,16 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第六十轮（2026-09-30）**——整合支线投递：**安装协作纪律**（`ai/rules.md` 新增 §支线协作纪律、`workflows.md` §轮次收尾第 9 步「整合 inbox 投递物」、新建 [history/CURRENT.md](projects/autonomous-driving/history/CURRENT.md)）＋关闭 4 项遗留（补具身 VLA/WM 两表的 §1.1、S2 venue 警告只进 `tools.md`、清理未执行已登记、`/tmp` 违规在规则层堵住）→ [rounds-60.md](projects/autonomous-driving/history/rounds-60.md)。
+**最新一轮：第六十一轮（2026-09-30）**——**完善并行会话的同步机制**：第六十轮把支线提案原样装进去，本轮检查它**自己会不会失效**，查出四个漏洞（只有软通道 / 方向单向 / 无恢复程序 / 投递物无结构）→ 补 **通道 B（写文件前必跑 `git log` + `git status`）**、**恢复程序**、**[投递物模板](ai/templates.md)**，纪律重写为 4 节 12 条（→ [rounds-61.md](projects/autonomous-driving/history/rounds-61.md)、[ai/rules.md §支线协作纪律](ai/rules.md)）。
 
-**上一轮：第五十九轮（2026-09-30，支线）**——用免费 S2 官方 API 补齐之前拿不到的信息：VLA 表引用数 **7 → 14 篇**、四篇 venue 缺口补上（T4 判定确认）、**GR00T N1 引用数悬案关闭**；同时发现 S2 的 `venue` 字段会**系统性误记**（→ [rounds-59.md](projects/autonomous-driving/history/rounds-59.md)）。
+**上一轮：第六十轮（2026-09-30）**——整合支线投递：**安装协作纪律**（`ai/rules.md` 新增 §支线协作纪律、`workflows.md` §轮次收尾第 9 步、新建 [history/CURRENT.md](projects/autonomous-driving/history/CURRENT.md)）＋关闭 4 项遗留（补具身 VLA/WM 两表的 §1.1、S2 venue 警告只进 `tools.md`、清理未执行已登记、`/tmp` 违规在规则层堵住）→ [rounds-60.md](projects/autonomous-driving/history/rounds-60.md)。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 41 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 42 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
-| **第六十轮** | [rounds-60.md](projects/autonomous-driving/history/rounds-60.md) — 整合支线投递：协作纪律 + 关闭 4 项遗留（→ [ai/rules.md §支线协作纪律](ai/rules.md)、[history/CURRENT.md](projects/autonomous-driving/history/CURRENT.md)） |
+| **第六十一轮** | [rounds-61.md](projects/autonomous-driving/history/rounds-61.md) — 完善并行会话的同步机制（→ [ai/rules.md §支线协作纪律](ai/rules.md)、[ai/templates.md §支线投递物](ai/templates.md)） |
+| **第六十轮** | [rounds-60.md](projects/autonomous-driving/history/rounds-60.md) — 整合支线投递：协作纪律 + 关闭 4 项遗留（→ [history/CURRENT.md](projects/autonomous-driving/history/CURRENT.md)） |
 | **第五十九轮** | [rounds-59.md](projects/autonomous-driving/history/rounds-59.md) — S2 官方 API 补齐 VLA 表缺口（引用数 14/14、venue、GR00T N1 悬案）+ 发现 S2 venue 系统性误记 |
 | **第五十八轮** | [rounds-58.md](projects/autonomous-driving/history/rounds-58.md) — 工作流与工作空间整理（审计 + 修 stale） |
 | **第五十七轮** | [rounds-57.md](projects/autonomous-driving/history/rounds-57.md) — 按需补齐 8 张论文表的质量依据/证据等级/代码状态（⚠ 当时**实际只提交了 6 张**；缺的具身侧 VLA / 世界模型两张已由**第六十轮补上**） |
