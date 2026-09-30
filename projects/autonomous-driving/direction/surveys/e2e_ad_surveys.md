@@ -75,6 +75,19 @@
 | S044 | C | [A survey of transformer architectures for autonomous driving](https://doi.org/10.1016/j.eswa.2025.130338) | Fulin Chu et al. | Expert Systems with Applications，卷期 2026-03；online record 2025-11 | 按检测、融合、预测、规划、意图预测分类；摄像头/LiDAR/radar/HD map；讨论 E2E、CoT、神经符号和边缘部署 | 系统级 Transformer 与多模态输入；具体 benchmark 需全文核验 | 13；Crossref/OpenAlex 摘要。DOI 年份与卷期年份不同，按一条记录 |
 | S045 | C | [Ranging from prediction to planning via machine learning approaches for autonomous driving: a survey](https://doi.org/10.1007/s10462-026-11604-8) | Ding Li、Qichao Zhang、D. M. Zhao | Artificial Intelligence Review，2026-06-08 | marginal/conditional/interactive prediction-and-planning；涉及 modular 与 E2E、LLM、world model、蒸馏、RLHF、长尾 | 强调交互式预测规划和评价平台 | 0；OpenAlex+Crossref+出版社摘要。作为交互预测与 E2E 规划的待复核补充 |
 
+## 逐行质量依据（T 档，2026-09-30 补）
+
+> 判据见 [literature-quality.md](../../../../shared/literature-quality.md) §4。本表 45 条中**只有 5 篇读到全文**（见各行「引用数；证据与用途」列），其余为元数据或摘要级。按「按需」原则，**只给已读全文的 5 篇归档**；其余统一标「未核」——它们的 T1 判定需要逐条核 venue/团队，成本高且**非选题依赖**（本表用途是背景与定位，不是提分依据）。
+
+| ID | T 档 | 依据（可复核） |
+|---|---|---|
+| S001 | T1 | IEEE TPAMI 2024（CCF-A）；引用 569 |
+| S002 | T1 | IEEE TIV 2024（白名单）；引用 294 |
+| S031 | T1 | IEEE TITS 2025（白名单）；引用 20 |
+| S032 | 待核 | 仅 arXiv（**本项目规划口径主锚**，已读全文） |
+| S033 | 待核 | 仅 arXiv（后训练 E2E，已读全文） |
+| 其余 40 条（S003–S030、S034–S045） | 未核 | 元数据/摘要级；多数已正式发表但**未逐条核 venue 与团队** |
+
 ## 去重与版本关系
 
 1. `S001`、`S002`、`S004`、`S006`、`S008`、`S017`、`S019`、`S021`、`S031` 同时保留正式 DOI 与可访问预印本，但每个研究只占一行。

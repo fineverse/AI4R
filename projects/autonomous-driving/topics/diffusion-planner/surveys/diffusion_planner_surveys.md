@@ -79,6 +79,27 @@
 | DP-S13 | Diffusion Policies for Embodied Robotic Intelligence: A Survey；ICICC 2026 | 无 arXiv 记录，未找到可核验入口（OpenAlex 也无匹配记录） |
 | DP-S10 | A Survey on Flow Matching for Robotic Trajectory Generation and Control；ICTC 2025，[DOI](https://doi.org/10.1109/ICTC66702.2025.11388651) | Crossref 元数据已核验（会议论文），但 **OpenAlex 无匹配记录、arXiv 无预印本**；作者、摘要、分类框架均未取到，需 IEEE 全文 |
 
+## 逐行质量依据（T 档，2026-09-30 补）
+
+> 判据见 [literature-quality.md](../../../../../shared/literature-quality.md) §4。领域白名单（§5）**不含** Frontiers / TechRxiv / IEEE IoT-J，故这几条按「待核」处理而非硬套 T1。**T3 的依据（被详论/被对比）本轮未逐条取证**，故综述表只给 T1/T2/T4 与「待核」四类。
+
+| ID | T 档 | 依据（可复核） |
+|---|---|---|
+| DP-S01 | T4 | 仅 arXiv（无正式版 DOI）；有配套资产仓库；引用 12 |
+| DP-S02 | T4 | 仅 arXiv（标注 Under Review）；有配套资产 |
+| DP-S03 | 待核 | Frontiers in Robotics and AI（**不在白名单**）；引用 30 |
+| DP-S04 | T2 | TMLR **Survey Certification**（白名单期刊） |
+| DP-S05 | 待核 | IEEE IoT-J（**不在白名单**） |
+| DP-S06 | 待核 | 仅 arXiv（标注 under review，Foundations and Trends in Robotics） |
+| DP-S07 | T4 | 仅 arXiv；有配套资产仓库 |
+| DP-S08 | 待核 | 仅 arXiv；44 页综述，无 venue |
+| DP-S09 | T2 | RLC 2026 录用；有配套资产 |
+| DP-S10 | 待核 | ICTC 2025（付费墙，Crossref 元数据已核；作者/摘要未取到） |
+| DP-S11 | T1 | ACM Computing Surveys（CCF-A；已读全文） |
+| DP-S12 | 待核 | TechRxiv（**不在白名单**，403 未取全文） |
+| DP-S13 | 待核 | 无 arXiv、未找到可核验入口 |
+| DP-S14 | T2 | ICLR 2025 **Spotlight**；有代码（DiffusionVeteran） |
+
 ## 本次检索确认的空白
 
 未检索到**专门针对"扩散引导采样 / 安全约束注入"的专题综述**：现有引导与约束内容多内嵌于上表综述，或散落在单篇方法论文中（如 SafeFlowMatcher、PC-Diffuser、G2SD、LSC）。若后续 idea 落在"约束/引导"，需要自己从方法论文汇编，而不是引用现成综述。

@@ -112,6 +112,43 @@
 
 **限制**：PMLR/ICML 类论文在 OpenAlex 只有 arXiv 记录，引用数被严重低估；本表不把引用数用于排序。
 
+## 逐行质量依据（T 档，2026-09-30 补）
+
+> 判据见 [literature-quality.md](../../../../../shared/literature-quality.md) §4；引用数口径见上节「影响力快照」。**标「待核」= venue/团队/代码信号不足，暂不归档**。具身侧多为摘要级（见 §证据边界），故 T 档判据主要靠 venue 与代码可用性两项。
+
+| ID | T 档 | 依据（可复核） |
+|---|---|---|
+| DP-E01 Diffuser | T1 | ICML 2022（CCF-A）；引用 62（被低估） |
+| DP-E02 Decision Diffuser | T1 | ICLR 2023（CCF-A）；引用 32（被低估） |
+| DP-E03 Diffusion-QL | T1 | ICLR 2023（CCF-A） |
+| DP-E04 DiffuserLite | T1 | NeurIPS 2024（CCF-A）；引用 10 |
+| DP-E05 DIPOLE | T4 | 仅 arXiv；有代码（主仓占位、真代码在 submodule） |
+| DP-E06 MPDiffuser | T4 | 仅 arXiv；有代码（权重/数据不可得） |
+| DP-E07 SDGD | 待核 | 仅 arXiv（ICLR 2026 被拒）；无官方代码 |
+| DP-E08 SafeFlowMatcher | T2 | ICLR 2026 poster（CCF-A）；**无公开仓库** |
+| DP-E09 Diffusion Policy | T1 | RSS 2023 + IJRR 2024（白名单）；引用 531 |
+| DP-E10 DP3 | T1 | RSS 2024（白名单）；引用 181 |
+| DP-E11 Consistency Policy | T1 | RSS 2024（白名单，venue 取自 OpenAlex）；引用 50 |
+| DP-E12 Equivariant DP | T1 | CoRL 2024 **Oral**（白名单） |
+| DP-E13 DiT Policy | 待核 | 仅 arXiv；代码未核验 |
+| DP-E14 FLOWER | T1 | CoRL 2025（白名单）；有代码（两仓） |
+| DP-E15 DPPO | T4 | 仅 arXiv；代码未核验（项目页） |
+| DP-E16 Freeze/Share/Shrink | 待核 | 仅 arXiv（RSS2026-Diff4RL workshop）；**无代码** |
+| DP-E17 NoMaD | T4 | 仅 arXiv；有代码（L1）；引用 125 |
+| DP-E18 MulDP | T2 | IROS 2026（白名单） |
+| DP-E19 π0 | T4 | 仅 arXiv；有代码（L1）；引用 236 |
+| DP-E20 π0.5 | T4 | 仅 arXiv；同 openpi 代码 |
+| DP-E21 RDT-1B | T4 | 仅 arXiv；有代码 + HF 权重 |
+| DP-E22 GR00T N1 | T4 | 仅 arXiv；有代码 + HF 权重（⚠ 仓库已漂移） |
+| DP-E23 Reverse Flow Matching | T2 | ICML 2026 **Spotlight**（CCF-A）；有代码 |
+| DP-E24 FMER | 待核 | 仅 arXiv；代码未核验 |
+| DP-E25 VGFM | T2 | IROS 2026（白名单）；代码未核验 |
+| DP-E26 ForeDiffusion | 待核 | 仅 arXiv；代码未核验 |
+| DP-E27 WorldDP | 待核 | 仅 arXiv；代码未核验 |
+| B009 RoboMimic | T1 | CoRL 2021（白名单）；引用 71 |
+| B010 LIBERO | T1 | 会议论文；引用 88 |
+| B011 EBench | 待核 | 仅 arXiv（2026-06） |
+
 ## 证据边界
 
 - 标注 `全文` 的条目为子代理抓取 arXiv HTML 并逐节提取，**HTML 表格数值常丢失**，凡正文未复述的数字标"未获取"。

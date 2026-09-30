@@ -137,6 +137,50 @@
 
 读法：**只有 DP-A02、DP-A09、DP-A33 的引用数达到可用量级**；2025 年底之后的论文引用数全部为 0，说明"用引用数判断影响力"在这个快速迭代的子领域基本失效，应改用"是否被同基准直接对比"作为线索。
 
+## 逐行质量依据（T 档，2026-09-30 补）
+
+> 判据与分档定义见 [literature-quality.md](../../../../../shared/literature-quality.md) §4（T1 已发表且 venue 在 CCF/白名单；T2 预印本已核实录用；T3 被综述详论/同期对比；T4 强团队 +（代码 或 独特方法）；T5 其余）。引用数口径见上节「影响力快照」。**标「待核」= venue/团队/代码信号不足，暂不归档**（不硬凑）。
+
+| ID | T 档 | 依据（可复核） |
+|---|---|---|
+| DP-E01 Diffuser | T1 | ICML 2022（CCF-A）；奠基条目，完整登记在具身表 |
+| DP-A01 Diffusion Planner | T4 | 仅 arXiv（录用未获取）；清华 AIR 团队 + 有代码；引用 2 |
+| DP-A02 DiffusionDrive | T1 | CVPR 2025 **Highlight**；引用 81 |
+| DP-A03 DiffusionDriveV2 | T4 | 仅 arXiv；hustvl 团队 + 有代码 |
+| DP-A04 AnchDrive | 待核 | Springer CCIS 2026（**非** CCF/白名单）；**无官方代码**；引用 2 |
+| DP-A05 DriveAnchor | T4 | 仅 arXiv；美团 + 方法独特（2398 词表 + 零阶 RL）；无代码 |
+| DP-A06 HDP | T4 | 仅 arXiv；清华 AIR 团队 + 有代码 |
+| DP-A07 UniTeD | T2 | ECCV 2026（白名单） |
+| DP-A08 BridgeDrive | T2 | ICLR 2026（白名单）+ 有代码 |
+| DP-A09 GoalFlow | T1 | CVPR 2025；引用 28 |
+| DP-A10 FlowDrive | T4 | 仅 arXiv；有代码 |
+| DP-A11 Flow Planner | T2 | NeurIPS 2025（CCF-A）+ 有代码 |
+| DP-A12 GuideFlow | T4 | 仅 arXiv；有代码（但机制不在评测路径，见正文） |
+| DP-A13 WAM-Flow | T4 | 仅 arXiv；复旦团队 + 有代码 |
+| DP-A14 MeanFuser | T2 | CVPR 2026 + 有代码 |
+| DP-A15 DirectControlFM | T2 | ITSC 2026 口头（白名单） |
+| DP-A16 DIVER | T1 | TPAMI 2026（CCF-A）；引用 1 |
+| DP-A17 DIPOLE | — | 通用决策域**指针行**，见具身表 DP-E05 |
+| DP-A18 FeaXDrive | T4 | 仅 arXiv；有代码 |
+| DP-A19 RoG-DAgger | 待核 | 仅 arXiv；**无代码、无独特方法** → 可能落 T5 |
+| DP-A20 SafeFlowMatcher | — | 非驾驶域**指针行**，见具身表 DP-E08 |
+| DP-A21 PC-Diffuser | T2 | IROS 2026（白名单）+ 有代码；方法独特（认证级硬约束） |
+| DP-A22 G2SD | T4 | 仅 arXiv；无代码但方法独特（结构层约束，与去噪内注入相反） |
+| DP-A23 MPDiffuser | — | 通用决策域**指针行**，见具身表 DP-E06 |
+| DP-A24 SDGD | — | 通用安全 RL 域**指针行**，见具身表 DP-E07 |
+| DP-A25 DAPSE | 待核 | ECCV 2026 **workshop**（非主会）；无代码；KTH 硕士论文 → 团队信号弱 |
+| DP-A26 LCS | T2 | IROS 2026（白名单）+ 有代码 |
+| DP-A27 DiffVLA | T4 | 仅 arXiv（4 页技术报告）；博世 + 有代码（**发布版已换头**） |
+| DP-A28 ReCogDrive | T4 | 仅 arXiv；小米团队 + 有代码 |
+| DP-A29 DriveFine | 待核 | 仅 arXiv；**零代码**（占位仓库）；方法独特 → 见 [C003 §K](../../../code/traces/diffusion_planner_code_traces-2.md) |
+| DP-A30 KnowDiffuser | 待核 | 仅 arXiv；无代码；Monash / Utah |
+| DP-A31 DriveFuture | T4 | 仅 arXiv；**无代码**但方法独特（navhard 榜首 55.5） |
+| DP-A32 DiffuSearch | 待核 | ECCV 2026 **workshop**；无代码；Bosch / 吕贝克大学 |
+| DP-A33 DiMA | T1 | CVPR 2025；引用 18（**相邻对照，非扩散**） |
+| DP-A34 Versatile Samples | 待核 | 仅 arXiv；无代码；Purdue + Bosch |
+
+> **说明**：本表当年建表用的是"纳入/证据规则"（§纳入与证据规则），**未按 T 档分档**；此节为 2026-09-30 补，依据全部来自本表已有列（载体与版本、代码、影响力快照），**未新查 OpenAlex**。`待核` 条目若要归档，需补 venue 三渠道核验 + 团队信号。
+
 ## 证据边界
 
 - 标注 `全文` 的条目由子代理抓取 arXiv HTML 或 PDF（`pdftotext -layout`）逐节/逐表提取。**DP-A21/A12/A22/A18 与 DP-E08 的关键论断已由本线程下载 PDF 并 grep 复核**；DP-A02/A08/A14/A16/A31 的表格数值亦经 PDF 核对。

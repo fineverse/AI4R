@@ -44,6 +44,41 @@
 
 **阶段归属**：VLA-01/02 属阶段 1（解释器）；03–08 属阶段 2（模块化）；09–14 与 **19** 属阶段 3（端到端）；15–18 属阶段 4（推理增强）；**20–28 属阶段 3/4 的 2025–2026 增补（第二十四轮从边界外补入）**。分界标志见 [lineage.md](lineage.md)。
 
+## 1.1 逐行证据等级与代码状态（2026-09-30 补，供跨表检索）
+
+> 证据等级定义见 [rules.md](../../../../ai/rules.md) §证据等级；代码状态取自 §2 与本表各行「质量依据」列 + [repositories.md §E](../../code/repositories.md)，**未新查**。
+
+| 编号 | 证据等级 | 代码状态 |
+|---|---|---|
+| VLA-01 DriveGPT4 | 全文 | 无代码（项目页指向清华云盘） |
+| VLA-02 ADriver-I | 全文 | 无代码 |
+| VLA-03 OpenDriveVLA | 全文 + 代码 L1 | **有代码**（落盘逐文件核验） |
+| VLA-04 DriveMoE | 全文 | 只有项目页（无仓库） |
+| VLA-05 SafeAuto | 全文 + 代码 L3 | **有代码**（完整） |
+| VLA-06 DiffVLA | 全文 + 代码 L3 | **有代码但发布版换头**（45.0 不可复现） |
+| VLA-07 ReCogDrive | 全文 + 代码 L3 | **有代码**（611★，核验在研究对象侧） |
+| VLA-08 KnowDiffuser | 全文 | = DP-A30（见研究对象表） |
+| VLA-09 EMMA | 全文 | 无代码 |
+| VLA-10 CoVLA | 全文 | 只有数据集（HF），无代码 |
+| VLA-11 AutoVLA | 全文 + 代码 L3 | **有代码**（API 逐文件取证） |
+| VLA-12 Impromptu VLA | 全文 + 代码 L3 | **有代码** |
+| VLA-13 DriveVLM | 全文 | 无代码（= E2E-10，项目主页） |
+| VLA-14 DriveLM | 全文 | 有仓库（数据/挑战赛工具为主） |
+| VLA-15 ORION | 全文 + 代码 L3 | **有代码** |
+| VLA-16 MindDrive | 全文 + 代码 L3 | **有代码** |
+| VLA-17 Drive My Way | 全文 + 代码 L3 | **有代码** |
+| VLA-18 ExploreVLA | 全文 | 无仓库（只有项目页） |
+| VLA-19 SimLingo | 全文 + 代码 L3 | **有代码**（补上 N_w/N_p） |
+| VLA-20 AutoMoT | 全文 + 代码 L3 | **有代码但扩散头未发布** |
+| VLA-21 NuInteract | 全文 + 代码 L3 | **有代码**（DriveMonkey，真实发布） |
+| VLA-22 VaViM/VaVAM | 全文 + 代码 L3 | **有代码+权重** |
+| VLA-23 UniDriveVLA | 全文 | **有代码+模型+数据** |
+| VLA-24 LaST-VLA | 全文 | 有仓库但四项未发布（不可复现） |
+| VLA-25 Reasoning-VLA | 全文 + 代码 L3 | 代码空壳（113 B README） |
+| VLA-26 SpanVLA | 全文 | 无仓库 |
+| VLA-27 Counterfactual VLA | 全文 | 无仓库 |
+| VLA-28 DriveAction | 全文 | 只有数据集，无代码 |
+
 ## 2. 证据边界
 - **在表 28 篇**（VLA-01–28），**全部 28 篇均已读全文**（第一轮建表的 19 篇 + 第二十四轮补入的 20–28；最后 5 篇 01/02/05/12/28 于第二十五轮补齐，见 §14）。
 - **代码核验**：**14 篇已做源码级核验**——**DiffVLA（§4.4，第三十六轮 L3）**、AutoVLA / OpenDriveVLA（§5）、SimLingo（§6）、**ORION / MindDrive / Drive My Way（§7）**、**SafeAuto 与 Impromptu VLA（§8）**、**AutoMoT（§9）**、**VaViM/VaVAM（完整，§11.1）、Reasoning-VLA（空壳仓库，§11.2）、Counterfactual VLA（无仓库，§11.3）**、**NuInteract / DriveMonkey（真实发布，§12）**；**ExploreVLA / DriveMoE 无仓库可核**；**本表没有任何一篇在本地运行过**（全部为静态检查）。**注**：§10–§14 是**全文级**（`WebFetch`/`curl` 读 HTML + PDF）；**代码侧只有 §11.1 VaVAM 与 §12 DriveMonkey 是"完整可训练"**——SpanVLA 无仓库、LaST-VLA 四项全未发布、Reasoning-VLA 空壳、CF-VLA 只有项目主页、EMMA / CoVLA / DriveGPT4 / ADriver-I / DriveAction 无代码。

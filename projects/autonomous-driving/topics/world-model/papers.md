@@ -40,6 +40,37 @@
 **分类归属**：WM-01/02 属视觉空间；03–05 属 4D/占据空间；06–09 属潜空间；10/11 属矢量化空间；12/13 属统一生成+规划；14–16 属闭环 RL；17–19 属"作为条件"；20 是评价基准。分界标志见 [lineage.md](lineage.md)。  
 **第二十四轮新增 4 条按同一口径归类**：**WM-21 DriveDreamer → 视觉空间**；**WM-22 RenderWorld → 4D/占据空间**；**WM-23 Imagine-2-Drive → 闭环 RL 的新子类"世界模型当想象环境"**；**WM-24 WoTE → 新类别"选优器"**（与 WM-01 并列，但 WM-01 是命令级选优、WM-24 是轨迹级选优）。
 
+## 1.1 逐行证据等级与代码状态（2026-09-30 补，供跨表检索）
+
+> 证据等级定义见 [rules.md](../../../../ai/rules.md) §证据等级；代码状态取自本表各行「质量依据」列 + [repositories.md §D](../../code/repositories.md) + [C004](../../code/traces/world_model_code_traces.md)，**未新查**。
+
+| 编号 | 证据等级 | 代码状态 |
+|---|---|---|
+| WM-01 Drive-WM | 全文 + 代码 L1 | 有代码但**范围不符**（仅图像生成侧，无 tree planner） |
+| WM-02 DriveWorld | 全文 | 无官方代码 |
+| WM-03 OccWorld | 全文 + 代码 L1 | **有代码**（世界模型 + 规划器齐全） |
+| WM-04 Drive-OccWorld | 全文 + 代码 L3 | **有代码** |
+| WM-05 Implicit Residual WM | 全文 | 有仓库（同仓 `ir-wm` 分支），**未核验** |
+| WM-06 Latent World Model | 全文 + 代码 L3 | **有代码** |
+| WM-07 World4Drive | 全文 + 代码 L3 | **有代码** |
+| WM-08 DLWM | 全文 | 无官方代码 |
+| WM-09 DriveFuture | 全文 | 无代码（= DP-A31） |
+| WM-10 TrafficBots | 全文 + 代码 L1 | **有代码** |
+| WM-11 DriveLaW | 全文 + 代码 L3 | **有代码** |
+| WM-12 DrivingGPT | 全文 | 仓库**不存在** |
+| WM-13 UniDrive-WM | 全文 | 只有项目页（无代码） |
+| WM-14 Think2Drive | 全文 | 无官方代码 |
+| WM-15 AdaWM | 全文 + 代码 L1 | **有代码** |
+| WM-16 Raw2Drive | 全文 + 代码 L1 | 仓库**只有 README** |
+| WM-17 Policy World Model | 全文 + 代码 L1 | **有代码**（世界模型 + 规划头齐全） |
+| WM-18 WorldRFT | 全文 + 代码 L1 | 仓库**为空** |
+| WM-19 FutureX | 全文 | 无官方代码 |
+| WM-20 DrivingGen | 全文 + 代码 L3 | **有代码** |
+| WM-21 DriveDreamer | 全文 | 代码**范围不符**（只有生成侧） |
+| WM-22 RenderWorld | 全文 | 无官方代码 |
+| WM-23 Imagine-2-Drive | 全文 | 代码未发布 |
+| WM-24 WoTE | 全文 + 代码 L3 | **有代码**（256 锚 + argmax 选优） |
+
 ## 2. 证据边界
 
 - **全部 24 篇已读全文**（§4）——本表**不再有摘要级条目**。
