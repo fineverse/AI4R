@@ -26,6 +26,9 @@
 **为什么跳过 `.trae`**：那是 IDE 产物（计划文件、skill），不属于工作空间知识树，
 其正文按仓库根书写路径（如 `projects/...`），与本检查器「相对当前文件」的口径不同。
 **弱引用检查额外豁免 `raw/`**：检索日志的唯一正当入口就是 `sources.md` 的登记行。
+**孤儿检查额外豁免 `inbox/`**（2026-09-30 加）：那是支线会话的**转运区**，投递物在被主线程整合前
+**本就不该有入链**（见 `ai/rules.md` §支线协作纪律）。若不豁免，"支线只投递、不改共享索引"与
+"孤儿必须为 0"两条规则会互相打架——支线要么违规去改共享索引，要么让这项检查永久报红。
 **链接扫描跳过两类"假链接"**：``` 围栏代码块（模板示例）与**行内代码跨度** `` `[x](y)` ``（写文档时举例说明链接写法）。
 """
 import os, re, sys, csv
@@ -141,6 +144,9 @@ for p, n, ncol, got in bad_tables:
 # —— 与死链检查豁免 `archive` 同理。
 INDEX_ONLY = {"sources.md"}
 WEAK_EXEMPT_DIRS = ("raw",)
+# 孤儿检查豁免的目录。`inbox/` 是支线会话的转运区：投递物在被主线程整合前不应有入链，
+# 否则"支线只投递、不改共享索引"与"孤儿必须为 0"两条规则会互相打架（2026-09-30 加）。
+ORPHAN_EXEMPT_DIRS = ("inbox",)
 refs = {}
 for path in md_files:
     with open(path, encoding="utf-8", errors="ignore") as fh:
@@ -158,14 +164,17 @@ for path in md_files:
                 resolved = os.path.normpath(os.path.join(os.path.dirname(path), t))
                 refs.setdefault(resolved, set()).add(path)
 
-orphan, weak, exempt = [], [], 0
+orphan, weak, exempt, orphan_exempt = [], [], 0, 0
 for path in md_files:
     srcs = {s for s in refs.get(os.path.normpath(path), set())
             if os.path.normpath(s) != os.path.normpath(path)}
+    parts = set(os.path.relpath(path, ROOT).split(os.sep))
     if not srcs:
-        orphan.append(os.path.relpath(path, ROOT))
+        if parts & set(ORPHAN_EXEMPT_DIRS):
+            orphan_exempt += 1
+        else:
+            orphan.append(os.path.relpath(path, ROOT))
     elif all(os.path.basename(s) in INDEX_ONLY for s in srcs):
-        parts = set(os.path.relpath(path, ROOT).split(os.sep))
         if parts & set(WEAK_EXEMPT_DIRS):
             exempt += 1
         else:
@@ -178,7 +187,7 @@ for p in orphan:
 print(f"只被 sources.md 引用（弱引用，应补论文表/脉络里的指针）: {len(weak)}")
 for p in weak:
     print(f"  {p}")
-print(f"（已豁免 raw/ 检索日志 {exempt} 篇）")
+print(f"（已豁免 raw/ 检索日志 {exempt} 篇、inbox/ 投递物 {orphan_exempt} 篇）")
 
 # ---- 分册引用归属检查（2026-09-24 新增）----
 # 起因：拆册后正文引用没跟着改册，**这类坑已踩两次**——第二十八轮 C003 的 §I–§P 共 52 处，
