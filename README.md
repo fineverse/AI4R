@@ -15,12 +15,15 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第五十六轮（2026-09-29）**——补齐第四十九至五十四轮漏掉的指针 + **HF checkpoint 定位**（待续清单第 17 项的下载阻塞解除）（→ [rounds-56.md](projects/autonomous-driving/history/rounds-56.md)）。
+**最新一轮：第五十七轮（2026-09-30）**——按需补齐 8 张论文表的「质量依据 T 档 / 证据等级 / 代码状态」（→ [rounds-57.md](projects/autonomous-driving/history/rounds-57.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 31 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**上一轮：第五十六轮（2026-09-29）**——补齐第四十九至五十四轮漏掉的指针 + **HF checkpoint 定位**（待续清单第 17 项的下载阻塞解除）（→ [rounds-56.md](projects/autonomous-driving/history/rounds-56.md)）。
+
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 39 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
+| **第五十七轮** | [rounds-57.md](projects/autonomous-driving/history/rounds-57.md) — 按需补齐 8 张论文表的质量依据/证据等级/代码状态 |
 | **第五十六轮** | [rounds-56.md](projects/autonomous-driving/history/rounds-56.md) — 补 49–54 轮指针 + HF checkpoint 定位（`datasets/OpenDriveLab/SimScale`） |
 | **第五十五轮** | [rounds-55.md](projects/autonomous-driving/history/rounds-55.md) — 网络排查（TUN fake-ip / HF 解锁）+ [工具与凭据](shared/tools.md) 固化 + VLA 表补 S2 口径引用数 |
 | **第五十四轮** | [rounds-54.md](projects/autonomous-driving/history/rounds-54.md) — 把完整政策分与候选池诊断分开（→ [protocol.md](projects/autonomous-driving/experiments/protocol.md)） |

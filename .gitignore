@@ -16,6 +16,7 @@ __pycache__/
 
 # ── IDE 产物（不属于知识树；check_links.py 的 SKIP_DIRS 亦跳过）──
 .trae/
+.vscode/
 
 # ── 系统 ──
 .DS_Store
