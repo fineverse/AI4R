@@ -26,7 +26,7 @@ source /home/verse/dev/AI4R/shared/tools.env
 | Crossref | ✅ | DOI、卷期、出版年 | 无 | 免费 |
 | Consensus REST | ✅ | 语义检索、结论摘要 | `x-api-key` | 30 次/月（免费档） |
 | Ai4Scholar | ✅ **付费** | 批量、引用网络、Google Scholar、PubMed | `Bearer` | 积分制，1 次≈1–2 积分 |
-| Semantic Scholar 官方 | ⚠️ 需 key | 影响力引用数、推荐 | `x-api-key` | 无 key 不可用；免费 key = 1 req/s |
+| Semantic Scholar 官方 | ✅ **有 key** | 引用数、影响力引用数、批量、推荐 | `x-api-key` | 1 req/s；**429 间歇，需重试** |
 | Semantic Scholar MCP / Consensus MCP | ❌ MCP 通道不可用 | — | — | 改用对应 REST API |
 
 ## 各工具细节
@@ -39,10 +39,14 @@ source /home/verse/dev/AI4R/shared/tools.env
 - 按标题检索取**正式版记录**才有真实引用数
 - 按 `doi:10.48550/arxiv.<id>` 查到的是 arXiv 存根记录，**引用数一律为 0**
 
-### Semantic Scholar 官方 API
-- **未认证 = 不可用**。429 是**全局共享池饱和**（非本地配额），**等待无效**——实测隔 15 秒重试 3 次全 429，单条 GET 连续 7 次仅 1 次穿透
-- 唯一解法：申请[免费 key](https://www.semanticscholar.org/product/api)（1 req/s 独占清额度）
-- 若只为绕开限流，也可走 Ai4Scholar 代理（它自带高配 key），但需付费
+### Semantic Scholar 官方 API（`S2_API_KEY`，2026-09-30 起已配置）
+- 认证：请求头 `x-api-key: $S2_API_KEY`（**不是** `Authorization: Bearer`）
+- **无 key 时不可用**：429 是**全局共享池饱和**（非本地配额），**等待无效**——实测隔 15 秒重试 3 次全 429、单条 GET 连续 7 次仅 1 次穿透
+- **有 key 后**：`/paper/search`（此前从未成功过）、单条 GET、`POST /paper/batch` **均能返回数据**；官方标注速率 **1 请求/秒，跨所有端点累计**
+- ⚠ **429 仍会间歇出现，且与间隔无强相关**：实测 6 秒间隔 **2/4** 成功、10 秒间隔 **2/3** 成功，批量 7 个 ID 成功而批量 2 个反而失败 → **不要靠调间隔解决，必须用「失败重试 + 退避」**
+- **批量更省**：`POST https://api.semanticscholar.org/graph/v1/paper/batch?fields=...`，body `{"ids":[...]}`，支持 DOI / arXiv ID / PMID / S2 ID
+- **引用数随时间变化**：同一篇 RT-2，2026-09-29 经 Ai4Scholar 记 **4352**、2026-09-30 经官方 API 记 **4407** → **引用类数字必须标注取数日期**
+- 若需更稳的通道（自带高配 key、无 429），可走 Ai4Scholar 代理，但**按次付费**
 
 ### Consensus REST API
 - 端点：`GET https://api.consensus.app/v1/search?query=<关键词>`
