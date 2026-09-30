@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """工作空间完整性检查（AI4R）。只读，不修改任何文件。
 
-十一项检查：
+十二项检查：
   1. 死链 —— 相对链接指向不存在的文件
   2. 行数预算 —— `index.md` / `state.md` 应 <=100 行
   3. 表格单元格数 —— 每行格数应等于表头列数（已处理 `\\|` 转义、跳过 ``` 围栏）
@@ -19,6 +19,8 @@
       两边出现的 ID 集合必须**完全相同**（双向都报）；对子登记在下方 `CSV_ID_PAIRS`
   11. inbox 待整合 —— `inbox/` 根下的 `.md`（`cleanup.md` 除外）即"待整合投递物"，**非 0 即报**
       （2026-09-30 第六十二轮加；把"整合投递物"从人工 checklist 变成机器检查，见下）
+  12. 文档体积预算 —— **任何文档 ≤ 64 KiB**（65536 字节，**Read 工具一次可整读的物理上限**）；
+      超限即报（2026-09-30 第六十四轮加；此前只是人工"看体积"，见下）
 
 跳过目录：`.git` / `repos`（第三方代码快照）/ `scratch`（临时产物根）/ `__pycache__` / `node_modules` / `archive` / `.trae`。
 **为什么跳过 `scratch`**：`inbox/scratch/` 是工作空间的**临时产物根**（2026-09-28 起取代 `/tmp/ai4r/`，见 `ai/rules.md` §执行与清理纪律第 1 条）——里面放的是 PDF 解压文本、下载的 tarball、子代理缓存等**中间产物**，本就不是知识树内容，且会被 .gitignore 忽略。
@@ -634,8 +636,32 @@ print(f"待整合投递物: {len(pending)} 篇")
 for c in pending:
     print(f"  {c}")
 
+# ---- 文档体积预算检查（2026-09-30 第六十四轮新增，第 12 项）----
+# 依据：`ai/rules.md` §文件更新 的三条尺寸阈值之一——「**任何文档 ≤ 64 KB**」，
+# 而 64 KB 是 **Read 工具一次可整读的物理上限**：超了就读不整（第五十七轮实测 8 表全部达标，
+# 最大 DP-A 表 57 KiB；`preparation.md` 已是 97%）。
+# 但这条约定**一直只是人工"看体积"**（第五十八轮审计把它列为"未机器化的约定"之一）→ 本轮机器化。
+# **为什么值得机器化**：超限是**静默**发生的（加一节就跨过去了），而后果是"这个文件从此读不整"，
+# 且没有任何检查会报——这正是本工作空间反复补检查的同一类缺口。
+# 阈值取 64 KiB = 65536 字节；只查被扫描的 md（已排除 code/repos、archive、inbox/scratch、.trae）。
+LIMIT_BYTES = 64 * 1024
+oversize = []
+for path in md_files:
+    sz = os.path.getsize(path)
+    if sz > LIMIT_BYTES:
+        oversize.append(f"{os.path.relpath(path, ROOT)}  {sz} 字节（{sz / 1024:.1f} KiB，超 {sz - LIMIT_BYTES} 字节）")
+
+print(f"\n--- 文档体积预算（第 12 项；阈值 {LIMIT_BYTES} 字节 = 64 KiB，Read 整读上限）---")
+print(f"超限: {len(oversize)}")
+for c in oversize:
+    print(f"  {c}")
+if md_files and not oversize:
+    _big = max(md_files, key=os.path.getsize)
+    print(f"  最大: {os.path.relpath(_big, ROOT)}  {os.path.getsize(_big)} 字节"
+          f"（{os.path.getsize(_big) / 1024:.1f} KiB，占 {os.path.getsize(_big) / LIMIT_BYTES:.0%}）")
+
 sys.exit(1 if (dead or bad_tables or orphan or bad_vol or missing_note_sec
                or missing_topic_sec or count_issues or count2_issues or csv_issues
-               or pending) else 0)
+               or pending or oversize) else 0)
 
 
