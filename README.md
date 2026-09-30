@@ -15,15 +15,16 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第六十四轮（2026-09-30）**——**把"文档 ≤64 KB"从人工目测变成机器检查**（`check_links` **第 12 项**）：自检确认全部合规（最大 [preparation.md](projects/autonomous-driving/ideas/preparation.md) 占上限 **97%**），但这条约定一直只是人工"看体积"，而超限会**静默**导致"该文件从此 Read 不整"（→ [rounds-64.md](projects/autonomous-driving/history/rounds-64.md)）。
+**最新一轮：第六十五轮（2026-09-30）**——**收敛三处冗余**（做第 58 轮遗留项，判据是上一轮刚给出的"**冗余会制造改一处漏一处**"实证）：检查项清单**三处→一处**且**连"N 项"这个数字一起删**（派生标签本身也是冗余）、git 提交命令**两处→一处**、`research-workflow.md` 的「工作空间使用原则」整节→指针（→ [rounds-65.md](projects/autonomous-driving/history/rounds-65.md)）。
 
-**上一轮：第六十三轮（2026-09-30）**——**传播核查 + 待核清单分档**：修 2 处 stale（**都是上一轮自己漏的**：`check_links` docstring"十项"、`rules.md` 里仍是 `git add -A`），并给出第 58 轮标记的"三处冗余"**造成损失的第一个实证**；约 60 条「待核/未核」分四类 → **真正值得动的只有约 6 条**（→ [rounds-63.md](projects/autonomous-driving/history/rounds-63.md)）。
+**上一轮：第六十四轮（2026-09-30）**——**把"文档 ≤64 KB"从人工目测变成机器检查**：自检确认全部合规（最大 [preparation.md](projects/autonomous-driving/ideas/preparation.md) 占上限 **97%**），但这条约定一直只是人工"看体积"，而超限会**静默**导致"该文件从此 Read 不整"（→ [rounds-64.md](projects/autonomous-driving/history/rounds-64.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 45 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 46 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 | 轮次 | 指针 |
 |---|---|
-| **第六十四轮** | [rounds-64.md](projects/autonomous-driving/history/rounds-64.md) — `check_links` 第 12 项「文档体积预算」（→ [check_links.py](shared/scripts/check_links.py)） |
+| **第六十五轮** | [rounds-65.md](projects/autonomous-driving/history/rounds-65.md) — 收敛三处冗余（检查清单 / git 命令 / 两文原则节） |
+| **第六十四轮** | [rounds-64.md](projects/autonomous-driving/history/rounds-64.md) — `check_links` 的「文档体积预算」检查（→ [check_links.py](shared/scripts/check_links.py)） |
 | **第六十三轮** | [rounds-63.md](projects/autonomous-driving/history/rounds-63.md) — 传播核查（第 55–62 轮）+ 待核清单分档（→ [state.md](projects/autonomous-driving/state.md) 待续第 19 项） |
 | **第六十二轮** | [rounds-62.md](projects/autonomous-driving/history/rounds-62.md) — 整合支线第二篇：`check_links` 第 11 项 + 开轮 pre-flight + git 三小项（→ [check_links.py](shared/scripts/check_links.py)） |
 | **第六十一轮** | [rounds-61.md](projects/autonomous-driving/history/rounds-61.md) — 完善并行会话的同步机制（→ [ai/rules.md §支线协作纪律](ai/rules.md)、[ai/templates.md §支线投递物](ai/templates.md)） |
