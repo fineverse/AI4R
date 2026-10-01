@@ -26,6 +26,16 @@
       区间卷天然不匹配）必须 ① 覆盖到 `history/` 下实际最新一卷、② 在表内最小号与最大号之间无缺口
       （2026-10-01 第七十七轮加：第 67/68 轮收尾曾整行漏加，而漏行**不产生死链**——卷文件存在、
       history.md 也链接它，死链/孤儿检查都抓不到）
+  14. `shared/index.md` 完整性 —— `shared/` **根**下每个 `.md`（`index.md` 自身除外）必须被
+      `shared/index.md` 链接（2026-10-01 第七十九轮加：目录页漂移与 README 漏行同类，无警报）
+  15. 投递物已入 git —— `inbox/` 待整合投递物（`cleanup.md` 除外）必须已被 git 跟踪
+      （2026-10-01 第七十九轮加：未跟踪 = 覆盖后无法恢复，见 rules.md §支线协作纪律第 4 条）
+  16. 轮次 tag —— `history/` 最新单轮卷 N 必须有 annotated tag `round-N`
+      （2026-10-01 第七十九轮加：见 rules.md §执行与清理纪律第 9 条）
+
+> **务实放弃项（第七十九轮）**：「中文命名锚点」检查（`§代码静态检查` 这类）经实现后**产生 37 处误报**——
+> 中文章节锚与后文之间没有分隔符（`§轮次收尾第 7 步` / `§支线投递物 的结构写`），无法可靠切分，
+> 故**不落盘**（按"永久报警必被无视"的教训）。替代：第 5 项的标题正则已收紧（`## 3 条…` 不再被当成 §3）。
 
 **本清单不外传**（2026-09-30 第六十五轮收敛）：`shared/index.md` 与 `ai/workflows.md` 此前**各自又抄了一遍**这份清单，于是"十项 / 十一项 / 十二项"这个**数字在三处各写一次**——加一项就要改三处，**已实际漏过两次**（第 62、64 轮都是改了列表、忘了别处的总述）。现规定：**清单只在本 docstring 枚举；其余文档只写"见脚本 docstring"，不写数字、不列条目**。→ 这是「**引用可以重复，计数不能**」（[workflows.md](../../ai/workflows.md) §轮次收尾第 6 条）在**文档结构**上的应用。
 
@@ -42,7 +52,7 @@
 "孤儿必须为 0"两条规则会互相打架——支线要么违规去改共享索引，要么让这项检查永久报红。
 **链接扫描跳过两类"假链接"**：``` 围栏代码块（模板示例）与**行内代码跨度** `` `[x](y)` ``（写文档时举例说明链接写法）。
 """
-import os, re, sys, csv
+import os, re, sys, csv, subprocess
 
 ROOT = "/home/verse/dev/AI4R"
 SKIP_DIRS = {".git", "repos", "scratch", "__pycache__", "node_modules", "archive", ".trae", ".vscode"}
@@ -204,6 +214,30 @@ for p in weak:
     print(f"  {p}")
 print(f"（已豁免 raw/ 检索日志 {exempt} 篇、inbox/ 投递物 {orphan_exempt} 篇）")
 
+# ---- shared/index.md 完整性检查（2026-10-01 第七十九轮新增，第 14 项）----
+# 起因：`shared/index.md` 是 shared/ 的目录页，但完整性一直靠手工维护——新增一个 shared/*.md
+# 却忘了登记，不会有任何警报（与 README 轮次表漏行同类）。
+# 规则：`shared/` **根**下每个 `.md`（`index.md` 自身除外）必须被 `shared/index.md` 链接。
+shared_dir = os.path.join(ROOT, "shared")
+shared_index = os.path.join(shared_dir, "index.md")
+shared_issues = []
+if os.path.exists(shared_index):
+    _idx_links = set()
+    with open(shared_index, encoding="utf-8", errors="ignore") as fh:
+        for _t in link_re.findall(strip_code(fh.read())):
+            _tt = _t.strip().split("#")[0]
+            if _tt and not _tt.startswith(("http", "mailto:")):
+                _idx_links.add(os.path.normpath(os.path.join(shared_dir, _tt)))
+    for _f in sorted(os.listdir(shared_dir)):
+        _p = os.path.join(shared_dir, _f)
+        if os.path.isfile(_p) and _f.endswith(".md") and _f != "index.md" and _p not in _idx_links:
+            shared_issues.append(f"shared/{_f} 未被 shared/index.md 链接")
+
+print("\n--- shared/index.md 完整性（第 14 项）---")
+print(f"未登记: {len(shared_issues)}")
+for c in shared_issues:
+    print(f"  {c}")
+
 # ---- 分册引用归属检查（2026-09-24 新增）----
 # 起因：拆册后正文引用没跟着改册，**这类坑已踩两次**——第二十八轮 C003 的 §I–§P 共 52 处，
 # 第三十轮 C005 的 §K–§M 共 13 处。死链检查抓不到（文件确实存在），只有"章节归属"能抓。
@@ -212,7 +246,7 @@ print(f"（已豁免 raw/ 检索日志 {exempt} 篇、inbox/ 投递物 {orphan_e
 # 而 `vla/papers.md` 的 §5–§14 是拆到 **`verification.md` / `verification-2.md`**（换了 basename）
 # → 册对逻辑完全看不见，实测留下 **17 处悬空引用**（`papers.md §5…§14`）。
 # 现规则：§X 不在目标文件 → 若在它的**册兄弟**里报"错册"，否则报"目标文件里没有该节"。
-head_re = re.compile(r"^#{2,3}\s*§?([A-Z]|\d+)(?:[.\s]|$)")
+head_re = re.compile(r"^#{2,3}\s*§?\s*([A-Z]|\d+)(?:[.、]|\s*$)")
 sec_cache = {}
 
 
@@ -690,7 +724,8 @@ for base, pat in CSV_ID_PAIRS:
     with open(cp, encoding="utf-8", errors="ignore") as fh:
         csv_ids = {c.strip() for row in csv.reader(fh) for c in row if rx.fullmatch(c.strip())}
     with open(mp, encoding="utf-8", errors="ignore") as fh:
-        md_ids = set(rx.findall(fh.read()))
+        # 第七十九轮：与 CSV 端同口径——要求 ID 两侧不是字母数字（此前用 findall，子串也命中）
+        md_ids = set(re.findall(r"(?<![0-9A-Za-z])" + pat + r"(?![0-9A-Za-z])", fh.read()))
     only_csv, only_md = sorted(csv_ids - md_ids), sorted(md_ids - csv_ids)
     if only_csv:
         csv_issues.append(f"{os.path.basename(base)}: 只在 CSV → {only_csv}")
@@ -721,6 +756,23 @@ if os.path.isdir(INBOX):
 print(f"\n--- inbox 待整合（第 11 项；`cleanup.md` 除外）---")
 print(f"待整合投递物: {len(pending)} 篇")
 for c in pending:
+    print(f"  {c}")
+
+# ---- 投递物已入 git 检查（2026-10-01 第七十九轮新增，第 15 项）----
+# 起因：规则要求支线投递物投递后自己提交一次（rules.md §支线协作纪律第 4 条），理由是
+# **未被 git 跟踪的内容一旦被覆盖就无法恢复**（本工作空间最痛的一类）。而第 11 项只数个数、
+# 不校验是否已入库——未提交的半成品照样"绿灯通过"。
+# 规则：每个 `inbox/*.md` 投递物（`cleanup.md` 除外）必须已被 git 跟踪。
+untracked = []
+for rel in pending:
+    _r = subprocess.run(["git", "-C", ROOT, "ls-files", "--error-unmatch", rel],
+                        capture_output=True, text=True)
+    if _r.returncode != 0:
+        untracked.append(f"{rel}（未被 git 跟踪——覆盖后无法恢复）")
+
+print("\n--- 投递物已入 git（第 15 项）---")
+print(f"未跟踪: {len(untracked)}")
+for c in untracked:
     print(f"  {c}")
 
 # ---- 文档体积预算检查（2026-09-30 第六十四轮新增，第 12 项；第七十四轮加"预警线"）----
@@ -804,18 +856,35 @@ print(f"不一致: {len(readme_issues)}")
 for c in readme_issues:
     print(f"  {c}")
 
+# ---- 轮次 tag 检查（2026-10-01 第七十九轮新增，第 16 项）----
+# 起因：规则要求每轮打 annotated tag `round-N`（rules.md §执行与清理纪律第 9 条），否则正文里的
+# "见第 N 轮"落不到 `git show round-N`；而 tag 缺失没有任何警报。
+roundtag_issues = []
+if actual_rounds:
+    _N = max(actual_rounds)
+    _r = subprocess.run(["git", "-C", ROOT, "tag", "-l", f"round-{_N}"], capture_output=True, text=True)
+    if not _r.stdout.strip():
+        roundtag_issues.append(f"缺 annotated tag round-{_N}（见 rules.md §执行与清理纪律第 9 条）")
+
+print("\n--- 轮次 tag（第 16 项；最新单轮卷须有 round-N 标签）---")
+print(f"不一致: {len(roundtag_issues)}")
+for c in roundtag_issues:
+    print(f"  {c}")
+
 # ---- 失败分级汇总（第七十八轮加）----
 # 阻断级（参与 exit 1）：死链 / 表格错位 / 孤儿 / 章节错册 / 缺必写节 / 判断与声明计数 / CSV / inbox / 超限 / 行数超预算 / README 轮次表。
 # 提示级（只报不阻断）：弱引用（#4 的半档）、体积预警（60–64 KiB 预警带）。
 # exit 语义不变（防"永久报警被无视"的旧教训）——汇总行只为快速定位该修什么。
 _blocking = (len(dead) + len(bad_tables) + len(orphan) + len(bad_vol) + len(missing_note_sec)
              + len(missing_topic_sec) + len(count_issues) + len(count2_issues) + len(csv_issues)
-             + len(pending) + len(oversize) + len(line_budget_over) + len(readme_issues))
+             + len(pending) + len(oversize) + len(line_budget_over) + len(readme_issues)
+             + len(shared_issues) + len(untracked) + len(roundtag_issues))
 _advisory = len(weak) + len(warnsize)
 print(f"\n=== 汇总：阻断 {_blocking} 项 / 提示 {_advisory} 项（提示 = 弱引用 {len(weak)} + 体积预警 {len(warnsize)}；exit 1 当且仅当阻断 > 0）===")
 
 sys.exit(1 if (dead or bad_tables or orphan or bad_vol or missing_note_sec
                or missing_topic_sec or count_issues or count2_issues or csv_issues
-               or pending or oversize or line_budget_over or readme_issues) else 0)
+               or pending or oversize or line_budget_over or readme_issues
+               or shared_issues or untracked or roundtag_issues) else 0)
 
 

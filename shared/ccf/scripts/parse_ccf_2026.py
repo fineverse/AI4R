@@ -7,7 +7,7 @@ Pipeline:
   -> recover dropped trailing continuation lines (page-end artifacts)
   -> extract （原 ...） aliases -> (optional) verified overrides for scrambled rows
 """
-import re, html, json, sys, collections
+import re, html, json, sys
 
 import os as _os
 # 中间产物根：工作空间**内**（第四十八轮起；/tmp 在权限自动允许范围之外，每次访问都会弹授权）

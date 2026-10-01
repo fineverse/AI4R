@@ -51,11 +51,11 @@
 
 | ID | 论文 | 作者（首位） | 载体与版本 | 生成机制 | 输出与基准 | 代码 | 可迁移机制 | 证据状态 |
 |---|---|---|---|---|---|---|---|---|
-| DP-E19 | [π0: A Vision-Language-Action Flow Model for General Robot Control](https://arxiv.org/abs/2410.24164) | Kevin Black | arXiv v4（2024-10） | 条件流匹配（非 DDPM），高斯起点、线性高斯路径、前向 Euler 10 步；PaliGemma VLM + 300M 动作专家（论文称**总 3.3B**；**⚠ 更正（第二十九轮）**：代码实测配置为 `gemma_2b` + `gemma_300m` = **2.3B**，全仓 grep 不到 3.3B 的来源——见 [transfer.md §1.4](../../../../autonomous-driving/topics/diffusion-planner/transfer.md)）；action chunk H=50 | 连续动作块；7 机器人 68 任务 | [Physical-Intelligence/openpi](https://github.com/Physical-Intelligence/openpi) | VLA + 流匹配动作头的标准配方；摘要/全文称 VLM 预训练与 action chunking 是关键 | 全文（HTML，逐节提取）+ 摘要 + **代码静态检查（见 [transfer.md §1.4](../../../../autonomous-driving/topics/diffusion-planner/transfer.md)）** |
+| DP-E19 | [π0: A Vision-Language-Action Flow Model for General Robot Control](https://arxiv.org/abs/2410.24164) | Kevin Black | arXiv v4（2024-10；**RSS'25 录用**） | 条件流匹配（非 DDPM），高斯起点、线性高斯路径、前向 Euler 10 步；PaliGemma VLM + 300M 动作专家（论文称**总 3.3B**；**⚠ 更正（第二十九轮）**：代码实测配置为 `gemma_2b` + `gemma_300m` = **2.3B**，全仓 grep 不到 3.3B 的来源——见 [transfer.md §1.4](../../../../autonomous-driving/topics/diffusion-planner/transfer.md)）；action chunk H=50 | 连续动作块；7 机器人 68 任务 | [Physical-Intelligence/openpi](https://github.com/Physical-Intelligence/openpi) | VLA + 流匹配动作头的标准配方；摘要/全文称 VLM 预训练与 action chunking 是关键 | 全文（HTML，逐节提取）+ 摘要 + **代码静态检查（见 [transfer.md §1.4](../../../../autonomous-driving/topics/diffusion-planner/transfer.md)）** |
 | | | | | **代码级补充**：`src/openpi/models/pi0.py` 的 `compute_loss` 实测 `x_t = t·noise + (1−t)·actions`、`u_t = noise − actions`、损失 `mean((v_t−u_t)²)`、`sample_actions(num_steps=10)` → **流匹配三项声称完全一致**；`action_horizon=50`、`action_expert_variant=gemma_300m` 一致。**但"总 3.3B"在配置里读不到**（配置是 `gemma_2b` + `gemma_300m` = 2.3B）。**另四条代码细节**：① 时间采样是 **`Beta(1.5,1)`** 而非均匀（偏向噪声端，驾驶侧是均匀）；② 代码时间约定与论文相反，**作者自承**（`pi0.py:226-227` "t=1 is noise… yes, this is the opposite of the pi0 paper, and I'm sorry."）；③ **π0.5 的核心改动是"状态从连续输入变成离散语言 token"**（`pi0_config.py:29` 注释原文）+ `max_token_len` 48→200 + 动作专家启用 adaRMS；④ `action_dim=32` 是统一动作空间的 padding。 | | | | |
 | DP-E20 | [π0.5: a Vision-Language-Action Model with Open-World Generalization](https://arxiv.org/abs/2504.16054) | Physical Intelligence | arXiv v1（2025-04） | 在 π0 上做异构任务协同训练 + 高层子任务预测 | 连续动作块；开放世界家庭任务 | 同 openpi | 协同训练提升分布外泛化，对应驾驶的跨城市/长尾泛化。**第二十五轮补全**：**预训练用离散 token（FAST）+ 后训练用流匹配专家**（混合式）；真机 **50 Hz** 动作块；400 h 数据（**97.6% 非移动**）；真机未见新家清洁 **10–15 min**；受控对照 **π0 vs π0-FAST+Flow vs π0.5**（no WD / ME / CE / VI / HL 五组）；⚠ **全部结果为图（Fig.8–13），无表格数字可核** | 元数据 + 摘要（第二十五轮补全字段） |
 | DP-E21 | [RDT-1B: a Diffusion Foundation Model for Bimanual Manipulation](https://arxiv.org/abs/2410.07864) | Songming Liu | arXiv v2（2024-10） | 扩散 Transformer 基础模型（1.2B）+ 物理可解释的统一动作空间（128 维） | 双臂动作；双臂操作基准 | [thu-ml/RoboticsDiffusionTransformer](https://github.com/thu-ml/RoboticsDiffusionTransformer)（+ HF 权重 `rdt-1b` / `rdt-170m`） | 统一动作空间是跨本体迁移的前提，对应驾驶中跨车型/跨数据集的输出表示统一。**第二十五轮补全**：**动作块 DDPM 去噪（DiT）**；chunk 推理 **6 Hz**；**控制频率作为显式输入特征**（兼容异构采样率）；真机 ALOHA：未见杯 **50%**、未见房间 **62.5%**、1-shot Fold **68%**（ACT / OpenVLA / Octo ≈ 0）；**受控消融：`regress` 变体去掉扩散后 50→12.5 / 62.5→50 / 100→12.5**；⚠ 表 2「指令跟随=100」与表 3「correct amount=75」**口径不一致** | 元数据 + 摘要（第二十五轮补全字段） |
-| DP-E22 | [GR00T N1: An Open Foundation Model for Generalist Humanoid Robots](https://arxiv.org/abs/2503.14734) | NVIDIA | arXiv v2（2025-03） | 双系统：VLM 做 System 2 慢推理 + 扩散 Transformer 动作头做 System 1 | 连续动作；人形机器人多任务 | [NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T)（+ HF 权重） | "慢推理 + 快生成"的分工，对应驾驶中 VLM 决策 + 扩散规划的分层。**第二十五轮补全**：动作头是**流匹配（DiT，Euler K 步）**而非纯扩散；**System 1 最高 120 Hz；16 步 chunk 63.9 ms（L40）**；**2.2B（VLM 1.34B）**；训练用**潜动作（LAPA / IDM）辅助目标**；RoboCasa **49.6%** vs DP 43.2%、DexMG **74.2%** vs 68.4%、真机未见物 **72%** vs 30%；消融：数据量 30/100/300、**神经轨迹 +5.8%**；⚠ **仓库已漂移至 N1.7-3B，与论文 2.2B 非同一权重**；⚠ System 1 频率有 **120 Hz** 与 30 Hz 两说 | 元数据 + 摘要（第二十五轮补全字段） |
+| DP-E22 | [GR00T N1: An Open Foundation Model for Generalist Humanoid Robots](https://arxiv.org/abs/2503.14734) | NVIDIA | arXiv v2（2025-03） | 双系统：VLM 做 System 2 慢推理 + 流匹配 Transformer 动作头做 System 1 | 连续动作；人形机器人多任务 | [NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T)（+ HF 权重） | "慢推理 + 快生成"的分工，对应驾驶中 VLM 决策 + 扩散规划的分层。**第二十五轮补全**：动作头是**流匹配（DiT，Euler K 步）**而非纯扩散；**System 1 最高 120 Hz；16 步 chunk 63.9 ms（L40）**；**2.2B（VLM 1.34B）**；训练用**潜动作（LAPA / IDM）辅助目标**；RoboCasa **49.6%** vs DP 43.2%、DexMG **74.2%** vs 68.4%、真机未见物 **72%** vs 30%；消融：数据量 30/100/300、**神经轨迹 +5.8%**；⚠ **仓库已漂移至 N1.7-3B，与论文 2.2B 非同一权重**；⚠ System 1 频率有 **120 Hz** 与 30 Hz 两说 | 元数据 + 摘要（第二十五轮补全字段） |
 
 ## E. 2026 年新机制（流匹配 + RL / 值引导 / 世界模型）
 
@@ -92,10 +92,12 @@
 
 ## 影响力快照（OpenAlex 正式版记录，2026-09-22）
 
+> **⚠ 口径警告（第七十九轮）**：本表引用数取自 **OpenAlex**（2026-09-22 快照）；同项目 VLA 表取自 **S2**（2026-09-30）——**两口径不可横比**（同一篇可差约 8 倍，如 Diffusion Policy：本表 531 vs VLA 表 S2 的 4410）。是否统一口径见 [AD state.md 待续 #29](../../../../autonomous-driving/state.md)。
+
 | 论文 / 基准 | 引用数 | 记录 |
 |---|---|---|
 | DP-E09 Diffusion Policy | **531** | IJRR 2024（10.1177/02783649241273668） |
-| DP-E19 π0 | 236 | 会议论文 2025 |
+| DP-E19 π0 | 236 | **RSS 2025**（arXiv `comments`: Published in RSS 2025） |
 | DP-E10 DP3 | 181 | RSS 2024（10.15607/rss.2024.xx.067） |
 | DP-E17 NoMaD | 125 | 会议论文 2024 |
 | DP-E11 Consistency Policy | 50 | RSS 2024（10.15607/rss.2024.xx.071）——**venue 取自 OpenAlex 正式版记录，论文正文未标注会议**（表内"载体与版本"列与本行口径不同，非矛盾） |
@@ -136,7 +138,7 @@
 | DP-E16 Freeze/Share/Shrink | 待核 | 仅 arXiv（RSS2026-Diff4RL workshop）；**无代码** |
 | DP-E17 NoMaD | T4 | 仅 arXiv；有代码（L1）；引用 125 |
 | DP-E18 MulDP | T2 | IROS 2026（白名单） |
-| DP-E19 π0 | T4 | 仅 arXiv；有代码（L1）；引用 236 |
+| DP-E19 π0 | **T1** | **RSS'25**（arXiv `comments` 明确 "Published in RSS 2025"）；有代码（L1）；引用 236 |
 | DP-E20 π0.5 | T4 | 仅 arXiv；同 openpi 代码 |
 | DP-E21 RDT-1B | T4 | 仅 arXiv；有代码 + HF 权重 |
 | DP-E22 GR00T N1 | T4 | 仅 arXiv；有代码 + HF 权重（⚠ 仓库已漂移） |

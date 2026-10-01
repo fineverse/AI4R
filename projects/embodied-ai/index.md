@@ -7,7 +7,7 @@
 
 - [项目定义](project.md)
 - [当前状态](state.md)（当前阶段 / 待续清单 / 判断边界）
-- [逐轮工作记录](history.md)（第七、八、二十五、二十六、二十九、五十五、五十七、五十九、六十轮）
+- [逐轮工作记录](history.md)（第七、八、二十五、二十六、二十九、五十五、五十七、五十九、六十、七十八、七十九轮）
 - [来源索引](sources.md)
 - [工作空间设计](../../shared/workspace-design.md)
 
@@ -22,8 +22,8 @@
 | 小方向 | 角色 | 状态 |
 |---|---|---|
 | [diffusion-policy/README.md](topics/diffusion-policy/README.md) | 对应自动驾驶侧的研究对象 | 已迁入论文表 DP-E01–E28（**其中 15 条摘要级**）+ 9 篇笔记；**未写脉络** |
-| [vla/README.md](topics/vla/README.md) | 借鉴来源 | **已建表**：14 篇（[papers.md](topics/vla/papers.md)）+ [lineage.md](topics/vla/lineage.md)，**全部摘要级** |
-| [world-model/README.md](topics/world-model/README.md) | 借鉴来源 | **已建表**：14 篇（[papers.md](topics/world-model/papers.md)）+ [lineage.md](topics/world-model/lineage.md)，**全部摘要级** |
+| [vla/README.md](topics/vla/README.md) | 借鉴来源 | **已建表**：14 篇（[papers.md](topics/vla/papers.md)）+ [lineage.md](topics/vla/lineage.md)，**全部摘要级**（**§1.1 逐行证据等级与代码状态**已补） |
+| [world-model/README.md](topics/world-model/README.md) | 借鉴来源 | **已建表**：14 篇（[papers.md](topics/world-model/papers.md)）+ [lineage.md](topics/world-model/lineage.md)，**全部摘要级**（**§1.1 逐行证据等级与代码状态**已补） |
 
 ## 输出
 

@@ -1,10 +1,10 @@
 # VLA（驾驶侧）论文表
 
-更新时间：2026-10-01（内容含 §1.1 至第五十七轮；头戳此前停在 2026-09-23）  
+更新时间：2026-10-01（内容含 §1.1 至第七十一轮；头戳此前停在 2026-09-23）  
 **文件结构**：本文件 = 表 + 证据边界 + 边界外清单（**轻量入口**）；**逐篇全文与代码核验结论已拆到两册**——[verification.md](verification.md)（§4–§8）与 [verification-2.md](verification-2.md)（§9–§14）。**凡引用"§4 及以后"的地方请改看这两册。**（拆分原因：原文 110 KB，超 Read 工具 64 KB 上限，无法整读。）  
 检索范围：2023–2026，arXiv 12 组查询去重 **510 篇**（`vla1–vla6`），按 [literature-quality.md](../../../../shared/literature-quality.md) 分档筛选后收录 **28 篇**（VLA-01–28；VLA-19 与 VLA-20–28 分别于 2026-09-23 从边界外补入）。  
 证据状态：**28/28 已读全文**，其中 **14 篇已做源码级核验**（名单见 §2）；**本表没有任何一篇在本地运行过**。
-**代码静态检查的级别**（定义见 [ai/rules.md](../../../../ai/rules.md) §代码静态检查）：**OpenDriveVLA 为 L1**（已落盘到 `code/repos/`，逐文件核验）；**其余 5 个为 L3**（走 GitHub API + `raw` 逐文件取证、**未克隆**）；**ExploreVLA / DriveMoE 等"只有项目页"的为 L2**。**⚠ 第七十轮更正（周扫）**：**DriveMoE（VLA-04）/ ExploreVLA（VLA-18）/ SpanVLA（VLA-26）三篇的官方仓库均存在**，原记"只有项目页 / 无仓库"**是"按论文 `comments` 里的链接判定、未做方法名检索"所致**（见 §2 与下方代码状态表三行）。  
+**代码静态检查的级别**（定义见 [ai/rules.md](../../../../ai/rules.md) §代码静态检查）：**OpenDriveVLA 为 L1**（已落盘到 `code/repos/`，逐文件核验）；**其余 5 个为 L3**（走 GitHub API + `raw` 逐文件取证、**未克隆**）。**⚠ 第七十轮更正（周扫）**：**DriveMoE（VLA-04）/ ExploreVLA（VLA-18）/ SpanVLA（VLA-26）三篇的官方仓库均存在**（均按 L3 处理），原记"只有项目页 / 无仓库"**是"按论文 `comments` 里的链接判定、未做方法名检索"所致**（见 §2 与下方代码状态表三行）。  
 **质量依据**：T 档含义见 [literature-quality.md](../../../../shared/literature-quality.md) §4；venue 与引用数为 OpenAlex 2026-09-23 快照，录用信息优先取 arXiv `comments` 字段（**venue 需三渠道并行核验**，见 §2）。  
 相关：[lineage.md](lineage.md)（薄脉络）、[研究对象表](../diffusion-planner/papers/diffusion_planner_ad.md)（DP-Axx）
 

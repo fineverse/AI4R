@@ -9,7 +9,7 @@
 - [研究上下文与约束](context.md)
 - [当前状态](state.md)（当前阶段 / 待续清单 / 判断边界**索引**）
 - [判断边界（详细）](judgments.md)（每条判断的完整论证、出处与代码事实；**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**）
-- [逐轮工作记录](history.md)（**索引 + 60 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
+- [逐轮工作记录](history.md)（**索引 + 61 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
 - [工作空间设计](../../shared/workspace-design.md)
 
 ## 大方向层 `direction/`
@@ -59,7 +59,7 @@
 - [pdfs_pending.md](pdfs_pending.md) — 付费墙 PDF 8 条（需你下载）
 - [raw/](raw) — 检索日志
 - [ideas/sota-plan.md](ideas/sota-plan.md) — **冲 SOTA 作战文件**（navhard 分数格局（**§1.0 官方公开榜 20 行** + §1 论文口径 13 行）与逐行代码状态、子榜门槛、七方向重排、四条推荐路线；**2026-09-24 从 `preparation.md §5.1` 拆出**）
-- [ideas/preparation.md](ideas/preparation.md) — idea 讨论准备材料（研究地图、9 个未解决问题、7 个潜在方向 + **§5.0 七方向横向比较** + **§7 四项待拍板、已给默认值**）；`candidates.md` / `rejected.md` 在正式形成候选后创建
+- [ideas/preparation.md](ideas/preparation.md) — idea 讨论准备材料（研究地图、9 个未解决问题、7 个潜在方向 + **§5.0 七方向横向比较** + **§7 四项（7.1/7.2 已回，7.3/7.4 已定默认）**）；`candidates.md` / `rejected.md` 在正式形成候选后创建
 - [ideas/recombination-map.md](ideas/recombination-map.md) — **重组地图：结构（代码血统）× 因果（受控增益）**（**只做连接、不复制论证**：结构指各 `lineage §继承关系`、因果指 `sota-plan §7–§9` / `judgments` / `transfer`；含"结构相邻但因果未测"的 idea 候选区）
 - 阅读顺序：综述 S001 → S019 → S032；论文 DP-A02 → DP-A01 → DP-A09 → DP-A14 → DP-A31
 

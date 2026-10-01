@@ -15,7 +15,7 @@ ROOT = '/home/verse/dev/AI4R'
 #   --apply 会误改快照内的链接；
 # · archive = 归档件按约定「原样不回改」（其中链接记录的是历史位置，失效属预期）；
 # · scratch = 临时产物根；.git / .trae / __pycache__ / node_modules = 非知识树。
-SKIP_DIRS = {'.git', '.trae', 'repos', 'archive', 'scratch', '__pycache__', 'node_modules'}
+SKIP_DIRS = {'.git', '.trae', '.vscode', 'repos', 'archive', 'scratch', '__pycache__', 'node_modules'}
 LINK_RE = re.compile(r'\[([^\]]*)\]\(([^)\s]+)\)')
 # 行内代码跨度（`...` / ``...``）：里面的 `[x](y)` 是**举例**，不是真链接——与 check_links.py
 # 同源的正则（第二十九轮在那里修过同类误报，第七十八轮回移到本脚本：此前对原始全文做 sub，
@@ -55,7 +55,22 @@ for dirpath, dirnames, filenames in os.walk(ROOT):
             return '[%s](%s)' % (label, new_rel)
 
         # 逐行处理：``` 围栏内的行原样保留（模板示例不是真链接）；
-        # 围栏外的行先剥行内代码跨度再做替换（均为 check_links.py 同款豁免，第七十八轮移植）。
+        # 围栏外的行先把行内代码跨度**遮蔽为哨兵**（不是删除）再做链接替换、最后还原——
+        # 与 check_links.py 同款豁免（第二十九轮修过同类误报）。
+        # ⚠ 修复（第七十九轮）：此前写成 code_span_re.sub('', line)，会把行内代码整段删掉后写回
+        #   （--apply 会破坏全库反引号内容）；改为哨兵遮蔽，行内代码原样保留。
+        def protect(line):
+            spans = []
+
+            def stash(m):
+                spans.append(m.group(0))
+                return '\x00%d\x00' % (len(spans) - 1)
+
+            masked = LINK_RE.sub(repl, code_span_re.sub(stash, line))
+            for i, span in enumerate(spans):
+                masked = masked.replace('\x00%d\x00' % i, span)
+            return masked
+
         out_lines = []
         in_fence = False
         for line in text.split('\n'):
@@ -66,7 +81,7 @@ for dirpath, dirnames, filenames in os.walk(ROOT):
             if in_fence:
                 out_lines.append(line)
                 continue
-            out_lines.append(LINK_RE.sub(repl, code_span_re.sub('', line)))
+            out_lines.append(protect(line))
         new_text = '\n'.join(out_lines)
         if APPLY and new_text != text:
             open(path, 'w', encoding='utf-8').write(new_text)

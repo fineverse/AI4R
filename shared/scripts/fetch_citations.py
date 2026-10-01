@@ -117,6 +117,11 @@ def main():
             print("    批次失败：%s" % exc, file=sys.stderr)
             failed.extend(chunk)
             continue
+        # ⚠ 第七十九轮：校验返回形状，避免 zip 静默截断（长度不符 / 非 list 时整批记 failed，不丢行）
+        if not isinstance(data, list) or len(data) != len(chunk):
+            print("    批次返回异常（非 list 或长度不符），整批记 failed", file=sys.stderr)
+            failed.extend(chunk)
+            continue
         for want, got in zip(chunk, data):
             if got is None:
                 failed.append(want)

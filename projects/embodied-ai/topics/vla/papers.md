@@ -22,7 +22,7 @@
 | E-VLA-10 | **DexVLA** | `2502.05855` | 2025 | CoRL'25 / T2 | 连续动作块 | **扩散**（1B 扩散专家） | VLM + 扩散专家 | 真机跨本体长时程 | 未取得 | [juruobenruo/DexVLA](https://github.com/juruobenruo/DexVLA) |
 | E-VLA-11 | **SmolVLA** | `2506.01844` | 2025 | 仅 arXiv / **T4** | 连续动作块 | **flow matching** | SmolVLM2（210M） | LIBERO / SimplerEnv / SO-100 真机 | 边缘 **140–260 ms**（二手） | [huggingface/lerobot](https://github.com/huggingface/lerobot) + HF |
 | E-VLA-12 | **RT-H** | `2403.01823` | 2024 | RSS'24 / T1 | **分层**：语言运动 → 动作块 | **非生成式**（分层回归） | 无 VLM | 真机多任务 | 未取得 | **未找到** |
-| E-VLA-13 | **GR00T N1** | `2503.14734` | 2025 | 仅 arXiv（tech report）/ **T4** | 连续动作块 | **扩散**（DiT） | NVIDIA-Eagle + SmolLM-1.7B | 仿真 + GR-1 / 1X Neo 真机 | System 1 最高 **120 Hz**；16 步 chunk **63.9 ms**（L40） | [NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T) + HF |
+| E-VLA-13 | **GR00T N1** | `2503.14734` | 2025 | 仅 arXiv（tech report）/ **T4** | 连续动作块 | **流匹配**（DiT） | NVIDIA-Eagle + SmolLM-1.7B | 仿真 + GR-1 / 1X Neo 真机 | System 1 最高 **120 Hz**；16 步 chunk **63.9 ms**（L40） | [NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T) + HF |
 | E-VLA-14 | **GR-3** | `2507.15493` | 2025 | 仅 arXiv（tech report）/ **T4** | 连续动作块 | **flow matching**（MoT + DiT） | 自建 4B MoT VLA | 真机 ByteMini（餐桌整理 / 挂衣） | 未取得 | **无公开代码 / 权重** |
 
 **未入表但质量可**：TinyVLA（`2409.12514`，RA-L 2025，扩散解码器）、InternVLA-M1（`2510.13778`，技术报告）、RoboMamba（`2406.04339`，NeurIPS'24）。
@@ -54,7 +54,7 @@
 ## 2. 三个结论
 
 1. **"动作 token → 动作块 → 连续动作头"这个顺序在 VLA 血统里成立，在整个具身侧不成立**——**动作块（ACT）与生成式连续头（Diffusion Policy）同在 2023 年出现**；VLA 血统**滞后一年**（RT-2 / OpenVLA 仍是离散 token + 单步自回归）。**转折点是 π0（RSS'25）与 OpenVLA-OFT（RSS'25）**：OFT 原文即把"AR 单步"列为瓶颈（"3-5 Hz … too slow for 25-50+ Hz"）。
-2. **生成式动作头在这批里占 50%**（14 篇中 7 篇）：**扩散 5 篇**（Diffusion Policy、Octo、CogACT、DexVLA、GR00T N1）+ **流匹配 2 篇**（SmolVLA、GR-3）；并入工作空间已有的 π0 / FLOWER（流匹配）与 RDT-1B（扩散）→ **flow matching 4 篇、diffusion 6 篇**。**π0 之外用流匹配的还有 FLOWER、SmolVLA、GR-3，均晚于 π0** → **flow matching 是 π0 之后的新增量**，diffusion 主要来自 2023–2024 的**非 VLA 血统**。注意 **SpatialVLA 是"连续动作"但用自适应网格回归，不算生成式**。
+2. **生成式动作头在这批里占 50%**（14 篇中 7 篇）：**扩散 4 篇**（Diffusion Policy、Octo、CogACT、DexVLA）+ **流匹配 3 篇**（SmolVLA、GR-3、GR00T N1）；并入工作空间已有的 π0 / FLOWER（流匹配）与 RDT-1B（扩散）→ **flow matching 5 篇、diffusion 5 篇**。**π0 之外用流匹配的还有 FLOWER、SmolVLA、GR-3，均晚于 π0** → **flow matching 是 π0 之后的新增量**，diffusion 主要来自 2023–2024 的**非 VLA 血统**。注意 **SpatialVLA 是"连续动作"但用自适应网格回归，不算生成式**。
 3. **控制频率跨两个数量级（~1 Hz 到 ~120 Hz），但真实推理频率普遍在 5–15 Hz**：自回归大模型最低（RT-2 <3 Hz、OpenVLA 3–5 Hz）、连续头 / 轻量模型居中（Diffusion Policy 10–20 Hz、Octo 20–30 Hz）、分块 + 专用头最高（ACT 50 Hz、GR00T N1 System 1 120 Hz）。**⚠ 陷阱：π0 的"50 Hz"是执行 chunk 的控制频率，不是模型前向频率**（20 Hz 重规划时执行 16/50 步）。
 
 ## 3. 证据边界与不确定项

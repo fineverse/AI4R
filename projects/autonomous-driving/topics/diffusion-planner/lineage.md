@@ -90,4 +90,4 @@
 
 ## 代表工作与代码对照（可下载）
 
-代码快照共 **36 个仓库、约 1.6 GB**（扩散侧 + E2E 主干 + 具身侧 + 世界模型侧），完整清单与 commit 见 [code/repositories.md](../../code/repositories.md)。扩散侧的 7 个此前未获取仓库（DiffusionDriveV2、Diffusion Planner、GoalFlow、MeanFuser、Hyper-Diffusion-Planner、PC-Diffuser、FeaXDrive）**已全部补齐**（多重试 + tarball 兜底生效）。
+代码快照共 **37 个仓库、约 1.65 GB**（扩散侧 + E2E 主干 + 具身侧 + 世界模型侧），完整清单与 commit 见 [code/repositories.md](../../code/repositories.md)。扩散侧的 7 个此前未获取仓库（DiffusionDriveV2、Diffusion Planner、GoalFlow、MeanFuser、Hyper-Diffusion-Planner、PC-Diffuser、FeaXDrive）**已全部补齐**（多重试 + tarball 兜底生效）。

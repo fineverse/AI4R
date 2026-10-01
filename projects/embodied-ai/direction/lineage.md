@@ -15,7 +15,7 @@
 |---|---|---|---|---|
 | **A1 单步回归模仿学习** | 2017–2023 | 行为克隆 + 单步动作回归 | RT-1（`2212.06817`，RSS'23）、原始 BC | 单步连续动作 |
 | **A2 动作块（action chunking）** | 2023 | **ACT（`2304.13705`，RSS'23）首提"一次出 k 步"**，解决"单步决策的时间不一致" | ACT（k 步 + CVAE） | 动作块（k 步） |
-| **A3 生成式动作头** | 2023–2025 | **Diffusion Policy（`2303.04137`，RSS'23 / IJRR'24）把动作块交给扩散去噪** | Diffusion Policy、Octo、CogACT、DexVLA、GR00T N1（扩散）；π0、FLOWER、SmolVLA、GR-3（**flow matching**） | 动作块 + 扩散 / 流匹配 |
+| **A3 生成式动作头** | 2023–2025 | **Diffusion Policy（`2303.04137`，RSS'23 / IJRR'24）把动作块交给扩散去噪** | Diffusion Policy、Octo、CogACT、DexVLA（扩散）；GR00T N1、π0、FLOWER、SmolVLA、GR-3（**flow matching**） | 动作块 + 扩散 / 流匹配 |
 | **A4 VLM 底座 + 动作头** | 2023–2026 | **RT-2（`2307.15818`，CoRL'23）把动作当文本 token**；**π0（`2410.24164`，RSS'25）改用流匹配动作专家** | 离散 token 派：RT-2、OpenVLA、π0-FAST；连续头派：π0、OpenVLA-OFT、SpatialVLA | 动作 token **或** 动作块 |
 
 **⚠ 一处需要纠正的常见说法**：**"动作 token → 动作块 → 连续动作头"这个顺序在 VLA 血统里成立，但在整个具身侧不成立**——**动作块（ACT）与生成式连续头（Diffusion Policy）同在 2023 年出现，是并行而非先后**；VLA 血统**滞后一年**（RT-2 与 OpenVLA 都还是**离散 token、单步自回归**）。真正的转折点是 **π0（RSS'25）与 OpenVLA-OFT（RSS'25）**：OFT 论文原文即把"AR 单步"列为瓶颈（"3-5 Hz … too slow for 25-50+ Hz"），并证明**连续 L1 回归 ≈ 扩散且更快**。π0-FAST 是离散路线的**最后一次自我修正**（用 DCT 压缩 token，而非简单分箱）。

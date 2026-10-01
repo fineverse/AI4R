@@ -15,7 +15,7 @@
 |---|---|---|
 | 基准与 split | NAVSIM v2 `navhard` | 已定；见 [基准口径](../direction/benchmarks.md) §2、[作战计划](../ideas/sota-plan.md) §8.5 |
 | 评分器 | 本项目固定 devkit commit `0a380a9`（2025-10-27），使用修复后的 `EPDMS` | 已定；实际分数仍须运行确认 |
-| 生成器 | SimScale 发布的 DiffusionDrive navhard checkpoint | **待取得**；HF 当前不可达，见 [state.md](../state.md) 待续项 17 |
+| 生成器 | SimScale 发布的 DiffusionDrive navhard checkpoint | **待取得**；HF 走 `127.0.0.1:7897` 代理可达（第五十五轮实测）；阻塞见 [state.md](../state.md) §当前阶段「关键阻塞」 |
 | 原始候选数 | 20；扩池条件为 100 | 20 锚点公开；100 候选的可实现方式、采样随机性与模型接口**待代码核验**，不可假定只需改配置 |
 | 推理输入 | 严格遵守 NAVSIM agent 契约；不得向 agent 暴露 GT、PDM / EPDMS 结果或评测后信息 | 约束已在 [benchmarks.md](../direction/benchmarks.md) §2.5 核验；执行时记录输入边界 |
 | 硬件 | 自备 2×RTX 3090；本阶段推理 | 资源已确认；是否需要分布式推理待环境检查 |

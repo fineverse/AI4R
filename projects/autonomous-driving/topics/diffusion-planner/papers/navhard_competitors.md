@@ -30,7 +30,7 @@
 | **DIVER** | 43.4 | [DP-A16](diffusion_planner_ad.md)；真实现 |
 | **GuideFlow** | 27.1（社区口径）/ 43.0（自报） | [DP-A12](diffusion_planner_ad.md)；**43.0 不可复现** |
 | **World4Drive** | 34.9 | [WM-07](../../world-model/papers.md) |
-| **MindDrive** | 30.9 | [VLA-12](../../vla/papers.md) |
+| **MindDrive** | 30.9 | [VLA-16](../../vla/papers.md) |
 | **DiffusionDrive** | 24.2 | [DP-A02](diffusion_planner_ad.md)；本项目路线 B 起点 |
 | **TransFuser** | 23.1 | [E2E-07](../../../direction/notes/E2E-07-transfuser.md) |
 
