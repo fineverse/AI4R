@@ -68,6 +68,24 @@
 | 3 | **收益来源** | **未验证**。现有证据只有 DriveFuture 的 navhard 24.2→55.5，无法区分收益来自"信息更多"还是"训练信号更好"。**这是可做实验的空白** | 研究对象表 DP-A31 |
 | 4 | **代价** | 综述明确把 **Efficiency** 列为限制：4D 数据的算力开销是部署瓶颈；而实时扩散规划器已把预算用满（45–59 FPS）。**世界模型若不能"免费"提供条件，就会吃掉实时性余量** | 2502.10498 §6 |
 
+## 继承关系（代码层面已核验）
+
+读法：本节汇总世界模型侧各工作的**代码/基线血统**；强度分级 S1–S4 的定义见 [workflows.md §代码脉络梳理](../../../../ai/workflows.md)。**只列"整体血统 / 来源库"**；模块级的"来自哪篇论文"（组合关系）仍在 [C004 §B / §E.2](../../code/traces/world_model_code_traces.md)，本节不重复。
+
+| 工作 | 基线 / 来源库 | 强度 | 证据 |
+|---|---|---|---|
+| OccWorld（WM-03） | 自研 `TransVQVAE` + **ST-P3 评测协议** | S3 | [C004 §B](../../code/traces/world_model_code_traces.md)——`autoreg_for_stp3_metric` / `compute_planner_metric_stp3` |
+| Policy World Model（WM-17） | **Show-o 主干**（+ `phi-1_5`）+ **MAGVIT-v2** tokenizer + vendored **NAVSIM / nuPlan devkit** | S3 | [C004 §B](../../code/traces/world_model_code_traces.md) |
+| Drive-OccWorld（WM-04） | **规划损失抄自 UniAD**（`losses/planning_loss.py` 文件头版权即 OpenDriveLab，含轴对齐退化） | S3 | [C004 §I.1](../../code/traces/world_model_code_traces.md) |
+| World4Drive（WM-07） | **`class W4D(VAD)`——直接继承 VAD**；锚点与 SparseDrive 同名 `kmeans_plan_6.npy` | **S1** | [C004 §I.2](../../code/traces/world_model_code_traces.md)（`W4D/W4D.py:21`） |
+| LAW（WM-06） | **长在 VAD 代码库上**（`VAD/VAD_head.py`、`VAD/utils/CD_loss.py`） | **S1** | [C004 §I.3](../../code/traces/world_model_code_traces.md) |
+| WoTE（WM-24） | **TransFuser**（navsim 适配版，vendored `navsim/agents/transfuser/`）；与 **LAW 同组**（Lue Fan / Zhaoxiang Zhang） | S2 | [C004 §E.2](../../code/traces/world_model_code_traces.md) |
+| DriveLaW（WM-11） | 同仓三种血统并列：**LTX 视频世界模型** + **`ReCogDriveDiffusionPlanner`** + **DiffusionDrive 基线** | S3 | [C004 §G](../../code/traces/world_model_code_traces.md) |
+
+**一条结构结论（与 E2E 主干同源）**：**"4D 占据 / 潜世界模型"这一支的实现大多寄生在 nuScenes 系 E2E 主干代码上**——World4Drive 继承 VAD、Drive-OccWorld 抄 UniAD 规划损失、LAW 长在 VAD 库上（[C004 §I.4](../../code/traces/world_model_code_traces.md)）。→ 这是 [direction/lineage.md §继承关系](../../direction/lineage.md) E2E 谱系的延伸。
+
+**对决策的含义**：世界模型侧有官方代码的实例里，**S1 血统者（World4Drive / LAW）都寄生在 VAD 库**——其规划头与 VAD 家族同源、分数只能与 VAD 系比；而作为 navhard 条件来源的 **DriveFuture（WM-09）无官方代码**（[judgments-2.md F 组](../../judgments-2.md)）→ **"把世界模型当条件"这条路的代码起点，只能自建或借 VAD 系**。事实源供 [preparation.md §6.2](../../ideas/preparation.md) 与 [judgments-2.md F 组](../../judgments-2.md) 引用。
+
 ## 未解决问题
 
 | # | 问题 | 谁明确提出 | 证据等级 |
