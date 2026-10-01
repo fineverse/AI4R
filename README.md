@@ -15,16 +15,17 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第七十七轮（2026-10-01）**——**工作空间遗留问题修复**（非专题研究轮）：5 个只读巡查智能体全面巡查 + 按批准计划七批次清账——修 `normalize_links.py` 数据风险、`check_links` 新增**第 13 项（README 轮次表完整性）**与 3 条计数登记、**「收尾同步 7 处」权威清单**落进 workflows、**具身侧补记第 55/57/59/60 四轮**并修正 55/59 轮归属误记、待续清单清账（删 11 行已结账、新增 #28/#29）、scratch/归档组织；更正 8 处事实级错误（→ [rounds-77.md](projects/autonomous-driving/history/rounds-77.md)）。
+**最新一轮：第七十八轮（2026-10-01）**——**规则体系优化（服务 CCF-A）**：5 路审查后六批次修体系本身——6 处漏网真错误（DrivoR 矛盾行、幽灵文件、L 级错标）、检查器 5 项加固、**两决策文件瘦身出预警带**、同步位扩 9 处 + 8 处时间戳清账、**规则拆双层（新建 ai/lessons.md，rules −28%）**、方法学加固（T1/T2 分界、失败实验登记、复现声明）（→ [rounds-78.md](projects/autonomous-driving/history/rounds-78.md)）。
 
-**上一轮：第七十六轮（2026-10-01）**——**裁决第 73–75 轮为接受、不回退**（另一会话以主线程模式跑的 6 个提交：已在 `master` 上、线性、`check_links` 全绿、号没人用）；并**消化「重组地图」**：复核其候选区 ③ 后 TOAD **不**推翻它，但发现 **TOAD 的 related work 已把"选优是瓶颈"说成主流表述** → 我们是同一问题的另一种回答（**改监督 vs TOAD 改搜索**）；顺带把**卷数**并入机器检查（此前连续两轮差 1）（→ [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)）。
+**上一轮：第七十七轮（2026-10-01）**——**工作空间遗留问题修复**（非专题研究轮）：5 个只读巡查智能体全面巡查 + 按批准计划七批次清账——修 `normalize_links.py` 数据风险、`check_links` 新增**第 13 项（README 轮次表完整性）**与 3 条计数登记、**「收尾同步 7 处」权威清单**落进 workflows、**具身侧补记第 55/57/59/60 四轮**并修正 55/59 轮归属误记、待续清单清账（删 11 行已结账、新增 #28/#29）、scratch/归档组织；更正 8 处事实级错误（→ [rounds-77.md](projects/autonomous-driving/history/rounds-77.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 59 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 60 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
 > **⚠ 第七十六轮补记**：本轮发现 **README 的「最近动态」被第 73–75 轮的收尾漏掉了**（它当时仍停在"54 卷 / 最新第七十二轮"）——**这是"收尾同步 7 处"里漏掉一处的又一次实证**，见 [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)。（**第七十七轮后续**：已把「收尾同步 7 处」定为权威清单并加第 13 项机器检查，见 [ai/workflows.md §轮次收尾](ai/workflows.md)；本轮并补上指针表漏掉的第 67/68 轮两行。）
 
 | 轮次 | 指针 |
 |---|---|
+| **第七十八轮** | [rounds-78.md](projects/autonomous-driving/history/rounds-78.md) — 规则体系优化（服务 CCF-A）：拆双层 lessons.md、两文件出预警带、T1/T2 分界与复现声明 |
 | **第七十七轮** | [rounds-77.md](projects/autonomous-driving/history/rounds-77.md) — 工作空间遗留问题修复：五路巡查 + 七批次清账（新检查第 13 项、收尾同步位权威清单、具身补四轮、待续清账） |
 | **第七十六轮** | [rounds-76.md](projects/autonomous-driving/history/rounds-76.md) — 裁决 73–75 + 消化「重组地图」；卷数并入机器检查 |
 | **第七十五轮** | [rounds-75.md](projects/autonomous-driving/history/rounds-75.md) — 建立「重组地图」（→ [recombination-map.md](projects/autonomous-driving/ideas/recombination-map.md)） |
@@ -93,6 +94,8 @@ export http_proxy=http://127.0.0.1:7897
 ```
 
 - 下载付费墙 PDF（**8 条**），清单见 [pdfs_pending.md](projects/autonomous-driving/pdfs_pending.md)
+- **Zotero 库备份**（2026-10-01 第七十八轮立）：工作空间规则是"PDF 留 Zotero"——**8 篇付费墙 PDF 下载后唯一载体就是 Zotero 库**（不可再生，工作空间只有笔记）；建议随 `.git` 一起做异地备份
+- **GITHUB_TOKEN 轮换**（tools.md §GitHub 已建议）：当前 fine-grained token 曾以明文出现在对话记录（低风险：仅公开仓库只读），建议顺手换新
 - 为路线 B 实验取得 SimScale 的 DiffusionDrive checkpoint，并准备 NAVSIM v2 `navhard` 数据；协议已写在 [experiments/protocol.md](projects/autonomous-driving/experiments/protocol.md)（**数据盘路径需加沙箱白名单**，见 [state.md](projects/autonomous-driving/state.md) 待续第 21 项）
 - 如要正式立项，仍需用户明确确认；GPU、预算和主基准已经确定，不再作为待决策项
 

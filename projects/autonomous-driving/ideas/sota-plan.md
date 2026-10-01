@@ -1,16 +1,14 @@
 # 冲 SOTA 作战文件（NAVSIM v2 navhard）
 
-更新时间：2026-09-24（第三十九轮补 **§7.7.4 的口径更正：EC 不进 EPDMS**，并据 [benchmarks.md §2.10](../direction/benchmarks.md) 钉死本项目的 devkit 版本）  
+更新时间：2026-10-01（第七十八轮：§6 指针化 + §7.6.1 / §7.7.4 / §7.7.5 / §9.5 瘦身；各节内的 ⚠ 更正标注与 rounds 卷是完整历史）  
 **角色**：本文件回答"**怎么在 navhard 上提分成为新 SOTA**"。前提清单（S1–S30）、未解决问题（P1–P9）与 7 个方向的详细描述在 [preparation.md](preparation.md)；**完整论证与代码事实在 [judgments.md](../judgments.md)**；基准口径在 [benchmarks.md](../direction/benchmarks.md)。  
 **用户定的标准（2026-09-24）**：**提分成为新 SOTA 优先；创新只要能自圆其说即可**。最好是**数据集 SOTA**，退而求其次是**本小方向的 SOTA**。
-
-> **本文件从 `preparation.md §5.1` 拆出**（2026-09-24，因 `preparation.md` 已达 60.8 KB / 64 KB 上限）。拆分后 `preparation.md` 只留一段指针。
 
 ---
 
 ## 1.0 官方公开榜快照（NAVSIM v2 navhard，2026-09-30）
 
-**为什么单独留一节**：下面 §1 的来源是 **DriveFuture 论文的 Table 1**（13 行，**论文自报口径**），**不是官方榜**。两者**口径不同、行数不同、格局也不同**（官方榜 20 行、**榜首完全换人**）→ **并列保留才有防御力**，引用时**必须写明是哪一套**。
+**为什么单独留一节**：§1 的来源是 **DriveFuture 论文 Table 1**（13 行，**论文自报口径**），**不是官方榜**——两者口径、行数、格局都不同（官方榜 20 行、**榜首完全换人**）→ **并列保留才有防御力**，引用时**必须写明是哪一套**。
 
 **取数**：2026-09-30，`POST https://agc2025-e2e-driving-navhard.hf.space/leaderboard`，body `{"lb":"public"}`（**HTTP 200 / 18,059 字节**）。**第七十轮由主线程独立复取，逐行与支线投递物一致**。
 **字段**：官方 `extended_pdm_score_combined`（= `EPDMS`），另含 stage-1/2 各 9 个子指标与 `submission_datetime`。
@@ -89,7 +87,7 @@
 | 子榜定义 | 当前持有者 | 需超过 | 空位？ |
 |---|---|---|---|
 | navhard 上**有代码的生成式/扩散规划器** | **GTRS-E 49.4**（半生成，含扩散生成器）；纯扩散最高是 **DiffVLA 45.0**（**⚠ 第三十六轮：发布代码无扩散头，45.0 不可复现**，见 §7.6） | **49.4**；**纯扩散在"发布代码"这个口径下为空** | 否 |
-| navhard 上**有代码的任意方法** | **按论文口径（本节）**：**SimScale 53.2**（它**是框架不是规划器**；**✅ 第三十八轮：53.2 是新实现 `EPDMS`，其自报的 48.0 是旧实现 `EPDMS*`**，见 §7.7.5）。**⚠⚠ 第七十轮**：**按官方公开榜口径，有仓库的最高是 DriveZero 56.813（#7），其次是 TOAD 56.512（#8）、DrivoR 54.574（#10）**（见 [§1.0](sota-plan.md)）→ **"持有者"随口径不同**，**引用时必须写明是哪一套** | 论文口径 53.2 / 官方口径 56.813 | 否 |
+| navhard 上**有代码的任意方法** | **论文口径**：SimScale 53.2（框架非规划器；53.2 = 新实现 `EPDMS`、自报 48.0 = 旧实现 `EPDMS*`，见 §7.7.5）。**官方榜口径**：有仓库的最高是 **DriveZero 56.813（#7）**，其次 TOAD 56.512 / DrivoR 54.574（见 [§1.0](sota-plan.md)）→ **持有者随口径不同，引用必须写明是哪套** | 论文口径 53.2 / 官方口径 56.813 | 否 |
 | navhard 上**可复现的约束类** | **空**（GuideFlow 43.0 不可复现；PC-Diffuser 不在 NAVSIM） | — | **是** |
 | navhard 上**实时（≥10 Hz）** | **空**（navhard 侧**没有任何 FPS 报告**） | — | **是** |
 | navhard 上**无 scorer**（纯生成不选优） | DriveFuture 34.6 / GuideFlow 27.1 | 34.6 | 否 |
@@ -148,13 +146,8 @@
 
 ## 6. 仍需盯/补的功课
 
-| 事项 | 状态 |
-|---|---|
-| **DrivoR 是否放代码** | **无代码，但承诺 "will be made available"**（valeo.ai，CVPR 2026）→ **需持续盯**，一旦放出，③④ 层目标要重算 |
-| **SimScale 的 +8.6 对更强基线是否成立** | **✅ 已解决（第三十七轮，见 §7.7.3）**：**成立且不衰减**——四条基线增益 **+5.1（DiffusionDrive）/ +5.8（LTF）/ +6.1（GTRS-Dense V2-99）/ +8.6（GTRS-Dense ResNet34）**，**最强的那条拿到最大增益**。→ 路线 ③ 的前置**转为正面** |
-| **GTRS-E 的确切定义** | **✅ 已解决（第三十七轮，见 §7.7.2）**：原文写"未在任何论文中定义"**是错的**——定义在 **GTRS 论文 Table 2（= navhard 表）的题注**："The challenge-winning entry **GTRS-E ensembles all six models from GTRS-Dense and GTRS-Aug**"，正文写 "an ensemble of all six variants, reaches **49.4 EPDMS**"。→ **49.4 确实是 navhard 数字**；**但它是六模型集成，而仓库只发 4 个 ckpt、其中只有 2 个属于这六个**（都是 V2-99：41.7 / 42.1）→ **49.4 不可复现** |
-| **SimScale 的 53.2 出自哪里** | **✅ 已解决（第三十八轮，见 §7.7.5）**：**不是错误，是口径差**——SimScale 自报的 **48.0 是旧实现（`EPDMS*`）**，DriveFuture 表里的 **53.2 是新实现（`EPDMS`）**，两者的逐阶段子指标显示是同一个 V2-99 模型。→ **§1 的表因此是一个"混装集"**（DriveFuture 的行 = 新实现，各论文自报的行 = 旧实现），已在 §1 加口径标注；**引用 v2 EPDMS 必须问"旧实现还是新实现"**（见 [benchmarks.md §2.9](../direction/benchmarks.md)） |
-| **ZTRS 的 navhard 分数** | **自报 45.5 vs DriveFuture 表记 48.1，数值不一致**——引用时须注明 |
+> **第七十八轮指针化**：本节原为盯/补清单表，与 [state.md](../state.md) 待续清单重复维护、已两次漏同步（DrivoR 行漏改至第 78 轮才发现）——**未决事项一律以 [state.md](../state.md) 待续为准**（#23 选优器专线 / #24 官方榜三查 / #28 竞品两处待核 / #27 TOAD "oracle studies"），已决事项的论证在本文件 §7.7.2（GTRS-E 定义）/ §7.7.3（SimScale +8.6 不衰减）/ §7.7.5（53.2 vs 48.0 两套实现）。
+> **一条更正留档**：原表"DrivoR 无代码、需持续盯"系第 71 轮传播核查漏改——**DrivoR 已有代码**（`valeoai/DrivoR` 280★，见 §1.0 与 DP-C01）。ZTRS 自报 45.5 vs 表记 48.1 的口径疑点见待续 #28①。
 
 ---
 
@@ -223,19 +216,13 @@
 | **DiffVLA 45.0** | 45.0 | **否**——**发布版没有扩散头** | **已发布**（`diffvla_data_exp/planning_vb/` 有 **32 / 64 / 128 / 256 / 512 / 1024 / 2048 / 4096 / 8192** 共 **9 档** `.npy`） | 是（Apache-2.0，有 `train_diffvla.sh` / `metric_cache.sh` / `fast_test.sh`） | **8192** | **排除**（**没有可冻结的生成器**） |
 | **DiffusionDrive 24.2** | 24.2 | **是**（截断扩散 + 20 锚点先验，DP-A02） | **公开可得**——Release 资产，形状 **(20,8,2)**，**已与 V2 同名文件逐字节比对相同**（[C005 §H.3](../code/traces/e2e_trunk_code_traces.md)） | 是（**L1 逐文件核验**，无调试断点） | **20** | **✅ 建议起点** |
 
-#### 7.6.1 DiffVLA 为什么不能当起点（本轮从发布代码取到的证据）
+#### 7.6.1 DiffVLA 为什么不能当起点（结论；完整取证见 [C003](../code/traces/diffusion_planner_code_traces-2.md) 第 36 轮核验）
 
-`boschresearch/DiffVLA`：**36★ / Apache-2.0 / 44 MB / 最后推送 2025-12-08**（⚠ `DiffVLA/DiffVLA` 是**空壳**，0 KB）。
-
-1. **README §5 自述**：「The released version has some modifications compared to the paper on arXiv: 1. The trajectory head has been updated from **Diffusion Drive** to a self-developed **Transformer-based Trajectory Head**. 2. A **reward loss** derived from multiple EPDM sub-metrics has been introduced.」
-2. **代码级**：`navsim/agents/diffvla/` 下**活跃头是 `trajectory_head_reward.py`**（目录里**没有任何扩散轨迹头文件**）；`modules/` 只剩 `conditional_unet1d.py` 与 `scheduler.py` 两件扩散残件；`diffvla_config.py` 里 `diff_loss_weight = 20.0` 仍在，但**不被活跃头使用**。
-3. **它其实是一个"选优器"**：`RewardHead` 按 **nc / dac / ddc / tlc / ep / tc / lk / hc 八个 EPDM 子指标**各出一个头，损失是 **BCE against 离线 GT 标签**（`compute_reward_loss`，监督来自 `pdm_scores_8192`，由仓库脚本 `navsim/misc/gen_multi_trajs_pdm_score_ours.py` 生成）；**推理期**用 `combined_score = w1·cls + w2·nc + w3·dac + w4·(5tc + 2lk) + w5·ddc`（**`w = [1.0, 4.0, 1.2, 0.02, 8.0]`，手调常数**）**argmax 选一条**。→ **`ep` 与 `hc` 算了但没进最终分**（与 EPDM 的定义不符）。
-4. **配置与论文不一致**：`num_voc = 8192`（论文写 **N_anchor = 32**）。
+`boschresearch/DiffVLA`（36★ / Apache-2.0；⚠ `DiffVLA/DiffVLA` 是空壳）。**四条代码级证据**：① README §5 自述发布版把扩散头**换成了自研 Transformer 头**并加了 reward loss；② `navsim/agents/diffvla/` 活跃头是 `trajectory_head_reward.py`、**无任何扩散轨迹头**（`modules/` 只剩两件扩散残件）；③ 它实为**"离线 GT 打分监督的选优器"**——`RewardHead` 按八个 EPDM 子指标出 BCE 头（监督来自 `pdm_scores_8192`），推理期手调权重 argmax 选一条；④ `num_voc = 8192` 与论文 N_anchor=32 不一致。
 
 → **两条推论**：
-
-- **对 §1 / §3 / §5.1 的更正**：「有代码的**纯扩散**规划器 SOTA = **45.0**（DiffVLA）」**站不住**——45.0 是**论文里带扩散头的竞赛成绩**，而**发布代码的头不是扩散头**，且该版本**仓库未报告任何分数**。→ **"有代码的纯扩散规划器"这个子榜，在"发布代码"这个口径下是空的**（DIVER 43.4 代码跑不通、DiffVLA 45.0 头被换掉）。这是[七类"名字≠实际"陷阱](../judgments.md)的一个**新形态**：不是"配置关掉了机制"，也不是"机制落在评测没 import 的版本里"，而是**发布代码里根本没有论文那个机制**。
-- **对方向 B（选优器）的增益**：发布版 DiffVLA 是**"离线 GT 打分监督的选择器"的第 4 个代码级实例**（前三个：WoTE 的 PDM 子指标 / Drive-OccWorld 的 GT 占据 / World4Drive 的 GT FDE），而且它**有代码、可运行、候选池 8192（比 DriveFuture 的 100 还大）** → **它是方向 B 最合适的载体**（把"离线 GT EPDM 监督"换成在线信号），**而不是路线 ② 的生成器**。这条把 §5.3 的"自圆其说"从"三种实例"抬到**四种**。
+- **对 §1 / §3 / §5.1 的更正**："有代码的**纯扩散**规划器 SOTA = 45.0（DiffVLA）"**站不住**——45.0 是论文里带扩散头的竞赛成绩，发布代码的头不是扩散头且未报告分数。→ **"有代码的纯扩散规划器"子榜在"发布代码"口径下是空的**（DIVER 43.4 跑不通、DiffVLA 45.0 头被换）——七类"名字≠实际"陷阱的**新形态**：发布代码里根本没有论文那个机制。
+- **对方向 B 的增益**：发布版 DiffVLA 是**"离线 GT 打分监督的选择器"的第 4 个代码级实例**（前三个：WoTE / Drive-OccWorld / World4Drive），且**可运行、候选池 8192** → 它是方向 B 最合适的载体（把"离线 GT EPDM 监督"换成在线信号），而不是路线 ② 的生成器。
 
 #### 7.6.2 起点选定后的第一个坑：候选池只有 20 条
 
@@ -296,24 +283,15 @@ SimScale 论文摘要原文自述 **"up to +8.6 EPDMS on navhard and +2.9 on nav
 
 **而且有一个现成的组合**：SimScale **已经测过 DiffusionDrive**，仓库里就有 `navsim/planning/script/config/common/agent/diffusiondrive_agent.yaml` + **HF 上发布好的 `diffusiondrive_sim_navhard.ckpt`**。→ **路线 ②（冻结生成器只训 scorer）与路线 ③（套 SimScale）可以在同一个起点上直接串起来**，且**第一步不需要训练**（用它的 ckpt 直接跑 navhard 评测即可）。
 
-#### 7.7.4 顺带发现：SimScale 的 co-training 让 DiffusionDrive 的**舒适性塌掉一半**
+#### 7.7.4 顺带发现：SimScale 的 co-training 让 DiffusionDrive 的**舒适性塌掉一半**（但 EC 不进分）
 
-DiffusionDrive 逐阶段子指标（SimScale Table 1，`∗` = pseudo-expert 监督）：
-
-| 阶段 | NC | DAC | DDC | TLC | EP | TTC | LK | **EC** | 阶段分 |
-|---|---|---|---|---|---|---|---|---|---|
-| S1 w/o | 96.8 | 86.0 | 98.8 | 99.3 | 84.0 | 95.8 | 96.7 | **79.6** | 66.7 |
-| S1 w/ ∗ | 97.4 | 88.7 | 99.3 | 99.3 | 82.8 | 96.9 | 98.0 | **59.6** | 67.5（+0.8） |
-| S2 w/o | 80.1 | 72.8 | 84.4 | 98.4 | 85.9 | 76.6 | 46.4 | **72.8** | 40.5 |
-| S2 w/ ∗ | 86.4 | 72.1 | 92.9 | 98.5 | 92.1 | 80.6 | 60.8 | **31.9** | 46.8（+6.3） |
-
-→ **总 EPDMS 涨 5.1，而 EC 从 79.6 / 72.8 掉到 59.6 / 31.9**（S2 掉一半以上）；涨分几乎全在 **S2 的 LK（+14.4）与 NC（+6.3）**，S1 几乎没动（+0.8）。→ 这是 **P2c（"分数与可行性不一致"）一个同基准同方法的直接实例**，且**发生在我们选定的起点上**。**⚠ 第三十九轮更正**：**EC 在本地 devkit 里被 mask 掉、不进 EPDMS**（`mask[WeightedMetricIndex.TWO_FRAME_EXTENDED_COMFORT] = False`）→ **EC 掉一半对总分毫无影响**，这**不是"涨分牺牲舒适性"的权衡**、而是"**EPDMS 没测 EC**"（进加权和的只有 `{EP, TTC, LK, HC}`）。→ **论文里应写"EPDMS 未覆盖 EC"**（完整版见 [benchmarks.md §2.3 / §2.10](../direction/benchmarks.md)）。
+SimScale Table 1 逐阶段子指标（完整表见该论文 / [benchmarks.md §2.3](../direction/benchmarks.md)）：DiffusionDrive 总 EPDMS 涨 **+5.1**（S1 +0.8 / S2 +6.3），而 **EC 从 79.6 / 72.8 掉到 59.6 / 31.9**（S2 掉一半以上）；涨分几乎全在 S2 的 LK（+14.4）与 NC（+6.3）。→ **⚠ 第三十九轮更正**：**EC 在本地 devkit 里被 mask 掉、不进 EPDMS**（`mask[WeightedMetricIndex.TWO_FRAME_EXTENDED_COMFORT] = False`，进加权和的只有 `{EP, TTC, LK, HC}`）→ 这**不是"涨分牺牲舒适性"的权衡**、而是"**EPDMS 没测 EC**"。**论文里应写"EPDMS 未覆盖 EC"**（完整版见 [benchmarks.md §2.3 / §2.10](../direction/benchmarks.md)；逐阶段数值表已在第七十八轮随本文件瘦身移除，以 benchmarks 为权威源）。
 
 #### 7.7.5 谜底（2026-09-24 第三十八轮补）：**53.2 与 48.0 是两套官方实现，不是错误**
 
 DriveFuture 论文 **§3.3 原文**给出了区分：**`EPDMS\*` = 2025-09-29 人-行为过滤修复**之前**；`EPDMS` = 修复**之后**（修复逻辑 = "同一违规若人类轨迹也犯，则不扣该帧"→ **只减不增扣分、修复后系统性偏高**）。→ **SimScale 自报的 48.0 是旧实现、DriveFuture 表里的 53.2 是新实现**；两行逐阶段子指标显示**是同一个 V2-99 模型**（NC/DAC/TLC 几乎相同，差别集中在 **EC 43.2 ↔ 30.9**）。**实测幅度**（DriveFuture Table 2 是唯一同给两列处）：**86.4 → 89.9（+3.5）**、**DiffusionDriveV2 85.5 → 87.5（+2.0）**。
 
-→ **三条后果**：① **§1 的表是"混装集"**——同一张表内数字分属两套实现（已加口径标注）；② **§3 子榜"SimScale 53.2"改回可用**，但须与 48.0 并列；③ **路线 ③ 报的 +5.1 是 `EPDMS\*` 口径**，要在官方榜上比就得用新实现重测（实验协议须写明 devkit 版本）。另注：§7.7.1 的"24.2 vs 27.5"大概率同源，但方向与 SimScale 相反，暂不归因。
+→ **三条后果**：① **§1 的表是"混装集"**（同表数字分属两套实现，已加口径标注）；② **§3 子榜"SimScale 53.2"改回可用**，但须与 48.0 并列；③ **路线 ③ 报的 +5.1 是 `EPDMS\*` 口径**——要在官方榜上比就得用新实现重测（协议须写明 devkit 版本）。§7.7.1 的"24.2 vs 27.5"大概率同源、方向相反，暂不归因。
 
 > **完整版（含修复逻辑原文、M_pen / M_avg 与 β 权重、三条约束）见 [benchmarks.md §2.9](../direction/benchmarks.md)。**
 
@@ -433,21 +411,20 @@ DriveFuture 论文 **§3.3 原文**给出了区分：**`EPDMS\*` = 2025-09-29 �
 
 > **池子越大，选优空间越大** → **"先扩大池子"与"做好选优"是同一件事的两面**，不是两条独立路线。
 
-→ 因此第一步（§8.5）除天花板外**还要顺带量一个数**：把池子从 **20 放大到 100**（多重采样噪声，纯推理）后**天花板涨多少**。这一个数同时回答"池子值多少"与"选优值多少"。
+→ 因此第一步（§8.5）还要顺带量：池子 **20 → 100**（多重采样噪声，纯推理）后天花板涨多少——这一个数同时回答"池子值多少"与"选优值多少"。
 
 ### 9.5 账本的空白（**明确列出，避免以后重复找**）
 
-> **⚠ 第四十三轮更正**：本节原列的 5 项里，**第 3 项是错的**（GTRS Table 1 就有一张"池子大小 + 地板"表，见 §9.6），**第 1 项也部分被填**（§9.6 给出第三个 navhard 地板 gap）。**"无人报告"本身就是一个断言，必须举证**——本轮为此在四篇本地论文全文里逐篇搜过。
+> **⚠ 第四十三轮更正**：原列 5 项中第 3 项被 §9.6 推翻（GTRS Table 1 有"池子→选中分"曲线）、第 1 项部分被填（第三个地板 gap）。**"无人报告"是断言、必须举证**（已在四篇本地论文全文逐篇搜过）。
 
-- **navhard 的天花板 gap**（`C − S`）：**仍无人报告** ← **我们要测的**（§9.6 只填了地板，没填天花板）
+- **navhard 的天花板 gap**（`C − S`）：**仍无人报告** ← **我们要测的**（§9.6 只填了地板）
 - **navtest 的地板 gap**：无人报告（DDV2 只给了天花板）
-- ~~**"池子大小 → 天花板"的曲线**：无人报告~~ → **❌ 已推翻（第四十三轮）**：GTRS Table 1 有**"池子大小/组成 → 分数"的曲线**（100 → 16,484），只是它是"**选中分**"的曲线而非"天花板"曲线；**且它不单调**（8,292 > 16,484）。详见 §9.6
 - **池子 ≥ 100 的扩散规划器的天花板**：无人报告（DDV2 / DD 都是 20；GTRS 是评分式、非扩散）
-- **20 锚点模型在 navhard 上的 `proposals[0]` 分数**：无人报告（GuideFlow 的 27.1 与 GTRS 的 25.6 都是 100 候选池的）
+- **20 锚点模型在 navhard 上的 `proposals[0]` 分数**：无人报告（GuideFlow 27.1 与 GTRS 25.6 都是 100 候选池）
 
 ### 9.6 第四十三轮补：GTRS Table 1 填掉两处"空白"，并给出一条**反向**证据
 
-§9.5 说"池子大小 → 分数"的曲线无人报告。**这个断言是错的**——GTRS 的 **Table 1** 就是一张完整的"**词表 / 池子 + 地板**"表（论文原文逐字核验），而且它来自**可复现的那一侧**（GTRS 有 4 个已发布 ckpt）。
+§9.5 说"池子 → 分数"的曲线无人报告——**这个断言是错的**：GTRS 的 **Table 1** 就是一张完整的"**词表 / 池子 + 地板**"表（论文原文逐字核验），且来自**可复现侧**（4 个已发布 ckpt）。
 
 **GTRS Table 1**（navhard；`Vdp` = **100 条动态候选**，`V_XL` = **16,384** 静态词表，`V_L` = **8,192**）：
 
@@ -474,22 +451,24 @@ DriveFuture 论文 **§3.3 原文**给出了区分：**`EPDMS\*` = 2025-09-29 �
 
 **④ 对方向 B 的一条新颖性警示**：GTRS 的**主贡献之一就是"让评分器在未见过的词表上工作"**（训练 16,384、推理 8,192 + vocabulary dropout）→ **"先把池子做大、再让选优器泛化"这一块已被部分占据**。→ **我们的区分点必须落在"监督信号"（在线可得 vs 离线 GT 打分）上，而不是"池子"上。** 这与 §8.4 的改写一致，但**现在有了必须避开的近邻工作**。
 
-**⑤ 又一个被算力排除的规模**：GTRS 训练用 **24× A100**（§4.2 原文）→ 与 §8.1 的结论一致。
+**⑤ 又一个被算力排除的规模**：GTRS 训练用 **24× A100**（§4.2 原文），与 §8.1 一致。
 
 ### 9.7 第六十八轮补：**"做选优"已被他人占住，且有强对手**（2026-09-30）
 
-定向检索"选优器 / 候选池"专线（2026-09-30 支线投递，主线程整合）→ 单独成表 [scoring_line.md](../topics/diffusion-planner/papers/scoring_line.md)（21 条：4 条**摘要级已核** + 17 条**线索级未核**）。**§8 把 B 排第一的依据本身没错，但"做选优"这件事已不新**——四条最可能重合的先行工作，**由主线程于第六十八轮逐条 `WebFetch` 读 arXiv abs 页复核（ID / 标题 / 关键数字逐字吻合，仍为摘要级）**：
+定向检索"选优器 / 候选池"专线（2026-09-30 支线投递，主线程整合）→ 单独成表 [scoring_line.md](../topics/diffusion-planner/papers/scoring_line.md)（19 条：4 条**摘要级已核** + 15 条**线索级未核**；**⚠ 第七十八轮更正**：原写"21 条 = 4 + 17"，系第 77 轮计数修正的第四处漏网——加粗分隔使 Grep 未命中）。**"做选优"这件事已不新**——四条最可能重合的先行工作（主线程已逐条复核 arXiv abs 页）：
 
-| 工作 | 与选优器的关系 | 关键数字 |
+| 工作 | 一句话 | 关键数字 |
 |---|---|---|
-| **TOAD**（arXiv 2606.07170，valeo.ai） | **把冻结 scorer 当轨迹级 reward，用 CEM 在测试时搜索**；**plug-and-play、无需重训**，跨 6 个 base planner | v1 **94.7 PDMS** / v2 **56.3 EPDMS** |
-| **Vault**（arXiv 2606.06219，投 ICLR 2027） | one-step latent 生成 + **reward-gated 正样本池**（用官方评测器筛自身成功样本锚定）+ **学到的 scorer 预测官方分及其子指标**；声明"无策略梯度、无学到的奖励模型" | v1 94.6 PDMS / v2 **91.2 EPDMS** |
-| **DriveVer**（arXiv 2607.00399） | **按 ego 状态 + 导航命令做条件聚类与均衡采样造候选** + 34M 双头验证器 → **与"候选池构造 × 监督"是同一命题** | 34M 参数 |
-| **BeyondDrive**（arXiv 2605.19771） | 与选优互补：flow matching 造**硬负样本** + Repulsive Distance Loss | v1 89.7 PDMS（基线 Latent Transfuser，单模） |
+| **TOAD** | 冻结 scorer 当 reward 做**测试时 CEM 搜索**（无需重训，跨 6 个 base planner） | v1 94.7 PDMS / v2 56.3 EPDMS |
+| **Vault** | one-step latent 生成 + reward-gated 正样本池 + **学 scorer 预测官方分子指标** | v1 94.6 / v2 **91.2 EPDMS** |
+| **DriveVer** | 条件聚类 + 均衡采样造候选 + 34M 双头验证器（**与"候选池×监督"同命题**） | 34M 参数 |
+| **BeyondDrive** | flow matching 造**硬负样本** + RDL（与选优互补） | v1 89.7 PDMS |
+
+（完整机制、venue 与代码状态见 [scoring_line.md §一](../topics/diffusion-planner/papers/scoring_line.md)。）
 
 **三条直接影响**：
 
-1. **✅ 已核实（第六十九轮）：TOAD 的 56.3 就是 navhard**——论文 §4.1 原文 "NAVSIM-v2 (**navhard-two-stage** split)"，§4.2 又写明 "DrivoR … gains +3.1% to reach **56.3 EPDMS**, outperforming the strongest learned method (**DriveFuture**, 55.5) … only 0.3 behind the privileged PDM-Closed (56.6)"。→ **§1 的榜一易主**：DriveFuture 55.5 → **TOAD + DrivoR 56.3**。**⚠⚠ 第七十轮两处更正**：(a) **TOAD 与 DrivoR 的代码都已发布**（[valeoai/TOAD](https://github.com/valeoai/TOAD) 25★ / [valeoai/DrivoR](https://github.com/valeoai/DrivoR) 280★，后者 `created` 早在 **2026-01-05**）——**本文此前"TOAD 代码未发布"是错的**，依据只有摘要那句话；**(b) 换到官方公开榜口径后**，TOAD 是 **56.512（#8）**、DrivoR 是 **54.574（#10）**、**榜一另有其人**（`guest9527` 60.561，匿名无代码）→ 见 [§1.0](sota-plan.md)。**⚠ 但有一条更硬的发现**：TOAD 把头部**压平**了——六个 base planner 原本 **34.7–54.6**（差近 20 分），搜索后**全部落在 49.0–56.3**（iPad **+43.6%**、最强的 DrivoR 只 **+3.1%**）→ **"base planner 本身好不好"被大幅削弱**，而 TOAD **无需重训、只用公开 ckpt**（Hydra-MDP / GTRS / ZTRS / iPad / RAP / DrivoR）。
+1. **✅ 已核实（第六十九轮）：TOAD 的 56.3 就是 navhard**——论文 §4.1 原文 "NAVSIM-v2 (**navhard-two-stage** split)"；§4.2 写明 DrivoR 增益 +3.1% 至 **56.3 EPDMS**，超最强学习法 DriveFuture（55.5）、距特权 PDM-Closed（56.6）仅 0.3。→ **§1 的榜一易主**：DriveFuture 55.5 → **TOAD + DrivoR 56.3**。**⚠⚠ 第七十轮两处更正**：(a) **TOAD 与 DrivoR 的代码都已发布**（[valeoai/TOAD](https://github.com/valeoai/TOAD) 25★ / [valeoai/DrivoR](https://github.com/valeoai/DrivoR) 280★，后者 `created` 早在 **2026-01-05**）——本文此前"TOAD 代码未发布"是错的（依据只有摘要那句话）；(b) **换到官方公开榜口径后**，TOAD 是 **56.512（#8）**、DrivoR **54.574（#10）**、**榜一另有其人**（`guest9527` 60.561，匿名无代码）→ 见 [§1.0](sota-plan.md)。**⚠ 更硬的发现**：TOAD 把头部**压平**——六个 base planner 原本 **34.7–54.6**，搜索后**全落 49.0–56.3**（iPad +43.6%、最强的 DrivoR 只 +3.1%）→ **"base planner 本身好不好"被大幅削弱**，而 TOAD **无需重训、只用公开 ckpt**。
 2. **区分点必须落在"监督信号"上**：TOAD 用**现成冻结 scorer 当 reward 做搜索**、Vault 直接**学 scorer 去预测官方分**——"做选优"与"扩池"都已被占据 → 我们的卖点只能是**在线可得 vs 离线 GT 打分**这一轴（与 §9.6 ④ 一致，**现在多了两个必须避开的近邻**，且 TOAD 的"无需重训"恰好打在我们"冻结 + 小规模"的算力优势上）。
 3. **重合风险最高的是 DriveVer**（条件聚类 + 均衡采样造候选）——它几乎就是"候选池构造 × 监督"的同一命题，**差异化必须写清楚**。
 

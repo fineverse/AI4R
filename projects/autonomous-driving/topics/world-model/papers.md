@@ -1,6 +1,6 @@
 # 世界模型（驾驶侧）论文表
 
-更新时间：2026-09-23  
+更新时间：2026-10-01（内容含 §1.1 至第六十轮；头戳此前停在 2026-09-23）  
 **文件结构**：本文件 = 表 + 证据边界 + 补录结果 + 代码可用性全表（**轻量入口**）；**§4 的逐篇全文核验结论已拆到** [verification.md](verification.md)（53.7 KB）。**凡引用"§4"的地方请改看该册。**（拆分原因：原文 73 KB，超 Read 工具 64 KB 上限，无法整读。）  
 检索范围：2023–2026，arXiv 12 组查询去重 **510 篇**（`wm1–wm6`），按 [literature-quality.md](../../../../shared/literature-quality.md) 分档筛选后收录 **24 篇**。  
 证据状态：**全部 24 篇均已读全文**（第二十四、二十五轮分四批补齐，逐篇结论见 [verification.md](verification.md)）；其中 **14 篇已做代码级核验**（WM-01、**WM-02**、WM-03、WM-04、WM-06、WM-07、**WM-10**、WM-11、**WM-15、WM-16**、WM-17、WM-18、WM-20、WM-24，见 [world_model_code_traces.md](../../code/traces/world_model_code_traces.md) 与 §5）。  

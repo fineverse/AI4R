@@ -1,6 +1,6 @@
 # 自动驾驶扩散规划器论文表（2022–2026）
 
-更新时间：2026-09-23  
+更新时间：2026-10-01（第七十八轮：证据词表对齐 + A16 待核痕迹；此前 2026-09-23）  
 检索对象：以扩散模型 / 流匹配 / 扩散桥作为**自车规划器**的论文（主方向）。含少量通用决策域论文，用于取机制，已在表中标注"域"。  
 编号规则：`DP-Axx`（Diffusion Planner – Autonomous driving）。综述见 [diffusion_planner_surveys.md](../surveys/diffusion_planner_surveys.md)（`DP-Sxx`），具身侧见 [diffusion_planner_embodied.md](../../../../embodied-ai/topics/diffusion-policy/papers/diffusion_planner_embodied.md)（`DP-Exx`）。
 **代码静态检查的级别**（定义见 [ai/rules.md](../../../../../ai/rules.md) §代码静态检查）：研究对象侧 **13 个已克隆仓库为 L1 逐文件核验**（其中 **DriveFine 为 L2**——仓库存在但零代码）；**第二十四轮新发现的 6 个（GuideFlow / ReCogDrive / BridgeDrive / LCS / MPDiffuser / DIPOLE）为 L3**（`raw` 逐文件取证、**未克隆**）；**第三十六轮又补 1 个 L3（DP-A27 DiffVLA，见 [VLA-06 笔记](../../vla/notes/VLA-06-diffvla.md)）→ 共 7 个 L3**。**L1/L3 可支持"机制是否实现"，但不支持"性能与延迟"类结论。**
@@ -9,7 +9,7 @@
 
 - 纳入：把生成过程用在**规划输出**（轨迹、轨迹集合、控制量序列）上的工作。仅用扩散做场景生成、感知、轨迹预测的不纳入（见文末"边界外条目"）。
 - **指针行**：**通用决策域 / 非驾驶域**的论文在本表**只留 3 格指针**，完整登记在[具身表](../../../../embodied-ai/topics/diffusion-policy/papers/diffusion_planner_embodied.md)（`DP-Exx`），**避免两处各写一份**。共 5 行：**DP-A17 DIPOLE（§F）、DP-A20 SafeFlowMatcher（§G）、DP-A23 MPDiffuser（§G）、DP-A24 SDGD（§G）**，以及 **§A 的 DP-E01（Diffuser，奠基条目）**——它没有 AD 编号，**行 ID 直接用具身编号**（第二十九轮补入本清单，此前漏列）。
-- 证据状态：`元数据`、`摘要`、`全文`（本轮由子代理抓取 arXiv HTML 并逐节提取）、`未获取`（HTML 中表格数值不可读）。
+- 证据状态：`元数据`、`摘要`、`全文`（本轮由子代理抓取 arXiv HTML 并逐节提取）。**HTML 表格数值不可读的**，写 `全文（表格数值缺失，正文未复述）`——**不设词表外档位**（词表见 [rules.md](../../../../../ai/rules.md) §证据等级；原"未获取"写法已于第七十八轮并入）。
 - 表中**数字只在已核验到摘要或全文时写出**；未核验的一律留空并标"未核验"，不用记忆或推测补齐。
 - 版本号取核验当日 arXiv 最新版本，写在"载体与版本"列。
 - **"代码"列已于 2026-09-23 全表核验完毕（34/34）**：口径为"**官方仓库是否存在**"且"**仓库里是否真有源文件**"两级。结果是 **18 篇有代码 / 1 篇占位仓库（零代码，DP-A29 DriveFine）/ 1 篇只有项目页（DP-A15）/ 14 篇未找到官方代码**。三点需注意：① **"有仓库"≠"有代码"**（DP-A29 只有 README + 一张图、DP-A15 的 repo 里只有 GitHub Pages 站点源码 `docs/index.html`、**DP-A17 DIPOLE 主仓是占位而真代码在 git submodule** `Whiterrrrr/dipole-rl`）；② **论文给的链接可能是占位**——**DP-A12 GuideFlow 的 arXiv 链接指向 `liulin815/GuideFlow`（README 原文 "We are currently organizing the code, coming soon"），真代码在 `adept-thu/GuideFlow`**，只按论文链接打开会误判为"未发布"；③ **DP-A28 ReCogDrive 的代码已公开**（`xiaomi-research/recogdrive`，2025-08-21 释放 NAVSIM 版），它是 WM-11 DriveLaW 的 `ReCogDriveDiffusionPlanner` 的上游。核验方法：arXiv 摘要页 + HTML 全文外链检索 + GitHub 仓库名搜索 + 仓库文件树（**未克隆任何仓库**）。
@@ -131,7 +131,7 @@
 | DP-A33 DiMA（非扩散对照） | 18 | CVPR 2025 |
 | DP-A01 Diffusion Planner | 2 | 仅 arXiv 记录 |
 | DP-A04 AnchDrive | 2 | Springer CCIS 2026（10.1007/978-981-95-6736-2_10） |
-| DP-A16 DIVER | 1 | TPAMI 2026（10.1109/tpami.2026.3708096） |
+| DP-A16 DIVER | 1 | TPAMI 2026（10.1109/tpami.2026.3708096）**——⚠ 官方 README 原文写 "TAPMI"（疑笔误），正式录用信息未二次核验** |
 | DP-A27 DiffVLA / DP-A28 ReCogDrive | 各 1 | arXiv 记录 |
 | 其余 2026 年新论文（DP-A05/A12/A14/A18/A21/A22/A31 等） | 0 | 发表时间过近 |
 
@@ -159,7 +159,7 @@
 | DP-A13 WAM-Flow | T4 | 仅 arXiv；复旦团队 + 有代码 |
 | DP-A14 MeanFuser | T2 | CVPR 2026 + 有代码 |
 | DP-A15 DirectControlFM | T2 | ITSC 2026 口头（白名单） |
-| DP-A16 DIVER | T1 | TPAMI 2026（CCF-A）；引用 1 |
+| DP-A16 DIVER | T1 | TPAMI 2026（CCF-A，**⚠ README 原文 "TAPMI" 疑笔误、未二次核验**）；引用 1 |
 | DP-A17 DIPOLE | — | 通用决策域**指针行**，见具身表 DP-E05 |
 | DP-A18 FeaXDrive | T4 | 仅 arXiv；有代码 |
 | DP-A19 RoG-DAgger | 待核 | 仅 arXiv；**无代码、无独特方法** → 可能落 T5 |

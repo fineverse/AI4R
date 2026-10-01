@@ -1,6 +1,6 @@
 # 自动驾驶基准与评价协议
 
-更新时间：2026-09-23  
+更新时间：2026-10-01（内容含 §2.9/§2.10 至第三十九轮；头戳此前停在 2026-09-23）  
 性质：**大方向公共资产**。本文件只汇总"用哪个基准、怎么算分、能不能比"，不重复各小方向的实验结果。  
 来源编号见 [sources.md](../sources.md)（B 系列＝基准与数据集）。  
 证据等级：基准清单与论文口径来自**官方 README 与论文自述**；**§2 的 NAVSIM 指标定义与 Agent/评测接口、§2.6 的 nuPlan 闭环分数、§2.7 的 Bench2Drive 四项指标、§2.8 的 nuScenes 开环规划指标均已做代码级静态核验**（NAVSIM 读 `navsim` 仓库 `main` 分支 commit `0a380a9063d7162ec93d0f51e9990ebac585f720`，即 v2 版 devkit，见 [code/repos/navsim](../code/repos/navsim)；nuPlan 读**已 vendored 到本地的 nuplan-devkit**，见 [code/repos/WAM-Flow/nuplan-devkit](../code/repos/WAM-Flow/nuplan-devkit)；Bench2Drive 读**已 vendored 到本地的官方评测栈**，见 [code/repos/diver](../code/repos/diver)，并已与官方 `0.0.4` 分支逐字节比对；nuScenes 开环读本地已克隆的 `UniAD` / `VAD` / `SparseDrive` / `GenAD`）；**未在本地运行任何评测**。

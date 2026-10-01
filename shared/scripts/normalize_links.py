@@ -17,6 +17,10 @@ ROOT = '/home/verse/dev/AI4R'
 # · scratch = 临时产物根；.git / .trae / __pycache__ / node_modules = 非知识树。
 SKIP_DIRS = {'.git', '.trae', 'repos', 'archive', 'scratch', '__pycache__', 'node_modules'}
 LINK_RE = re.compile(r'\[([^\]]*)\]\(([^)\s]+)\)')
+# 行内代码跨度（`...` / ``...``）：里面的 `[x](y)` 是**举例**，不是真链接——与 check_links.py
+# 同源的正则（第二十九轮在那里修过同类误报，第七十八轮回移到本脚本：此前对原始全文做 sub，
+# 示例文本被当真链接重写，--apply 会改坏 rounds-45/29/33 等处的示例）。
+code_span_re = re.compile(r"(`{1,2})(?!`)(?:(?!\1).)*?\1(?!`)")
 APPLY = '--apply' in sys.argv
 
 count = 0
@@ -50,7 +54,20 @@ for dirpath, dirnames, filenames in os.walk(ROOT):
                 bad.append((os.path.relpath(path, ROOT), link))
             return '[%s](%s)' % (label, new_rel)
 
-        new_text = LINK_RE.sub(repl, text)
+        # 逐行处理：``` 围栏内的行原样保留（模板示例不是真链接）；
+        # 围栏外的行先剥行内代码跨度再做替换（均为 check_links.py 同款豁免，第七十八轮移植）。
+        out_lines = []
+        in_fence = False
+        for line in text.split('\n'):
+            if line.lstrip().startswith('```'):
+                in_fence = not in_fence
+                out_lines.append(line)
+                continue
+            if in_fence:
+                out_lines.append(line)
+                continue
+            out_lines.append(LINK_RE.sub(repl, code_span_re.sub('', line)))
+        new_text = '\n'.join(out_lines)
         if APPLY and new_text != text:
             open(path, 'w', encoding='utf-8').write(new_text)
 

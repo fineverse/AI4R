@@ -95,13 +95,17 @@ for p, n, t in dead:
     print(f"  {p}:{n} -> {t}")
 
 print("\n--- 行数预算（index.md / state.md 应 <=100）---")
+line_budget_over = []
 for p in md_files:
     base = os.path.basename(p)
     if base in ("index.md", "state.md"):
         with open(p, encoding="utf-8", errors="ignore") as fh:
             n = sum(1 for _ in fh)
         flag = "  <== 超限" if n > 100 else ""
+        if n > 100:
+            line_budget_over.append(f"{os.path.relpath(p, ROOT)}: {n} 行")
         print(f"  {os.path.relpath(p, ROOT)}: {n} 行{flag}")
+# 第七十八轮：行数超限此前只打印、不进 exit（state.md 涨到 150 行仍全绿）——现并入失败条件。
 
 # ---- 表格单元格数检查（2026-09-24 新增）----
 # 起因：一次审计发现表格里有"少一格"的行（渲染会错位）与"单元格内未转义的 |"（会把一列劈成两列），
@@ -480,6 +484,7 @@ COUNT_RULES += [
         ("projects/autonomous-driving/index.md", r"索引 \+ (\d+) 卷正文"),
         ("projects/autonomous-driving/state.md", r"共 (\d+) 卷，"),
         ("projects/autonomous-driving/state.md", r"\[history\.md\]\(history\.md\)（索引 \+ (\d+) 卷，"),
+        ("README.md", r"索引 \+ (\d+) 卷）为准"),
     ]),
 ]
 
@@ -763,15 +768,18 @@ if md_files and not oversize and not warnsize:
 #   ② README 卷号在 [min, max] 区间内无缺口（漏行即缺口；表尾「更早（第一至N轮）」行收编旧轮后
 #      min 上移，缺口判定随之下移，不误报）。
 README_MD = os.path.join(ROOT, "README.md")
+# 字母后缀（rounds-24a.md / 78a.md）按数字主干归组（78a 记作 78）——第七十八轮放宽：
+# 此前正则不认后缀，若某轮只有 78a 卷且为最新，max 判定失明；79 出现后 78 又假阳性缺口。
+_round_file_re = re.compile(r"rounds-(\d+)[a-z]?\.md")
 readme_rounds = set()
 if os.path.exists(README_MD):
-    readme_rounds = {int(n) for n in re.findall(
-        r"rounds-(\d+)\.md", open(README_MD, encoding="utf-8", errors="ignore").read())}
+    readme_rounds = {int(n) for n in _round_file_re.findall(
+        open(README_MD, encoding="utf-8", errors="ignore").read())}
 HIST_DIR = os.path.join(ROOT, "projects/autonomous-driving/history")
 actual_rounds = set()
 if os.path.isdir(HIST_DIR):
     for _f in os.listdir(HIST_DIR):
-        _m = re.fullmatch(r"rounds-(\d+)\.md", _f)
+        _m = _round_file_re.fullmatch(_f)
         if _m:
             actual_rounds.add(int(_m.group(1)))
 readme_issues = []
@@ -796,8 +804,18 @@ print(f"不一致: {len(readme_issues)}")
 for c in readme_issues:
     print(f"  {c}")
 
+# ---- 失败分级汇总（第七十八轮加）----
+# 阻断级（参与 exit 1）：死链 / 表格错位 / 孤儿 / 章节错册 / 缺必写节 / 判断与声明计数 / CSV / inbox / 超限 / 行数超预算 / README 轮次表。
+# 提示级（只报不阻断）：弱引用（#4 的半档）、体积预警（60–64 KiB 预警带）。
+# exit 语义不变（防"永久报警被无视"的旧教训）——汇总行只为快速定位该修什么。
+_blocking = (len(dead) + len(bad_tables) + len(orphan) + len(bad_vol) + len(missing_note_sec)
+             + len(missing_topic_sec) + len(count_issues) + len(count2_issues) + len(csv_issues)
+             + len(pending) + len(oversize) + len(line_budget_over) + len(readme_issues))
+_advisory = len(weak) + len(warnsize)
+print(f"\n=== 汇总：阻断 {_blocking} 项 / 提示 {_advisory} 项（提示 = 弱引用 {len(weak)} + 体积预警 {len(warnsize)}；exit 1 当且仅当阻断 > 0）===")
+
 sys.exit(1 if (dead or bad_tables or orphan or bad_vol or missing_note_sec
                or missing_topic_sec or count_issues or count2_issues or csv_issues
-               or pending or oversize or readme_issues) else 0)
+               or pending or oversize or line_budget_over or readme_issues) else 0)
 
 

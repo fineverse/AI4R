@@ -9,7 +9,7 @@
 - [研究上下文与约束](context.md)
 - [当前状态](state.md)（当前阶段 / 待续清单 / 判断边界**索引**）
 - [判断边界（详细）](judgments.md)（每条判断的完整论证、出处与代码事实；**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**）
-- [逐轮工作记录](history.md)（**索引 + 59 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
+- [逐轮工作记录](history.md)（**索引 + 60 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
 - [工作空间设计](../../shared/workspace-design.md)
 
 ## 大方向层 `direction/`
@@ -68,4 +68,4 @@
 | 目录 | 内容 |
 |---|---|
 | [experiments/protocol.md](experiments/protocol.md) | **路线 B 第一阶段预注册协议**：冻结 DiffusionDrive，测 floor / selected / oracle ceiling / 扩池 ceiling；尚未运行 |
-| `experiments/records/`、`experiments/results/`、`writing/outline.md` | **尚未建立**——协议已就绪、实验未运行，这三个位置待实验启动后再创建（此前提「待建设」易被误读为已存在） |
+| `experiments/records/`、`experiments/results/`、`writing/outline.md` | **尚未建立**——协议已就绪、实验未运行，这三个位置待实验启动后再创建。**注**：`experiments/records` 与 `results` 在文件系统里是**有意空目录占位**（git 不跟踪空目录，clone 恢复后需重建；`writing/` 未建），见 [inbox/cleanup.md](../../inbox/cleanup.md) §不在清理范围 |
