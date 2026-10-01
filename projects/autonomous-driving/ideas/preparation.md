@@ -271,7 +271,7 @@
 | **WoTE（WM-24，非扩散）** | **88.3（README）/ 87.1（论文 Table 1）/ 85.6（Table 3·6 消融表）** | — | — |
 | 人类 | 94.8 | — | — |
 
-读法：**只有同一行内的比较才安全**；跨行比较必须先确认 backbone（ResNet-34 / V2-99）与输入权限（纯相机 / +LiDAR / 矢量化特权 / +锚点或 VLM 条件）。这张表本身就是 P8 的证据。
+读法：**只有同一行内的比较才安全**；跨行比较必须先确认 backbone（ResNet-34 / V2-99）与输入权限（纯相机 / +LiDAR / 矢量化特权 / +锚点或 VLM 条件）。**"是否同源"以代码血统为准，事实源见 [diffusion-planner/lineage.md §继承关系](../topics/diffusion-planner/lineage.md) 与 [direction/lineage.md §继承关系](../direction/lineage.md)**。这张表本身就是 P8 的证据。
 
 > **⚠⚠ 第三十八 / 三十九轮追加的第四条读法（口径）**：**v2 的 `EPDMS` 有两套官方实现**（`EPDMS*` = 2025-09-29 人-行为过滤修复**之前**；`EPDMS` = 之后），**同一方法差 2.0–5.2 分**，而**多数论文不声明用哪套** → **本表的 EPDMS 列是一个"混装集"**：能确认口径的已在下文标出，**其余一律按"口径未声明"读**。详见 [benchmarks.md §2.9 / §2.10](../direction/benchmarks.md)。
 >
@@ -309,7 +309,7 @@
 - **输出模态与选优方式必须标注**：**第二十四轮从三类扩到五类**——① 单模回归（UniAD / VAD v1 / TransFuser / NEAT）② 锚点+回归（SparseDrive）③ 离散词表+分类（VADv2 / Hydra-MDP）④ **采样+规则代价选优**（**ST-P3**，2400/1800 条候选 + 7 项代价 + `topk`）⑤ **按命令切分支**（LBC / CIL）。"生成 → 选择"的最后一步还要区分 **选优** 与 **均值化**（GoalFlow 属后者）。见 [C005 §G](../code/traces/e2e_trunk_code_traces.md)（三类→五类的分类）与 [C005 第二册 §K](../code/traces/e2e_trunk_code_traces-2.md)（CARLA 系 6 个仓库的规划/控制输出）。**特别提示**：**④ 与 DiffusionDrive 的"扩散 + scorer 选优"结构最接近，是最容易被误标成"生成式"的一类**；且 **ST-P3（ECCV'22）的 `costvolume` 就是模型输出的一路** → **"用世界模型输出选优"不是新机制**。
 - **"命令"这一维也要标注**（第二十四轮，见 [C005 第二册 §K](../code/traces/e2e_trunk_code_traces-2.md)）：13 个主干仓库对命令有**三种处理方式**——**显式输入**（TCP / VAD / VADv2 / SparseDrive / UniAD）、**算了不用**（**TransFuser 与 NEAT 都算了 `next_command` 却从未传给模型**）、**只用 `target_point`**。→ **"用了命令"不成立为统一事实**，跨方法比较时必须逐个确认。
 - **跨基准禁止直比**：nuScenes 系（UniAD / SparseDrive / VADv2）的规划视野是 **3 s / 6 步 @2 Hz**，NAVSIM 系是 **4.0 s / 8 poses**，两者本来就不该放在同一列里。**且 nuScenes 系内部也不可比**（第二十四轮，见 [benchmarks.md §2.8](../direction/benchmarks.md)）：**"L2/碰撞"在 UniAD / VAD / VADv2 / SparseDrive 里是四套不同实现**，UniAD 自己的代码里还有 `uniad` / `stp3` 两套 L2 定义（**单步值 vs 前缀累积平均**；`stp3` 是前缀累积平均、`uniad` 是单步值，见 [benchmarks.md §2.8.2](../direction/benchmarks.md)）→ **本项目不以 nuScenes 开环作主表**。
-- **同条件比较**：优先"同一基线、同一数据、同一评测"的受控改动；跨系统整体比较只能作为参考。**建议自己复现基线**，不直接引用他人表格（GoalFlow 的例子说明差异可达 4.6 分）。
+- **同条件比较**：优先"同一基线、同一数据、同一评测"的受控改动；跨系统整体比较只能作为参考。**建议自己复现基线**，不直接引用他人表格（GoalFlow 的例子说明差异可达 4.6 分）。**判据（第七十三轮补）：何谓"同一基线"以代码血统为准——S1/S2 指向同一代码库者（如 VADv2←VAD、GenAD←VAD、DIVER←SparseDrive）分差才可归因到机制，跨库者不可横比；继承事实源见 [E2E 主干 §继承关系](../direction/lineage.md) 与 [扩散规划器 §继承关系](../topics/diffusion-planner/lineage.md)**。
 - **"从生成输出反推的轨迹指标"不可复用**（第二十五轮补上论文侧原文，见 [world-model/papers.md §4.5](../topics/world-model/papers.md)）：**WM-20 DrivingGen（ICLR'26）是唯一的生成式视频世界模型基准**，其 **ADE / DTW 是从生成视频用 PnP + UniDepthV2 的 SLAM 管线反推**的。论文**自己承认两处**——§4.1 称误差可源于生成视频伪影 "impair SLAM-based trajectory recovery"；**B.9 称轨迹类指标与人类一致性最差**（"noisy monocular SLAM and metric-depth recovery … with artifacts"）；**B.2 还对 SLAM 失败帧做常速外推 + 随机抖动**（**使 ADE 15.18 → 16.84**）→ **ADE 数值受管线选择支配**（不同 SLAM 管线差 1–2 m）。**更关键的是 §6 原文明确"当前全为 open-loop"、"no standardized closed-loop framework exists yet"、"infeasible at this stage"** → **它不评规划有效性**。→ **本项目若要评生成式规划器：不能复用其轨迹指标；可复用的只有它的"分布 / 质量 / 时序一致性"三类框架与 FTD（把轨迹分布做成 Fréchet 距离）这个做法**。**另一侧的证据（第二十四轮）**：**WM-20 的代码核验也显示全仓无 planner-in-the-loop 接口**（grep `planner｜pdm_score｜navsim` 零命中）。→ **"评价协议"（方向 F）的空白因此被双重确认：既没有现成工具，也没有现成口径**。
 - **证据等级**：本材料中所有结果数字均为论文自述，未做本地复现；代码快照已保存（见 [code/repositories.md](../code/repositories.md)）但**尚未运行**。
 

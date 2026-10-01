@@ -520,7 +520,9 @@ DriveFuture 论文 **§3.3 原文**给出了区分：
 
 基准与划分（**navhard two-stage**）／**输入权限（sensor-only，无 GT 感知）**／输出模态（8 vs 40 poses）／命令维／**评测器实现版本（官方 `EPDMS`，不用论文自报的 `EPDMS*`）**／**数字来源（官方榜 / 论文自报 / 我们复跑）**。
 
-→ **在这六项上与本项目不同的方法，不得进主表比分**——这是"合理排除"的**唯一**依据，且它可辩护。
+→ **在这六项上与本项目不同的方法，不得进主表比分**——这是"合理排除"的**唯一**依据，且它可辩护。**其中"输入协议 / backbone 是否同源"以代码血统为准（第七十三轮补）**：继承事实源见 [E2E 主干 §继承关系](../direction/lineage.md) 与 [扩散规划器 §继承关系](../topics/diffusion-planner/lineage.md)。
+
+> **§10.4 的排除规则与本节共用同一份继承事实源**——凡"同一基线才可横比"的判断，均引 [direction/lineage.md §继承关系](../direction/lineage.md) 与 [topics/diffusion-planner/lineage.md §继承关系](../topics/diffusion-planner/lineage.md)。
 
 ### 10.2 主表 = 官方榜全列 + 标注列（**不做挑选**）
 

@@ -40,19 +40,23 @@
 
 ## 继承关系（代码层面已核验）
 
-| 工作 | 基于 / 引用了哪些代码库 | 证据 |
-|---|---|---|
-| DP-A03 DiffusionDriveV2 | 同团队 DiffusionDrive（冷启动自其 IL 权重） | 论文 §5.2 + 仓库 README 引用 DiffusionDrive |
-| DP-A01 Diffusion Planner | **nuplan-devkit**（6 处）+ 与 **PLUTO** 同源比较（3 处） | 仓库 README |
-| DP-A10 FlowDrive | **nuplan-devkit** + **PLUTO**（与 DP-A01 同一 nuPlan/PLUTO 血统） | 仓库 README |
-| DP-A21 PC-Diffuser | **以 Diffusion Planner 为基座**（仓库内含 `diffusion-planner-cbf` + vendored `nuplan-devkit`） | 论文 §V + 仓库目录结构 |
-| DP-A16 DIVER | **SparseDrive** 代码库（5 处）+ 复用 **Hydra-MDP** 的 PDMS 奖励 | 仓库 README + 论文 §IV-C2 |
-| DP-A09 GoalFlow | **TransFuser** 式感知（2 处）+ **Hydra-MDP**、**UniAD** 对比 | 仓库 README |
-| DP-A13 WAM-Flow | **WAM-Diff**、**Janus**、**ReCogDrive**、**FUDOKI**、flow_matching | 仓库 README 致谢 |
-| DP-A29 DriveFine | **ReCogDrive** + **LaViDa**（README 明写 "developed based of"）；**但仓库零代码**，组合关系无法核验 | 仓库 README + [C003 §K](../../code/traces/diffusion_planner_code_traces-2.md) |
-| DP-A06 HDP | 与 DP-A01 同团队（ZhengYinan-AIR），实现为 Hyper-Diffusion-Planner，**同仓提供 `HDP-navsim` 与 `HDP-nuplan` 两套实现**；**nuPlan 侧基于 Diffusion Planner 但退化为 ego-only、删掉引导模块**（[C003 §J.6](../../code/traces/diffusion_planner_code_traces-2.md)） | 仓库目录结构 + 代码逐行对照 |
-| DP-E10 DP3 | **Diffusion Policy** + DexMV/VRL3/DAPG 等（README 明写 "built upon"） | 仓库 README |
-| DP-E01 Diffuser | denoising-diffusion-pytorch + trajectory-transformer | 仓库 README |
+强度分级 S1–S4 的定义见 [workflows.md §代码脉络梳理](../../../ai/workflows.md)。
+
+| 工作 | 基于 / 引用了哪些代码库 | 强度 | 证据 |
+|---|---|---|---|
+| DP-A03 DiffusionDriveV2 | 同团队 DiffusionDrive（冷启动自其 IL 权重） | S2 | 论文 §5.2 + 仓库 README 引用 DiffusionDrive |
+| DP-A01 Diffusion Planner | **nuplan-devkit**（6 处）+ 与 **PLUTO** 同源比较（3 处） | S3 | 仓库 README |
+| DP-A10 FlowDrive | **nuplan-devkit** + **PLUTO**（与 DP-A01 同一 nuPlan/PLUTO 血统） | S3 | 仓库 README |
+| DP-A21 PC-Diffuser | **以 Diffusion Planner 为基座**（仓库内含 `diffusion-planner-cbf` + vendored `nuplan-devkit`） | **S1** | 论文 §V + 仓库目录结构 |
+| DP-A16 DIVER | **SparseDrive** 代码库（5 处）+ 复用 **Hydra-MDP** 的 PDMS 奖励 | **S1** | 仓库 README + 论文 §IV-C2 |
+| DP-A09 GoalFlow | **TransFuser** 式感知（2 处）+ **Hydra-MDP**、**UniAD** 对比 | S3 | 仓库 README |
+| DP-A13 WAM-Flow | **WAM-Diff**、**Janus**、**ReCogDrive**、**FUDOKI**、flow_matching | S2 | 仓库 README 致谢 |
+| DP-A29 DriveFine | **ReCogDrive** + **LaViDa**（README 明写 "developed based of"）；**但仓库零代码**，组合关系无法核验 | S2 | 仓库 README + [C003 §K](../../code/traces/diffusion_planner_code_traces-2.md) |
+| DP-A06 HDP | 与 DP-A01 同团队（ZhengYinan-AIR），实现为 Hyper-Diffusion-Planner，**同仓提供 `HDP-navsim` 与 `HDP-nuplan` 两套实现**；**nuPlan 侧基于 Diffusion Planner 但退化为 ego-only、删掉引导模块**（[C003 §J.6](../../code/traces/diffusion_planner_code_traces-2.md)） | **S1** | 仓库目录结构 + 代码逐行对照 |
+| DP-E10 DP3 | **Diffusion Policy** + DexMV/VRL3/DAPG 等（README 明写 "built upon"） | S2 | 仓库 README |
+| DP-E01 Diffuser | denoising-diffusion-pytorch + trajectory-transformer | S2 | 仓库 README |
+
+**扩散侧的轨线两端**：本表 ⑤ 环 DiffusionDriveV2 的上游 ④ DiffusionDrive 及更前的 VAD/VADv2/Hydra-MDP 属 E2E 主干，见 [direction/lineage.md §继承关系](../../direction/lineage.md)；「五环谱系」完整代码证据见 [C005 §C](../../code/traces/e2e_trunk_code_traces.md)。
 
 **一条重要的结构观察（2026-09-22 更正）**：驾驶侧的扩散规划器几乎全部长在两个既有代码生态上——NAVSIM 生态（DiffusionDrive 家族、GoalFlow、MeanFuser、WAM-Flow、DIVER 的评测）与 nuPlan/PLUTO 生态（Diffusion Planner、FlowDrive、PC-Diffuser）。
 

@@ -109,9 +109,33 @@
 | 主结果 | nuScenes 开环 **L2 1.03m / Col 0.31%**（Tab.7） | nuScenes **0.72m / 0.22%**（Tab.1）；CARLA Town05 Short DS 64.29、Long 30.31（Tab.4） | CARLA Long **DS 85.1**；Bench2Drive DS 76.15/SR 50.46；**NAVSIM navtest PDMS 89.3**；NAVSIMv2 EPDMS 85.8 | nuScenes **0.58m / 0.06%**（Tab.2b） | NAVSIM PDMS 82.6（V4096）→ 86.5（V8192-W-EP）→ 扩模型后 **91.0**（Tab.1/2） |
 | 推理成本 | **1.8 FPS**、125.0M 参数（Tab.13） | VAD-Base 4.5 FPS / VAD-Tiny **16.8 FPS**（Tab.1） | 未获取 | SparseDrive-S **9.0 FPS**、-B 7.3 FPS（Tab.3） | 未获取 |
 | 自述局限 | 多任务协调算力需求大，轻量化待探索 | 多模态运动预测未用于规划；未纳入车道图/路牌/红绿灯/限速 | 仿真与 3DGS 闭环中 agent 行为朴素、真实感不足 | 单任务性能落后专用方法；数据规模不足、开环评测不充分 | 无独立局限章节；提到 PDM 分数分布不规则需多目标学习 |
-| 继承 | 基于 BEVFormer/DETR/MOTR；被 VAD/SparseDrive 超越 | 基于 BEVFormer/MapTR/PIP；被 SparseDrive/VADv2 继承 | 基于 VAD（同组）/MapTRv2/BEVFormer | 基于 Sparse4Dv3/MapTR | **明确 "Following VADv2"**（词表与解码器设计）；感知沿用 Transfuser |
+
+> 本表原有一行「继承」，第七十三轮已升级为独立节，见下 [§继承关系（代码层面已核验）](#继承关系代码层面已核验)。
 
 **首次把"规划"作为主优化目标的是 UniAD**（证据：标题即 Planning-oriented；摘要明言各任务须 contribute to planning；Table 2 用规划 L2/碰撞率为终点逐模块验证，并给出 ID-12 vs 纯 MTL 的规划优势）。
+
+## 继承关系（代码层面已核验）
+
+读法：本节汇总主干各方法的**代码/基线血统**；强度分级 S1–S4 的定义见 [workflows.md §代码脉络梳理](../../ai/workflows.md)。**逐篇细节仍在各笔记的 `## 在脉络中的位置`**，本节只做汇总与定级；扩散规划器侧的续段见 [topics/diffusion-planner/lineage.md §继承关系](../topics/diffusion-planner/lineage.md)。
+
+| 工作 | 基线 / 来源库 | 强度 | 证据 |
+|---|---|---|---|
+| ChauffeurNet | ALVINN / NVIDIA PilotNet 式 IL、CIL 的条件化、MP3 的规划思想 | S2 | [E2E-06](notes/E2E-06-chauffeurnet.md) |
+| TransFuser | LBC（蒸馏设定）+ ContFuse（几何融合） | S2 | [E2E-07](notes/E2E-07-transfuser.md) |
+| TCP | TransFuser（自回归航点）+ Roach（RL 教师） | S2 | [E2E-08](notes/E2E-08-tcp.md) |
+| ST-P3 | LSS / FIERY / MP3 / NMP / P3（Transfuser 作 LiDAR 对照） | S2 | [E2E-09](notes/E2E-09-st-p3.md) |
+| UniAD | BEVFormer / Panoptic SegFormer / DETR / MOTR | S2 | [E2E-01](notes/E2E-01-uniad.md) |
+| VAD | BEVFormer / MapTR / PIP | S2 | [E2E-02](notes/E2E-02-vad.md) |
+| VADv2 | **VAD（同组，同一仓库 `hustvl/VAD` 两代）** + MapTRv2 / BEVFormer | **S1** | [E2E-03](notes/E2E-03-vadv2.md)、[repositories.md §B](../code/repositories.md) |
+| SparseDrive | Sparse4Dv3（ID 分配）/ MapTR | S2 | [E2E-04](notes/E2E-04-sparsedrive.md) |
+| Hydra-MDP | **VADv2（明确 "Following VADv2"）** + Transfuser（感知） | S2（代码未公开，仅论文） | [E2E-05](notes/E2E-05-hydra-mdp.md)、[C005 §C](../code/traces/e2e_trunk_code_traces.md) |
+| GenAD | **VAD 代码库（同库派生）** | **S1** | [C005 §J.1](../code/traces/e2e_trunk_code_traces.md)——配置目录名就叫 `VAD`、`ego_query` 与 VAD v1 同款、README 以 VAD 作基线 |
+| DriveVLM | UniAD / VAD（Dual 版与 VAD 协作） | S2 | [E2E-10](notes/E2E-10-drivevlm.md) |
+| DriveLM | BLIP-2 / RT-2 的 token 化思路 | S2 | [E2E-11](notes/E2E-11-drivelm.md) |
+
+**五环桥接**：「轨迹词表 / 锚点」谱系 **VAD → VADv2 → Hydra-MDP → DiffusionDrive → DiffusionDriveV2** 横跨主干与研究对象，完整代码证据见 [C005 §C](../code/traces/e2e_trunk_code_traces.md)；其中 ④DiffusionDrive 与 ⑤DiffusionDriveV2（扩散侧两环）的继承条目归 [topics/diffusion-planner/lineage.md §继承关系](../topics/diffusion-planner/lineage.md)，本节不重复。
+
+**对决策的含义**：只有同源（同一代码库/基线）的方法才能把分差归因到机制；跨库者（如 VADv2 navtest PDMS 89.3 vs DiffusionDrive 88.1）**不可横比**——本表即 [preparation.md §6 比较口径](../ideas/preparation.md) 与 [judgments.md B/G 组](../judgments.md) 所引用的事实源。
 
 ## 与"扩散规划器"的接点（本项目主线）
 
