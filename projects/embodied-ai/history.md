@@ -1,8 +1,8 @@
 # 具身智能项目 · 逐轮工作记录
 
-更新时间：2026-09-23  
+更新时间：2026-10-01  
 用途：保存**每一轮的详细记录**（做了什么、更正了什么、产出在哪）。[state.md](state.md) 只保留**当前阶段 + 待续清单 + 判断边界**，需要追溯细节时读本文件。  
-约定与自动驾驶项目一致（见 [ai/workflows.md](../../ai/workflows.md)、[workspace-design.md](../../shared/workspace-design.md) §运行纪律第 3 条）：**本文件超过 200 行时按时间段拆卷**（当前 **5 轮**：第七、八、二十五、二十六、二十九轮，未到阈值）。
+约定与自动驾驶项目一致（见 [ai/workflows.md](../../ai/workflows.md)、[workspace-design.md](../../shared/workspace-design.md) §运行纪律第 3 条）：**本文件超过 200 行时按时间段拆卷**（当前 **9 轮**：第七、八、二十五、二十六、二十九、五十五、五十七、五十九、六十轮，未到阈值）。**⚠ 第七十七轮补记**：第 55/57/59/60 轮当时只写了 AD 侧卷、漏了本项目条目，2026-10-01 按各卷补齐。
 
 ## 第七轮（知识体系重构：本项目从自动驾驶项目中独立，2026-09-23）
 
@@ -45,3 +45,25 @@
 - **论文表"未核验"落后于"指针"侧**：AD 表的 DP-A17/A20/A23/A24 已给出代码结论，而"完整登记"的 DP-E05/E06/E07/E08 仍写"未核验"→ 四行**回填真实代码状态并回指 AD 编号**
 - **笔记可达性**：8 篇笔记（DP-E01/E04/E08/E09/E10/E11/E15/E17）此前除 `sources.md` 外无任何入链 → 在论文表对应行补指针；该项并已成为 [shared/scripts/check_links.py](../../shared/scripts/check_links.py) 的**第四项检查**（引用可达性）
 - **验证**：四项检查全绿（死链 0 / 行数超限 0 / 表格不匹配 0 / 孤儿 0 / 弱引用 0）
+
+## 第五十五轮（2026-09-29，补记）· 具身 VLA 表引用数第一批
+
+- 用 **Ai4Scholar**（付费代理，2 积分）为 [vla/papers.md](topics/vla/papers.md) §4 查得 **7/14 篇**的引用数（S2 口径）
+- 工具盘清与网络排查的主体在自动驾驶项目 [rounds-55.md](../autonomous-driving/history/rounds-55.md)，此处不重复
+
+## 第五十七轮（2026-09-30，补记）· DP-E 表补「逐行质量依据（T 档）」
+
+- [diffusion_planner_embodied.md](topics/diffusion-policy/papers/diffusion_planner_embodied.md) 补「逐行质量依据（T 档）」：**DP-E01–E27 + B009–B011**（**⚠ E28 行漏，第七十七轮补**）
+- 同轮声称补齐"8 张表"，但**具身 VLA / WM 两表的 §1.1 实际未落**（缺口由第六十轮关闭）
+
+## 第五十九轮（2026-09-30，支线，补记）· S2 官方 API 补齐 VLA 表三缺口
+
+- [vla/papers.md](topics/vla/papers.md) §4 引用数 **7/14 → 14/14**（单一来源、同一日期），新增 `influentialCitationCount` 字段
+- 四篇 venue 缺口补上（均为 arXiv，T4 判定确认）；**GR00T N1 引用数悬案关闭**（S2 记 1390，OpenAlex 的 5 是 arXiv 存根）
+- **发现 S2 `venue` 字段系统性误记**（三篇 RSS'25 被记成同一本 MDPI 期刊）→ S2 只作第四渠道
+- 详情见自动驾驶项目 [rounds-59.md](../autonomous-driving/history/rounds-59.md)
+
+## 第六十轮（2026-09-30，补记）· 补齐两个借鉴来源的 §1.1
+
+- 主线程补上第 57 轮漏掉的**具身 VLA / 具身 WM 两表「§1.1 逐行证据等级与代码状态」**——"8 张表"的缺口在此关闭
+- 详情见自动驾驶项目 [rounds-60.md](../autonomous-driving/history/rounds-60.md)

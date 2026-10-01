@@ -340,7 +340,7 @@
 
 **另一条实际阻塞（第四十轮前已实测）**：DiffusionDrive / SimScale / GTRS 的**权重全在 HuggingFace**，而工作沙箱**访问不了 HF**（`http 000`）→ **第一步需要你手动下载权重**；navhard 评测还需 **892 MB log + 约 31 GB 传感器数据**。
 
-**这一项会改变**：[state.md](../state.md) 待续清单第 9 项（5+5+4 项"需运行环境"的核验）与第 7 项（实验协议）能否启动。
+**这一项会改变**：[state.md](../state.md) 待续清单第 9 项（"需运行环境"的核验）与 [experiments/protocol.md](../experiments/protocol.md) 能否启动。
 
 ### 7.2 课题定位：是否升级为正式课题 —— **✅ 你已表态（2026-09-24）**
 

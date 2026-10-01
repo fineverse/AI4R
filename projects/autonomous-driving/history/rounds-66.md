@@ -52,7 +52,7 @@
 | 工具 | [shared/tools.md](../../../shared/tools.md)（§网络访问补 HuggingFace 段） |
 | 状态 | [state.md](../state.md)（待续**第 21 项**：数据盘白名单）、[history.md](../history.md)（46 → **47 卷**）、[index.md](../index.md)、[CURRENT.md](CURRENT.md) |
 | 用户侧 | [README.md](../../../README.md)「等待用户」**前置两条**（加私有远端 / 备份 `.git`）+ 代理两行 |
-| 归档 | 投递物移入 `archive/2026-09-30-支线交付-沙箱权限边界+覆盖风险.md`（含归档说明），`inbox/` 根清空 |
+| 归档 | 投递物移入 `archive/2026-09-30-支线交付-沙箱权限边界-覆盖风险.md`（含归档说明；原名 `…边界+覆盖风险.md`，第七十七轮统一分隔符改名），`inbox/` 根清空 |
 | 中间产物 | 本轮**未产生** |
 
 **验证**：整合后 `check_links.py` **全部检查项通过、`exit 0`**（「inbox 待整合」从 1 篇回到 0 篇）。

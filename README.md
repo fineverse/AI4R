@@ -8,23 +8,24 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 | 项目 | 角色 | 状态 |
 |---|---|---|
-| [autonomous-driving](projects/autonomous-driving/project.md) · 自动驾驶 | **主方向** | 领域脉络 + 研究对象（扩散规划器）脉络完成；两借鉴来源 **52 篇全部全文级** · 2026-09-23 |
-| [embodied-ai](projects/embodied-ai/project.md) · 具身智能 | 次方向（来源领域） | 脉络初稿 + 两借鉴来源建表（28 篇，摘要级）· 2026-09-23 |
+| [autonomous-driving](projects/autonomous-driving/project.md) · 自动驾驶 | **主方向** | 领域脉络 + 研究对象（扩散规划器）脉络完成（**继承关系 S1–S4 分级**）；两借鉴来源 **52 篇全部全文级**；重组地图 + 冲 SOTA 作战文件就绪 · 2026-10-01 |
+| [embodied-ai](projects/embodied-ai/project.md) · 具身智能 | 次方向（来源领域） | 脉络初稿 + 两借鉴来源建表（28 篇，摘要级）；三表证据维度（T 档 / §1.1）已补齐 · 2026-10-01 |
 
 两个项目平级。项目内固定 `direction/`（大方向）+ `topics/`（小方向）两层。
 
 ## 最近动态
 
-**最新一轮：第七十六轮（2026-10-01）**——**裁决第 73–75 轮为接受、不回退**（另一会话以主线程模式跑的 6 个提交：已在 `master` 上、线性、`check_links` 全绿、号没人用）；并**消化「重组地图」**：复核其候选区 ③ 后 TOAD **不**推翻它，但发现 **TOAD 的 related work 已把"选优是瓶颈"说成主流表述** → 我们是同一问题的另一种回答（**改监督 vs TOAD 改搜索**）；顺带把**卷数**并入机器检查（此前连续两轮差 1）（→ [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)）。
+**最新一轮：第七十七轮（2026-10-01）**——**工作空间遗留问题修复**（非专题研究轮）：5 个只读巡查智能体全面巡查 + 按批准计划七批次清账——修 `normalize_links.py` 数据风险、`check_links` 新增**第 13 项（README 轮次表完整性）**与 3 条计数登记、**「收尾同步 7 处」权威清单**落进 workflows、**具身侧补记第 55/57/59/60 四轮**并修正 55/59 轮归属误记、待续清单清账（删 11 行已结账、新增 #28/#29）、scratch/归档组织；更正 8 处事实级错误（→ [rounds-77.md](projects/autonomous-driving/history/rounds-77.md)）。
 
-**上一轮：第七十五轮（2026-10-01）**——**建立「重组地图」**：把**结构（代码血统 × 强度 S1–S4）**与**因果（受控增益）**按行对齐，提炼三条"结构相邻、因果未测"的 idea 候选区（→ [recombination-map.md](projects/autonomous-driving/ideas/recombination-map.md)、[rounds-75.md](projects/autonomous-driving/history/rounds-75.md)）。
+**上一轮：第七十六轮（2026-10-01）**——**裁决第 73–75 轮为接受、不回退**（另一会话以主线程模式跑的 6 个提交：已在 `master` 上、线性、`check_links` 全绿、号没人用）；并**消化「重组地图」**：复核其候选区 ③ 后 TOAD **不**推翻它，但发现 **TOAD 的 related work 已把"选优是瓶颈"说成主流表述** → 我们是同一问题的另一种回答（**改监督 vs TOAD 改搜索**）；顺带把**卷数**并入机器检查（此前连续两轮差 1）（→ [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 58 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 59 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
 
-> **⚠ 第七十六轮补记**：本轮发现 **README 的「最近动态」被第 73–75 轮的收尾漏掉了**（它当时仍停在"54 卷 / 最新第七十二轮"）——**这是"收尾同步 7 处"里漏掉一处的又一次实证**，见 [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)。
+> **⚠ 第七十六轮补记**：本轮发现 **README 的「最近动态」被第 73–75 轮的收尾漏掉了**（它当时仍停在"54 卷 / 最新第七十二轮"）——**这是"收尾同步 7 处"里漏掉一处的又一次实证**，见 [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)。（**第七十七轮后续**：已把「收尾同步 7 处」定为权威清单并加第 13 项机器检查，见 [ai/workflows.md §轮次收尾](ai/workflows.md)；本轮并补上指针表漏掉的第 67/68 轮两行。）
 
 | 轮次 | 指针 |
 |---|---|
+| **第七十七轮** | [rounds-77.md](projects/autonomous-driving/history/rounds-77.md) — 工作空间遗留问题修复：五路巡查 + 七批次清账（新检查第 13 项、收尾同步位权威清单、具身补四轮、待续清账） |
 | **第七十六轮** | [rounds-76.md](projects/autonomous-driving/history/rounds-76.md) — 裁决 73–75 + 消化「重组地图」；卷数并入机器检查 |
 | **第七十五轮** | [rounds-75.md](projects/autonomous-driving/history/rounds-75.md) — 建立「重组地图」（→ [recombination-map.md](projects/autonomous-driving/ideas/recombination-map.md)） |
 | **第七十四轮** | [rounds-74.md](projects/autonomous-driving/history/rounds-74.md) — 文档体积政策（两线制 + 按角色分档）（→ [ai/rules.md §文件更新](ai/rules.md)） |
@@ -33,6 +34,8 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 | **第七十一轮** | [rounds-71.md](projects/autonomous-driving/history/rounds-71.md) — 传播核查第 70 轮的三处前提级改动（16 个文件） |
 | **第七十轮** | [rounds-70.md](projects/autonomous-driving/history/rounds-70.md) — 官方榜重建分数格局 + 三处代码翻案 + §周扫机制（→ [sota-plan.md §1.0](projects/autonomous-driving/ideas/sota-plan.md)） |
 | **第六十九届** | [rounds-69.md](projects/autonomous-driving/history/rounds-69.md) — 核实 TOAD split → navhard 榜一易主（⚠ 两处已被第 70 轮推翻）（→ [judgments.md](projects/autonomous-driving/judgments.md) D 组、[sota-plan.md §9.7](projects/autonomous-driving/ideas/sota-plan.md)） |
+| **第六十八轮** | [rounds-68.md](projects/autonomous-driving/history/rounds-68.md) — 整合支线投递：navhard 竞品表 +「选优器 / 候选池」专线（→ [navhard_competitors.md](projects/autonomous-driving/topics/diffusion-planner/papers/navhard_competitors.md)、[scoring_line.md](projects/autonomous-driving/topics/diffusion-planner/papers/scoring_line.md)） |
+| **第六十七轮** | [rounds-67.md](projects/autonomous-driving/history/rounds-67.md) — 整合两篇投递：理正收尾步序 + 取消 `CURRENT.md` 投递登记区（→ [ai/workflows.md §轮次收尾](ai/workflows.md)） |
 | **第六十六轮** | [rounds-66.md](projects/autonomous-driving/history/rounds-66.md) — 机制实测 + 修规则自相矛盾 + 落盘沙箱/覆盖边界（→ [ai/rules.md §执行与清理纪律](ai/rules.md) 第 10 条） |
 | **第六十五轮** | [rounds-65.md](projects/autonomous-driving/history/rounds-65.md) — 收敛三处冗余（检查清单 / git 命令 / 两文原则节） |
 | **第六十四轮** | [rounds-64.md](projects/autonomous-driving/history/rounds-64.md) — `check_links` 的「文档体积预算」检查（→ [check_links.py](shared/scripts/check_links.py)） |
@@ -75,7 +78,7 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 | **第二十七轮** | [rounds-27.md](projects/autonomous-driving/history/rounds-27.md) — 按"提分成为 SOTA"重排方向 → [sota-plan.md](projects/autonomous-driving/ideas/sota-plan.md) |
 | **第二十六轮** | [rounds-26.md](projects/autonomous-driving/history/rounds-26.md) — 消化信息 + 工作空间与工作流迭代 |
 | 更早（第一至二十五轮） | [history.md](projects/autonomous-driving/history.md) §分卷 |
-| 具身侧（第七、八、二十五、二十六、二十九轮） | [embodied-ai/history.md](projects/embodied-ai/history.md) |
+| 具身侧（第七、八、二十五、二十六、二十九、五十五、五十七、五十九、六十轮） | [embodied-ai/history.md](projects/embodied-ai/history.md) |
 
 ## 等待用户
 

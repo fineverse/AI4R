@@ -1,6 +1,6 @@
 # 具身智能与通用决策中的扩散规划器 / 策略（2022–2026）
 
-更新时间：2026-09-22  
+更新时间：2026-10-01（第七十七轮：补 T 档 E28 行——第 57 轮漏；此前 2026-09-22）  
 检索对象：次方向。包含三类：(1) 通用决策与离线 RL 中的扩散规划器；(2) 机器人扩散策略；(3) 导航与 VLA 生成式动作头。  
 编号规则：`DP-Exx`（Diffusion Planner – Embodied / general decision-making）。自动驾驶侧见 [diffusion_planner_ad.md](../../../../autonomous-driving/topics/diffusion-planner/papers/diffusion_planner_ad.md)（`DP-Axx`），综述见 [diffusion_planner_surveys.md](../../../../autonomous-driving/topics/diffusion-planner/surveys/diffusion_planner_surveys.md)（`DP-Sxx`）。
 
@@ -145,6 +145,7 @@
 | DP-E25 VGFM | T2 | IROS 2026（白名单）；代码未核验 |
 | DP-E26 ForeDiffusion | 待核 | 仅 arXiv；代码未核验 |
 | DP-E27 WorldDP | 待核 | 仅 arXiv；代码未核验 |
+| DP-E28 EDP | T1 | NeurIPS 2023（CCF-A）；有代码（`Zhendong-Wang/Diffusion-QL` 仓内）；引用 12（**第七十七轮补——第 57 轮漏行**） |
 | B009 RoboMimic | T1 | CoRL 2021（白名单）；引用 71 |
 | B010 LIBERO | T1 | 会议论文；引用 88 |
 | B011 EBench | 待核 | 仅 arXiv（2026-06） |

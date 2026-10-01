@@ -36,7 +36,7 @@
 | 工作流 | [ai/workflows.md](../../../ai/workflows.md)（**新增「轮次开始」节**；第 7 步十一项；第 8 步改 `add` 方式 + 前缀三类 + tag；第 9 步三种处置） |
 | 纪律 | [ai/rules.md](../../../ai/rules.md)（§支线协作纪律第 1 条放宽、第 4 条同步改） |
 | 索引 | [shared/index.md](../../../shared/index.md)（check_links 十一项 + 新增项说明） |
-| 归档 | 投递物移入 `archive/2026-09-30-支线交付-协作机制补漏+git策略.md`（含归档说明），`inbox/` 根清空 |
+| 归档 | 投递物移入 `archive/2026-09-30-支线交付-协作机制补漏-git策略.md`（含归档说明；原名 `…补漏+git策略.md`，第七十七轮统一分隔符改名），`inbox/` 根清空 |
 | 状态 / 索引 | [history.md](../history.md)（42 → **43 卷**）、[state.md](../state.md)、[index.md](../index.md)、[README.md](../../../README.md)、[CURRENT.md](CURRENT.md)（清空） |
 | 中间产物 | 本轮**未产生** |
 

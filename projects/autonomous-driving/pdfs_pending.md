@@ -8,7 +8,7 @@
 
 | 优先级 | 编号 | 论文 | 载体与年 | DOI / 入口 | 为什么需要 |
 |---|---|---|---|---|---|
-| P1 | S034 | Diffusion Models for End-to-End Autonomous Driving: A Survey of Perception, Prediction, Planning, and Control | IEEE Access，2026 | [10.1109/ACCESS.2026.3704955](https://doi.org/10.1109/ACCESS.2026.3704955) | 与本研究最贴合的驾驶侧扩散综述；arXiv 未检索到预印本，IEEE Access 通常开放，可先试直接下载 |
+| P1 | S034 | Diffusion Models for End-to-End Autonomous Driving: A Survey of Perception, Prediction, Planning, and Control | IEEE Access，2026 | [10.1109/ACCESS.2026.3704955](https://doi.org/10.1109/ACCESS.2026.3704955) | 与本研究最贴合的驾驶侧扩散综述；arXiv 未检索到预印本。**2026-10-01 试直下：DOI → ieeexplore 返 202（反爬挑战），命令行不通**，仍需浏览器 |
 | P1 | S035 | A Comprehensive Review of End-to-End Autonomous Driving: Architectures and Emerging Trends | MDPI Actuators 15(8):427，2026 | [10.3390/act15080427](https://doi.org/10.3390/act15080427) | 最新的 E2E 全景综述（function-oriented taxonomy）；**MDPI 对 curl/WebFetch 均返回 403，浏览器可打开** |
 | P1 | S019 | Survey of General End-to-End Autonomous Driving: A Unified Perspective | TechRxiv v3，2025 | [10.36227/techrxiv.176523315.56439138/v3](https://doi.org/10.36227/techrxiv.176523315.56439138/v3) | 200+ 篇；vision-centric / VLM-centric / hybrid 三分类；**TechRxiv 403** |
 | P1 | S020 | A Survey on End-to-End Autonomous Driving Training from the Perspectives of Data, Strategy, and Platform | TechRxiv v1，2025 | [10.36227/techrxiv.176523171.14650662/v1](https://doi.org/10.36227/techrxiv.176523171.14650662/v1) | Data–Strategy–Platform 三维度；**TechRxiv 403** |

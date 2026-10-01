@@ -22,10 +22,14 @@
   12. 文档体积预算 —— **任何文档 ≤ 64 KiB**（65536 字节，**Read 工具一次可整读的物理上限**）；
       **两线制**：硬线 64 KiB（超限即报、参与 exit code）、预警线 60 KiB（只报不阻断，留一轮增量余量）。
       阈值与「超限处理按文件角色分档」见 `ai/rules.md` §文件更新（2026-09-30 第六十四轮加；第七十四轮加预警线）
+  13. README 轮次表完整性 —— README.md 链接到的单轮卷 `rounds-N.md`（纯数字；`rounds-24a.md` 与
+      区间卷天然不匹配）必须 ① 覆盖到 `history/` 下实际最新一卷、② 在表内最小号与最大号之间无缺口
+      （2026-10-01 第七十七轮加：第 67/68 轮收尾曾整行漏加，而漏行**不产生死链**——卷文件存在、
+      history.md 也链接它，死链/孤儿检查都抓不到）
 
 **本清单不外传**（2026-09-30 第六十五轮收敛）：`shared/index.md` 与 `ai/workflows.md` 此前**各自又抄了一遍**这份清单，于是"十项 / 十一项 / 十二项"这个**数字在三处各写一次**——加一项就要改三处，**已实际漏过两次**（第 62、64 轮都是改了列表、忘了别处的总述）。现规定：**清单只在本 docstring 枚举；其余文档只写"见脚本 docstring"，不写数字、不列条目**。→ 这是「**引用可以重复，计数不能**」（[workflows.md](../../ai/workflows.md) §轮次收尾第 6 条）在**文档结构**上的应用。
 
-跳过目录：`.git` / `repos`（第三方代码快照）/ `scratch`（临时产物根）/ `__pycache__` / `node_modules` / `archive` / `.trae`。
+跳过目录：`.git` / `repos`（第三方代码快照）/ `scratch`（临时产物根）/ `__pycache__` / `node_modules` / `archive` / `.trae` / `.vscode`。
 **为什么跳过 `scratch`**：`inbox/scratch/` 是工作空间的**临时产物根**（2026-09-28 起取代 `/tmp/ai4r/`，见 `ai/rules.md` §执行与清理纪律第 1 条）——里面放的是 PDF 解压文本、下载的 tarball、子代理缓存等**中间产物**，本就不是知识树内容，且会被 .gitignore 忽略。
 **为什么跳过 `archive`**：该目录按工作空间约定「默认不加载」，其中的历史方案记录的是重构**前**
 的路径（如 `projects/diffusiondrive/`），相对链接失效属预期，且各文件头已声明。
@@ -41,7 +45,7 @@
 import os, re, sys, csv
 
 ROOT = "/home/verse/dev/AI4R"
-SKIP_DIRS = {".git", "repos", "scratch", "__pycache__", "node_modules", "archive", ".trae"}
+SKIP_DIRS = {".git", "repos", "scratch", "__pycache__", "node_modules", "archive", ".trae", ".vscode"}
 
 link_re = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 # 同上，但同时取出**链接文字**（分册引用归属检查要用文字里的 §X）
@@ -576,6 +580,61 @@ COUNT_RULES += [
     ]),
 ]
 
+def _scoring_line_sec2_bullets():
+    """数 scoring_line.md §二（线索级）的条目数——口径：`## 二、` 起至下一个 `## ` 节之间 `- ` 开头的行。"""
+    p = os.path.join(ROOT, "projects/autonomous-driving/topics/diffusion-planner/papers/scoring_line.md")
+    if not os.path.exists(p):
+        return None
+    n, inside = 0, False
+    for l in open(p, encoding="utf-8", errors="ignore"):
+        if l.startswith("## 二、"):
+            inside = True
+            continue
+        if inside and l.startswith("## "):
+            break
+        if inside and l.startswith("- "):
+            n += 1
+    return n
+
+
+def _pdfs_pending_rows():
+    """数 pdfs_pending.md A 节（需用户协助下载）的表行——口径：`## A.` 起至下一 `## ` 节之间 `| P` 开头的行。"""
+    p = os.path.join(ROOT, "projects/autonomous-driving/pdfs_pending.md")
+    if not os.path.exists(p):
+        return None
+    n, inside = 0, False
+    for l in open(p, encoding="utf-8", errors="ignore"):
+        if l.startswith("## A."):
+            inside = True
+            continue
+        if inside and l.startswith("## "):
+            break
+        if inside and l.startswith("| P"):
+            n += 1
+    return n
+
+
+# 起因（2026-10-01 第七十七轮巡查补盲）：三处"声明计数"此前未登记——scoring_line 的"17 条线索级"
+# 实际只有 15 条（漂移一直无人发现，正是第九项要治的病却没登记）、pdfs_pending 的 8 条、
+# navhard 竞品的 DP-C01–C07。
+COUNT_RULES += [
+    ("选优器专线·线索级条数", _scoring_line_sec2_bullets, [
+        ("projects/autonomous-driving/state.md", r"§二 (\d+) 条线索级"),
+        ("projects/autonomous-driving/index.md", r"已核 \+ (\d+) 条线索级"),
+        ("projects/autonomous-driving/ideas/sota-plan.md", r"§二另有 \*\*(\d+) 条线索级\*\*"),
+    ]),
+    ("待下载 PDF 条数", _pdfs_pending_rows, [
+        ("README.md", r"付费墙 PDF（\*\*(\d+) 条\*\*）"),
+        ("projects/autonomous-driving/state.md", r"(\d+) 篇付费墙 PDF"),
+        ("projects/autonomous-driving/index.md", r"付费墙 PDF (\d+) 条"),
+    ]),
+    ("navhard 竞品条数（DP-C）", lambda: _uniq_ids(
+        os.path.join(ROOT, "projects/autonomous-driving/topics/diffusion-planner/papers/navhard_competitors.md"),
+        r"DP-C\d+"), [
+        ("projects/autonomous-driving/index.md", r"DP-C01–C(\d+)"),
+    ]),
+]
+
 count2_issues = []
 for label, source, decls in COUNT_RULES:
     actual = source()
@@ -694,8 +753,51 @@ if md_files and not oversize and not warnsize:
     print(f"  最大: {os.path.relpath(_big, ROOT)}  {os.path.getsize(_big)} 字节"
           f"（{os.path.getsize(_big) / 1024:.1f} KiB，占 {os.path.getsize(_big) / LIMIT_BYTES:.0%}）")
 
+# ---- README 轮次表完整性检查（2026-10-01 第七十七轮新增，第 13 项）----
+# 起因：第 67/68 轮的收尾漏在 README 轮次指针表加行（第 76 轮只补了「最近动态」）——漏行**不产生死链**
+# （rounds-67.md 本身存在、history.md 也链接它），死链/孤儿检查都抓不到，只有"README 链接到的
+# 单轮卷号集合"本身能查。规则（两条判定，均在 README.md 全文里取 `rounds-N.md` 的纯数字 N；
+# `rounds-24a.md` 与区间卷 `rounds-18-23.md` 天然不匹配正则、不计入）：
+#   ① max(README 卷号) == history/ 下实际单轮卷的最大号（最新一卷必须已被 README 链接——
+#      「最近动态」与指针表任一处链接即算）；
+#   ② README 卷号在 [min, max] 区间内无缺口（漏行即缺口；表尾「更早（第一至N轮）」行收编旧轮后
+#      min 上移，缺口判定随之下移，不误报）。
+README_MD = os.path.join(ROOT, "README.md")
+readme_rounds = set()
+if os.path.exists(README_MD):
+    readme_rounds = {int(n) for n in re.findall(
+        r"rounds-(\d+)\.md", open(README_MD, encoding="utf-8", errors="ignore").read())}
+HIST_DIR = os.path.join(ROOT, "projects/autonomous-driving/history")
+actual_rounds = set()
+if os.path.isdir(HIST_DIR):
+    for _f in os.listdir(HIST_DIR):
+        _m = re.fullmatch(r"rounds-(\d+)\.md", _f)
+        if _m:
+            actual_rounds.add(int(_m.group(1)))
+readme_issues = []
+if not actual_rounds:
+    readme_issues.append("history/ 下没有单轮卷（rounds-N.md）——第 13 项的前提失效，请核查路径")
+elif not readme_rounds:
+    readme_issues.append("README.md 未链接任何单轮卷（rounds-N.md）")
+else:
+    if max(readme_rounds) != max(actual_rounds):
+        readme_issues.append(
+            f"README 链接的最新单轮卷是 {max(readme_rounds)}、实际最新是 {max(actual_rounds)}——最新一卷未入 README")
+    _gaps = [n for n in range(min(readme_rounds), max(readme_rounds) + 1) if n not in readme_rounds]
+    if _gaps:
+        readme_issues.append(
+            f"README 轮次表缺口：区间 {min(readme_rounds)}–{max(readme_rounds)} 内未被链接的轮次 {_gaps}")
+
+print(f"\n--- README 轮次表完整性（第 13 项；单轮卷链接须覆盖最新且无缺口）---")
+if readme_rounds:
+    print(f"README 链接单轮卷 {len(readme_rounds)} 个（{min(readme_rounds)}–{max(readme_rounds)}），"
+          f"实际单轮卷 {len(actual_rounds)} 个（最新 {max(actual_rounds) if actual_rounds else '-'}）")
+print(f"不一致: {len(readme_issues)}")
+for c in readme_issues:
+    print(f"  {c}")
+
 sys.exit(1 if (dead or bad_tables or orphan or bad_vol or missing_note_sec
                or missing_topic_sec or count_issues or count2_issues or csv_issues
-               or pending or oversize) else 0)
+               or pending or oversize or readme_issues) else 0)
 
 

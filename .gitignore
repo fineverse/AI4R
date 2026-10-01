@@ -7,7 +7,8 @@ projects/*/code/repos/
 code/repos/
 
 # ── 临时产物根（工作空间内，取代原先的 /tmp/ai4r/）──
-# 见 ai/rules.md §执行与清理纪律 第 1 条；待删清单仍累积到 inbox/cleanup.md
+# scratch 内一次性产物收尾批量清除（见 ai/rules.md §执行与清理纪律 第 7 条）；
+# cleanup.md 只管工作空间外的清理
 inbox/scratch/
 
 # ── Python ──

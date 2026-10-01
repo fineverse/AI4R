@@ -14,7 +14,7 @@
 
 ## 工作空间维护
 
-- [scripts/](scripts) — 工作空间脚本（都只读、不修改被检查的文件）
+- [scripts/](scripts) — 工作空间脚本（`check_links.py` 只读；`normalize_links.py --apply` 会改写链接、`fetch_citations.py` 输出 TSV——用途见各条目）
   - `fetch_citations.py` — 从 Semantic Scholar **批量抓论文元数据**（引用数、影响力引用数、venue 等），**带 429 指数退避重试**——429 间歇出现且与间隔无关（实测连续 4 次 429 后第 5 次成功），故重试是必需的而非可选；输出 TSV 且末列自动写取数日期，凭据自动读 [tools.env](tools.env)。用法 `python3 shared/scripts/fetch_citations.py arXiv:2307.15818 ...`
   - `check_links.py` — 工作空间完整性检查。**逐项清单、跳过目录与豁免规则一律见脚本 docstring，本文件不重复、不写数字**（第六十五轮收敛：此前"十项 / 十一项 / 十二项"在 `脚本 / 本文件 / workflows.md` **三处各写一次**，加一项要改三处，**已实际漏过两次**）。用法 `python3 shared/scripts/check_links.py`；**`exit 0` 才算通过**（任一项不过即 `exit 1`，明细打印在输出里）
   - `normalize_links.py` — 把相对链接规范化为「相对当前文件位置」的标准形式（拆卷/迁移后修链接用）
@@ -34,4 +34,4 @@
 | Crossref | ✅ | DOI、卷期、出版年 | 无 | 免费 |
 | Consensus REST | ✅ | 语义检索、结论摘要 | `x-api-key` | 30 次/月 |
 | Ai4Scholar | ✅ **付费** | 批量、引用网络、Google Scholar | `Bearer` | 积分制 |
-| Semantic Scholar 官方 | ⚠️ 需 key | 影响力引用数、推荐 | `x-api-key` | 免费 key = 1 req/s |
+| Semantic Scholar 官方 | ✅ **有 key**（2026-09-30 配置，见 [tools.md](tools.md)） | 引用数、影响力引用数、推荐 | `x-api-key` | 免费 key = 1 req/s |

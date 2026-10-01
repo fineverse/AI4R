@@ -1,6 +1,6 @@
 # 工具与凭据
 
-更新时间：2026-09-29
+更新时间：2026-10-01（第七十七轮：时间戳补记 09-30 的 S2 key 配置与 venue 误记实测；余额口径与 tools.env 对齐）
 用途：记录外部工具的**调用方式、额度、成本与已知坑**。索引见 [index.md](index.md)；文献质量判据另见 [literature-quality.md](literature-quality.md)。
 
 ## 凭据
