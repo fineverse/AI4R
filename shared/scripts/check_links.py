@@ -459,6 +459,26 @@ def _transfer_sec1_rows():
     return max(n - 1, 0)          # 减表头（分隔行 `|---|` 不以 `| ` 开头，未计入）
 
 
+def _rounds_volumes():
+    """数 history 目录下的卷文件数（权威源）。"""
+    d = os.path.join(ROOT, "projects/autonomous-driving/history")
+    if not os.path.isdir(d):
+        return None
+    return sum(1 for x in os.listdir(d) if re.fullmatch(r"rounds-.+\.md", x))
+
+
+# 起因（2026-10-01 第七十六轮）：卷数**连续两次差 1**——第六十七轮发现声明"47 卷"而实际 48；
+# 第七十六轮又发现声明"57 卷"而实际 **58**。**同一个派生值手写三处、权威源在"文件数"**，
+# 正是第九项要治的病，却一直没登记。→ 本轮把它并入登记表。
+COUNT_RULES += [
+    ("history 卷数", _rounds_volumes, [
+        ("projects/autonomous-driving/history.md", r"## 分卷（共 (\d+) 卷）"),
+        ("projects/autonomous-driving/index.md", r"索引 \+ (\d+) 卷正文"),
+        ("projects/autonomous-driving/state.md", r"共 (\d+) 卷，"),
+        ("projects/autonomous-driving/state.md", r"\[history\.md\]\(history\.md\)（索引 \+ (\d+) 卷，"),
+    ]),
+]
+
 COUNT_RULES += [
     ("仓库快照数", _repo_dirs, [
         ("projects/autonomous-driving/state.md", r"\*\*(\d+) 个官方仓库快照"),

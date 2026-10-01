@@ -15,14 +15,20 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 ## 最近动态
 
-**最新一轮：第七十二轮（2026-09-30）**——**整合"论文对比方案"投递**：`sota-plan.md` **新增 §10 论文对比协议**（**表要全、claim 要窄、排除要写理由、自己上榜**；`§10.3` 的 claim 分层**待你确认**）（→ [rounds-72.md](projects/autonomous-driving/history/rounds-72.md)）。
+**最新一轮：第七十六轮（2026-10-01）**——**裁决第 73–75 轮为接受、不回退**（另一会话以主线程模式跑的 6 个提交：已在 `master` 上、线性、`check_links` 全绿、号没人用）；并**消化「重组地图」**：复核其候选区 ③ 后 TOAD **不**推翻它，但发现 **TOAD 的 related work 已把"选优是瓶颈"说成主流表述** → 我们是同一问题的另一种回答（**改监督 vs TOAD 改搜索**）；顺带把**卷数**并入机器检查（此前连续两轮差 1）（→ [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)）。
 
-**上一轮：第七十一轮（2026-09-30）**——**传播核查**：第 70 轮改的三处前提级事实在 **16 个文件里留下约 20 处旧话**（含 `sota-plan §5.2` 那段**准备写进论文"自圆其说"的拟用话术**）→ 全部就地标 ⚠ 修掉（→ [rounds-71.md](projects/autonomous-driving/history/rounds-71.md)）。
+**上一轮：第七十五轮（2026-10-01）**——**建立「重组地图」**：把**结构（代码血统 × 强度 S1–S4）**与**因果（受控增益）**按行对齐，提炼三条"结构相邻、因果未测"的 idea 候选区（→ [recombination-map.md](projects/autonomous-driving/ideas/recombination-map.md)、[rounds-75.md](projects/autonomous-driving/history/rounds-75.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 54 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 58 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+
+> **⚠ 第七十六轮补记**：本轮发现 **README 的「最近动态」被第 73–75 轮的收尾漏掉了**（它当时仍停在"54 卷 / 最新第七十二轮"）——**这是"收尾同步 7 处"里漏掉一处的又一次实证**，见 [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)。
 
 | 轮次 | 指针 |
 |---|---|
+| **第七十六轮** | [rounds-76.md](projects/autonomous-driving/history/rounds-76.md) — 裁决 73–75 + 消化「重组地图」；卷数并入机器检查 |
+| **第七十五轮** | [rounds-75.md](projects/autonomous-driving/history/rounds-75.md) — 建立「重组地图」（→ [recombination-map.md](projects/autonomous-driving/ideas/recombination-map.md)） |
+| **第七十四轮** | [rounds-74.md](projects/autonomous-driving/history/rounds-74.md) — 文档体积政策（两线制 + 按角色分档）（→ [ai/rules.md §文件更新](ai/rules.md)） |
+| **第七十三轮** | [rounds-73.md](projects/autonomous-driving/history/rounds-73.md) — 代码继承关系系统梳理（三批，S1–S4 分级） |
 | **第七十二轮** | [rounds-72.md](projects/autonomous-driving/history/rounds-72.md) — 整合"论文对比方案"：`sota-plan.md` 新增 §10（→ [sota-plan.md §10](projects/autonomous-driving/ideas/sota-plan.md)） |
 | **第七十一轮** | [rounds-71.md](projects/autonomous-driving/history/rounds-71.md) — 传播核查第 70 轮的三处前提级改动（16 个文件） |
 | **第七十轮** | [rounds-70.md](projects/autonomous-driving/history/rounds-70.md) — 官方榜重建分数格局 + 三处代码翻案 + §周扫机制（→ [sota-plan.md §1.0](projects/autonomous-driving/ideas/sota-plan.md)） |

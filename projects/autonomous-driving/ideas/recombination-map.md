@@ -69,12 +69,12 @@
 
 ## 交叉结论（本表**新增**的那一层）
 
-1. **"选优"已是被占的战场**：TOAD（测试时搜索，**无需重训**）把 navhard 头部压平（原文 34.7–54.6 → 49.0–56.3）→ **区分点只能落在"监督信号"上**，不能落在"做不做选优"上（[judgments D 组](../judgments.md)）。
+1. **"选优"已是被占的战场**：TOAD（测试时搜索，**无需重训**）把 navhard 头部压平（原文 34.7–54.6 → 49.0–56.3）→ **区分点只能落在"监督信号"上**，不能落在"做不做选优"上（[judgments D 组](../judgments.md)）。**⚠ 第七十六轮补一条更要紧的**：TOAD 的 related work **把我们的前提原话说了出来**——"**oracle studies show an ideal selection can beat the human driver … suggesting the candidate set, not the scorer, often limits performance**"，并把自己定位成"*the planner … still returns **the best of a bad set**. We see this as a **missed opportunity***"。⇒ **两件事**：① **"候选池/选优是瓶颈"这个前提现已属主流表述**，不能再当成我们的"发现"来卖；② **TOAD 与我们是同一个问题的两种回答**——它**改搜索**（用冻结 scorer 当 reward 去搜），我们**改监督**（压缩选优损失）→ **论文里必须把这条对立写清楚**，否则会被读成"TOAD 的一个变体"。
 2. **四条机制轴量级同阶**：换生成机制 +5.2 / goal 条件 +4.7 / 未来潜状态 +3.7 / 语言中间层 +6.7%（跨基准）——**没有哪一轴显著更大**；**唯独"选优"（+20.9）与生成器质量耦合、不可简单相加**（[sota-plan §7.4](sota-plan.md)）。
 3. **"结构相邻、因果未测"的格子（idea 候选区）**：
    - **同源却未同台比过**：nuPlan 系的 Diffusion Planner 与 NAVSIM 系的 DiffusionDrive **从未在同一基准互测**（[扩散规划器 §继承关系](../topics/diffusion-planner/lineage.md)）——**评价层空白**。
    - **寄生在 VAD 库的三支世界模型**（World4Drive / Drive-OccWorld / LAW）都**没有"世界模型带来的受控增益"**——因果列全空。
-   - **`PDMS@1`（池子天花板）在 navhard 上无人报告**（[sota-plan §9.5](sota-plan.md)）——**因果列的空格**，且只需推理即可填。
+   - **`PDMS@1`（池子天花板）在 navhard 上无人报告**（[sota-plan §9.5](sota-plan.md)）——**因果列的空格**，且只需推理即可填。**⚠ 第七十六轮复核（对着第 70 轮后新发现的工作）**：**TOAD 不推翻它**——TOAD 报的 navhard 数字（34.7–54.6 → 49.0–56.3）是**六个 base planner 各自的"选中分"前后对比**，**不是池子天花板**（原文把搜索目标写成"score well"，未报 best-of-N/oracle 行）；**但 TOAD 的 related work 明确引用了"oracle studies 证明理想选择能超过人类司机"** → **说明存在 oracle 类研究**，且**引用 [53] 未核**（可能是 GTRS 的 navhard 池子表，也可能是 DDV2 的 navtest `PDMS@1`）→ **③ 的"无人报告"仍是"未搜到"，不是"已证明不存在"**（与第 43 轮的教训一致）；**Vault 未核**。
 4. **可信度分层的读法**：本表因果列凡写"自报 / 跨库不可比"的，**都是不能进论文主表的数字**；能进主表的只有"受控"与"官方榜"两类。
 
 ## 维护约定
