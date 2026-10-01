@@ -45,6 +45,21 @@ VLA 在驾驶侧经历了**四次闭环收紧**：语言从"解释器"（不碰�
 | 3 | **语言条件是否被淹没** | **是**。回归训练下语言条件被视觉先验边缘化（"条件策略坍缩"，LCS DP-A26 摘要级）；DiffVLA / ReCogDrive 从工程侧绕开（把语言当作引导信号而非直接回归目标） | 研究对象表 DP-A26/A27/A28 |
 | 4 | **可迁移机制** | ① **双系统分离**（慢推理 + 快生成）→ 可映射为"LLM 出目标/约束、扩散器出轨迹"；② **语言作为引导而非回归目标**（ReCogDrive 的 action-mask 机制，避免高实时开销）；③ **语言中间表示**（waypoint/元动作）→ 可直接当锚点先验（KnowDiffuser DP-A30 已这么做） | 见 [transfer.md 第 2 节](../diffusion-planner/transfer.md) |
 
+## 继承关系（论文 / README 级，无代码核验）
+
+读法：本侧脉络为**摘要 + 元数据级、无代码核验**，下表只收**论文 / README 明确自述的基座与前作**；强度分级 S1–S4 的定义见 [workflows.md §代码脉络梳理](../../../../ai/workflows.md)，**因无代码核验，多数条目上限为 S2/S3**。
+
+| 工作 | 基线 / 来源 | 强度 | 证据 |
+|---|---|---|---|
+| VLA-19 SimLingo | 同组前作 **CarLLaVA**（该工作的 preliminary 挑战赛技术报告） | S2 | [papers.md VLA-19](papers.md)（`comments` 原文指向） |
+| VLA-17 Drive My Way | 基座 **SimLingo**（"基座 + 残差 + PID"） | S2 | [verification.md §7.3](verification.md) |
+| VLA-06 DiffVLA | VLM 引导基于 **Senna-VLM**（ViT-L/14 CLIP + Vicuna-v1.5-7B） | S3 | [notes/VLA-06-diffvla.md](notes/VLA-06-diffvla.md) |
+| VLA-04 DriveMoE | 底座 = **π0**（论文 §3.1 标题即 "Drive-π0 Baseline"），复用其 flow matching 动作头 | S3 | [embodied 大方向脉络 §5](../../../embodied-ai/direction/lineage.md) |
+| VLA-22 VaViM/VaVAM | **VaVAM = VaViM（视频预训练主干）+ flow matching 动作专家**；论文称"完整 pipeline"，**代码冻结 VaViM** | **S1（代码级冻结）** | [papers.md VLA-22](papers.md)、[verification-2.md](verification-2.md) |
+| VLA-09 EMMA | 基于 **Gemini 1.0 Nano-1** 微调（另有 PaLI-X 变体 EMMA†） | S2 | [verification-2.md](verification-2.md) |
+
+**两条判断**：① 驾驶 VLA 的**基座**多来自通用 VLM（Gemini / Qwen2.5-VL / Senna-VLM）或**具身 VLA**（π0），**自研底座极少**；② **VLA-20 AutoMoT / VLA-23 UniDriveVLA / VLA-24 LaST-VLA 同属"小米系 MoT-VLA"**，是**同族并行**而非互为前作。
+
 ## 未解决问题
 
 | # | 问题 | 谁明确提出 | 证据等级 |

@@ -130,7 +130,16 @@
 
 **未找到的工作**：**"在机器人数据上预训练后独立迁移到驾驶"没有实例**（DriveMoE 是"直接以 π0 为底座"的最接近形态）；**"在驾驶数据上训 LIBERO 式动作块"亦未找到**。
 
-## 6. 待补
+## 6. 继承关系（论文 / README 级，无代码核验）
+
+本页约定"写判断、事实留表与笔记"，故本节只写**血统判断 + 指针**，不复制论文表。强度分级 S1–S4 见 [workflows.md §代码脉络梳理](../../../ai/workflows.md)。
+
+- **策略动作线（线 A）是一条清晰的继承链**：`BC → ACT（首提动作块）→ Diffusion Policy / π0`。其中 **Diffusion Policy 直接把 ACT 的动作块交给扩散去噪**；**RT-2 把"动作当文本 token"、OpenVLA 把它开源化、π0 用 flow matching 动作专家取而代之**（见 §1 线 A 与 [VLA 小方向脉络](../topics/vla/lineage.md)）。
+- **世界模型线（线 B）同理清晰**：`World Models（NeurIPS'18）→ PlaNet → Dreamer v1/v2/v3`（潜 rollout）→ **V-JEPA / DINO-WM 的"去重建"** → **WorldVLA / DiWA / Dreamer 4 的"联合训练"**（见 §1 线 B）。
+- **π0 是两条线之外、跨领域共用的枢纽**：驾驶侧的 **DriveMoE 以 π0 为底座**、**DriveLaW 的 `action_expert` 与 π0 同构**（见 §5）——**这是具身 → 驾驶唯一的成体系血统转移**。
+- **一处代码级硬继承（S1）**：**VaVAM = VaViM（视频预训练主干）+ flow matching 动作专家**，且代码**冻结 VaViM**（论文未声明，见 §5 与 [vla papers.md VLA-22](../../autonomous-driving/topics/vla/papers.md)）。
+
+## 7. 待补
 
 - **全文级证据**：本页数字多数为**摘要级 + 论文自述**（具身侧 14 篇 VLA 与 14 篇世界模型**均未读全文**）；驾驶侧数字引自本工作空间已核验的论文表与代码脉络。
 - **未取得的关键数字**：**DP3 的控制频率**；DiffusionDriveV2 / HDP 的 FPS。
