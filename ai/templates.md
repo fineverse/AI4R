@@ -72,7 +72,7 @@
 
 **这些是实际在用的惯例，此前未成文**：
 
-1. **分册**：单文件超 64 KB → 拆为 `<原名>-2.md`；第二册文件头必须写"本册承接 `xxx.md`（§A–§H）"。**实际有两种形态**：① **同名分册**——`judgments.md`→`judgments-2.md`、`diffusion_planner_code_traces.md`→`-2`、`e2e_trunk_code_traces.md`→`-2`、`vla/verification.md`→`verification-2.md`、`world-model/verification.md`→`verification-2.md`；② **换 basename**——`vla/papers.md` 与 `world-model/papers.md` 的 §4 之后拆到了 `verification.md`（**工作空间不存在任何 `papers-2.md`**，故"册对"逻辑看不见它，要靠**章节可达性检查**兜底）。**三份代码脉络中 `world_model_code_traces.md` 未拆册**。
+1. **分册**：单文件超 64 KB → 拆为 `<原名>-2.md`；第二册文件头必须写"本册承接 `xxx.md`（§A–§H）"。**⚠ 分册不是唯一处理（第七十四轮）**：先按 [rules.md](rules.md) §文件更新的「**超限处理按文件角色分档**」判断——**索引/登记类瘦身、脉络/清单类拆册、决策/引用稠密类优先去重**；选错会付出"拆册后引用没跟改册"的代价（第 28、30 轮共 65 处）。**实际有两种形态**：① **同名分册**——`judgments.md`→`judgments-2.md`、`diffusion_planner_code_traces.md`→`-2`、`e2e_trunk_code_traces.md`→`-2`、`vla/verification.md`→`verification-2.md`、`world-model/verification.md`→`verification-2.md`；② **换 basename**——`vla/papers.md` 与 `world-model/papers.md` 的 §4 之后拆到了 `verification.md`（**工作空间不存在任何 `papers-2.md`**，故"册对"逻辑看不见它，要靠**章节可达性检查**兜底）。**三份代码脉络中 `world_model_code_traces.md` 未拆册**。
 2. **重建版**：若一册的内容**不是**从原始文件拆来的，而是从 `history/` 的轮次记录重建的，必须标 **⚠ 本册为重建版**，写明丢失原因、重建来源（哪几轮的哪几节），并声明"事实与 `文件:行号` 完整保留，措辞不完全一致"。
 3. **章节编号即引用锚点**：代码脉络用 **`§A`–`§P` 大写字母**，子节用 `§J.6`；VLA/世界模型侧用 **`§4`–`§14` 数字**。**各脉络的分册点不同**——`diffusion_planner_code_traces` = §A–§H + §I–§P、`e2e_trunk_code_traces` = §A–§J + §K–§M、`world_model_code_traces` = **单册（§E 起）**。**引用"§X 及以后"时必须指向正确的册**。
 4. **更正标注**：任何推翻此前结论的地方，就地写 **`⚠ 更正`** 或 **`（第 N 轮更正）`**，并保留原依据与更正原因（见 [rules.md](rules.md) §文件更新"重要结论被修正时保留修正原因和原依据"）。

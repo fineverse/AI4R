@@ -20,7 +20,8 @@
   11. inbox 待整合 —— `inbox/` 根下的 `.md`（`cleanup.md` 除外）即"待整合投递物"，**非 0 即报**
       （2026-09-30 第六十二轮加；把"整合投递物"从人工 checklist 变成机器检查，见下）
   12. 文档体积预算 —— **任何文档 ≤ 64 KiB**（65536 字节，**Read 工具一次可整读的物理上限**）；
-      超限即报（2026-09-30 第六十四轮加；此前只是人工"看体积"，见下）
+      **两线制**：硬线 64 KiB（超限即报、参与 exit code）、预警线 60 KiB（只报不阻断，留一轮增量余量）。
+      阈值与「超限处理按文件角色分档」见 `ai/rules.md` §文件更新（2026-09-30 第六十四轮加；第七十四轮加预警线）
 
 **本清单不外传**（2026-09-30 第六十五轮收敛）：`shared/index.md` 与 `ai/workflows.md` 此前**各自又抄了一遍**这份清单，于是"十项 / 十一项 / 十二项"这个**数字在三处各写一次**——加一项就要改三处，**已实际漏过两次**（第 62、64 轮都是改了列表、忘了别处的总述）。现规定：**清单只在本 docstring 枚举；其余文档只写"见脚本 docstring"，不写数字、不列条目**。→ 这是「**引用可以重复，计数不能**」（[workflows.md](../../ai/workflows.md) §轮次收尾第 6 条）在**文档结构**上的应用。
 
@@ -638,26 +639,37 @@ print(f"待整合投递物: {len(pending)} 篇")
 for c in pending:
     print(f"  {c}")
 
-# ---- 文档体积预算检查（2026-09-30 第六十四轮新增，第 12 项）----
-# 依据：`ai/rules.md` §文件更新 的三条尺寸阈值之一——「**任何文档 ≤ 64 KB**」，
-# 而 64 KB 是 **Read 工具一次可整读的物理上限**：超了就读不整（第五十七轮实测 8 表全部达标，
-# 最大 DP-A 表 57 KiB；`preparation.md` 已是 97%）。
-# 但这条约定**一直只是人工"看体积"**（第五十八轮审计把它列为"未机器化的约定"之一）→ 本轮机器化。
-# **为什么值得机器化**：超限是**静默**发生的（加一节就跨过去了），而后果是"这个文件从此读不整"，
-# 且没有任何检查会报——这正是本工作空间反复补检查的同一类缺口。
-# 阈值取 64 KiB = 65536 字节；只查被扫描的 md（已排除 code/repos、archive、inbox/scratch、.trae）。
+# ---- 文档体积预算检查（2026-09-30 第六十四轮新增，第 12 项；第七十四轮加"预警线"）----
+# 依据：`ai/rules.md` §文件更新 的尺寸阈值——「**任何文档 ≤ 64 KiB**」，
+# 而 64 KiB 是 **Read 工具一次可整读的物理上限**（**第七十四轮实测复证**：整读一个 67 KiB 的文件，
+# 工具直接报 `selected content size exceeds the limit of 64KB`）→ **是硬约束、不可上调**。
+# 第五十七轮实测 8 表全部达标（最大 DP-A 表 57 KiB）；此条约定曾长期只是人工"看体积"→ 第六十四轮机器化。
+# **为什么值得机器化**：超限是**静默**发生的（加一节就跨过去了），后果是"这个文件从此读不整"。
+# **两线制（第七十四轮定）**：
+#   · 硬线 64 KiB（65536）—— 超 = 违规，参与 exit code，收尾前必须处理；
+#   · 预警线 60 KiB（61440）—— 只报不阻断，留约一轮增量余量，避免"下一轮就撞线"（`history.md` 即如此）。
+# **超限处理按文件角色分档**（本脚本只认线、不认角色，分档见 `ai/rules.md` §文件更新）：
+#   索引/登记类 → 瘦身（详情在别处）；脉络/清单类 → 拆册；决策/交叉引用稠密类 → 优先去重、必要时拆册。
+# 只查被扫描的 md（已排除 code/repos、archive、inbox/scratch、.trae）。
 LIMIT_BYTES = 64 * 1024
+WARN_BYTES = 60 * 1024
 oversize = []
+warnsize = []
 for path in md_files:
     sz = os.path.getsize(path)
     if sz > LIMIT_BYTES:
         oversize.append(f"{os.path.relpath(path, ROOT)}  {sz} 字节（{sz / 1024:.1f} KiB，超 {sz - LIMIT_BYTES} 字节）")
+    elif sz > WARN_BYTES:
+        warnsize.append(f"{os.path.relpath(path, ROOT)}  {sz} 字节（{sz / 1024:.1f} KiB，距硬线还差 {LIMIT_BYTES - sz} 字节）")
 
-print(f"\n--- 文档体积预算（第 12 项；阈值 {LIMIT_BYTES} 字节 = 64 KiB，Read 整读上限）---")
-print(f"超限: {len(oversize)}")
+print(f"\n--- 文档体积预算（第 12 项；硬线 {LIMIT_BYTES} 字节 = 64 KiB，预警线 {WARN_BYTES} 字节 = 60 KiB）---")
+print(f"超限（违规）: {len(oversize)}")
 for c in oversize:
     print(f"  {c}")
-if md_files and not oversize:
+print(f"预警（距硬线 < 4 KiB）: {len(warnsize)}")
+for c in warnsize:
+    print(f"  {c}")
+if md_files and not oversize and not warnsize:
     _big = max(md_files, key=os.path.getsize)
     print(f"  最大: {os.path.relpath(_big, ROOT)}  {os.path.getsize(_big)} 字节"
           f"（{os.path.getsize(_big) / 1024:.1f} KiB，占 {os.path.getsize(_big) / LIMIT_BYTES:.0%}）")

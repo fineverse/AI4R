@@ -266,15 +266,13 @@
 
 1. **PDM-Closed 51.3 与 GTRS-E 49.4 是两篇独立一致的数字** → 这两行可以用，也是"跨来源交叉核对"在本工作空间里第一次真正做成。
 2. **DiffusionDrive 的基线差 3.3**（24.2 vs 27.5）——**正好落在我们第三十六轮选定的起点上**。→ 引用"DiffusionDrive navhard 24.2"时必须注明**是 DriveFuture 表的口径**。
-3. **SimScale 的 53.2 无法归因**：SimScale 论文原文写 **"GTRS-Dense (V2-99) achieves a score of 48.0, establishing a new SOTA on navhard"**，**全文（PDF 1529 行）没有出现过 53.2**；仓库 README 的 Model Zoo 最高也是 **48.0**。→ **53.2 可能来自官方 navhard 排行榜上 SimScale 的后续提交**（SimScale 2025-11、DriveFuture 2026-05，中间隔半年），但**这一点我们无法核实**。→ **§3 子榜里"navhard 上有代码的任意方法 = SimScale 53.2"已降级为"53.2（待核）"**。
+3. **SimScale 的 53.2 一度无法归因**（论文全文与仓库 Model Zoo 的最高都是 48.0）→ **谜底见 §7.7.5**（两套官方实现的口径差）；在 §7.7.5 之前，§3 曾把它降级为"53.2（待核）"。
 
 #### 7.7.2 「GTRS-E 未在任何论文中定义」是错的——它定义在 GTRS 自己的 Table 2 里
 
 §6 原文写"**未在任何论文中定义**；按 NVlabs/GTRS 仓库推测为 GTRS 集成变体"。核完 PDF 后**这句话要更正**：
 
-> GTRS 论文 **Table 2 题注**原文：**"Table 2. Performance on the Navhard Benchmark. Backbone settings follow Tab. 1. **GTRS-E-Lite ensembles GTRS-Dense and GTRS-Aug with EVA-ViT-L. The challenge-winning entry GTRS-E ensembles all six models from GTRS-Dense and GTRS-Aug.**"**
->
-> 正文原文：**"Our challenge-winning entry GTRS-E, an ensemble of all six variants, reaches 49.4 EPDMS, approaching the performance of PDM-Closed [6]—a privileged planner that relies on ground-truth perception."**
+> GTRS 论文 **Table 2 题注**原文：**"…GTRS-E-Lite ensembles GTRS-Dense and GTRS-Aug with EVA-ViT-L. The challenge-winning entry GTRS-E ensembles all six models from GTRS-Dense and GTRS-Aug."**；正文原文：**"Our challenge-winning entry GTRS-E, an ensemble of all six variants, reaches 49.4 EPDMS, approaching the performance of PDM-Closed [6]—a privileged planner…"**
 
 → **两条结论**：
 
@@ -283,7 +281,7 @@
 
 #### 7.7.3 路线 ③ 的前置**已解决**：+8.6 成立，且增益**不随基线变强而衰减**
 
-SimScale 论文摘要原文："…can lead to significant improvements in both robustness and generalization for various planning methods on challenging real-world benchmarks, **up to +8.6 EPDMS on navhard and +2.9 on navtest**"。**+8.6 对应仓库 Model Zoo 里的 GTRS-Dense / ResNet34 / rewards-only 行（46.9）**。
+SimScale 论文摘要原文自述 **"up to +8.6 EPDMS on navhard and +2.9 on navtest"**；**+8.6 对应仓库 Model Zoo 里的 GTRS-Dense / ResNet34 / rewards-only 行（46.9）**。
 
 **四条基线的增益（navhard，全部来自 SimScale 自己的表）**：
 
@@ -309,26 +307,15 @@ DiffusionDrive 逐阶段子指标（SimScale Table 1，`∗` = pseudo-expert 监
 | S2 w/o | 80.1 | 72.8 | 84.4 | 98.4 | 85.9 | 76.6 | 46.4 | **72.8** | 40.5 |
 | S2 w/ ∗ | 86.4 | 72.1 | 92.9 | 98.5 | 92.1 | 80.6 | 60.8 | **31.9** | 46.8（+6.3） |
 
-→ **总 EPDMS 涨 5.1，而 EC 从 79.6 / 72.8 掉到 59.6 / 31.9**（S2 阶段**掉了一半以上**）；涨分几乎全在 **S2 的 LK（+14.4）与 NC（+6.3）**，S1 几乎没动（+0.8）。→ 这是 **P2c（"分数与可行性不一致"）的一个新的、同基准同方法的直接实例**，而且**发生在我们选定的起点上**。**⚠ 第三十九轮更正（重要）**：**EC 在本地 devkit 里被 mask 掉、不进 EPDMS**（`pdm_scorer.py` 原文 "**Exclude the two-frame extended comfort metric from the weighted metrics calculation**"，`mask[WeightedMetricIndex.TWO_FRAME_EXTENDED_COMFORT] = False`）→ **EC 掉一半对总分毫无影响**，所以这**不是"涨分牺牲舒适性"的权衡**，而是"**EPDMS 没测 EC 这一项**"（进加权和的只有 **`{EP, TTC, LK, HC}` 四项**，HC 覆盖了另一部分舒适性）。→ **写论文时的正确说法是"EPDMS 未覆盖 EC"**，而不是"我们牺牲了舒适性"；**DriveFuture 用"乘性安全项主导"解释同一现象，代码给出了更硬的解释**（见 [benchmarks.md §2.3 / §2.10](../direction/benchmarks.md)）。
+→ **总 EPDMS 涨 5.1，而 EC 从 79.6 / 72.8 掉到 59.6 / 31.9**（S2 掉一半以上）；涨分几乎全在 **S2 的 LK（+14.4）与 NC（+6.3）**，S1 几乎没动（+0.8）。→ 这是 **P2c（"分数与可行性不一致"）一个同基准同方法的直接实例**，且**发生在我们选定的起点上**。**⚠ 第三十九轮更正**：**EC 在本地 devkit 里被 mask 掉、不进 EPDMS**（`mask[WeightedMetricIndex.TWO_FRAME_EXTENDED_COMFORT] = False`）→ **EC 掉一半对总分毫无影响**，这**不是"涨分牺牲舒适性"的权衡**、而是"**EPDMS 没测 EC**"（进加权和的只有 `{EP, TTC, LK, HC}`）。→ **论文里应写"EPDMS 未覆盖 EC"**（完整版见 [benchmarks.md §2.3 / §2.10](../direction/benchmarks.md)）。
 
 #### 7.7.5 谜底（2026-09-24 第三十八轮补）：**53.2 与 48.0 是两套官方实现，不是错误**
 
-DriveFuture 论文 **§3.3 原文**给出了区分：
+DriveFuture 论文 **§3.3 原文**给出了区分：**`EPDMS\*` = 2025-09-29 人-行为过滤修复**之前**；`EPDMS` = 修复**之后**（修复逻辑 = "同一违规若人类轨迹也犯，则不扣该帧"→ **只减不增扣分、修复后系统性偏高**）。→ **SimScale 自报的 48.0 是旧实现、DriveFuture 表里的 53.2 是新实现**；两行逐阶段子指标显示**是同一个 V2-99 模型**（NC/DAC/TLC 几乎相同，差别集中在 **EC 43.2 ↔ 30.9**）。**实测幅度**（DriveFuture Table 2 是唯一同给两列处）：**86.4 → 89.9（+3.5）**、**DiffusionDriveV2 85.5 → 87.5（+2.0）**。
 
-> "**EPDMS\* denotes scores computed with the earlier NAVSIM-v2 evaluation implementation before the human-behavior filtering fix was adopted in the official leaderboard.** … **EPDMS denotes the corrected official implementation** … EPDMS\* is reported only for compatibility with earlier results computed using the legacy code."
+→ **三条后果**：① **§1 的表是"混装集"**——同一张表内数字分属两套实现（已加口径标注）；② **§3 子榜"SimScale 53.2"改回可用**，但须与 48.0 并列；③ **路线 ③ 报的 +5.1 是 `EPDMS\*` 口径**，要在官方榜上比就得用新实现重测（实验协议须写明 devkit 版本）。另注：§7.7.1 的"24.2 vs 27.5"大概率同源，但方向与 SimScale 相反，暂不归因。
 
-修复逻辑是"**ignores a rule violation if the same violation is also committed by the human trajectory**"（**只减不增扣分 → 修复后系统性偏高**）。→ **SimScale 自报的 48.0 是旧实现（EPDMS\*），DriveFuture 表里的 53.2 是新实现（EPDMS）**；两行的逐阶段子指标显示**是同一个 V2-99 模型**（NC 94.5↔94.9、DAC 94.2↔94.3、TLC 99.2↔99.3 几乎相同），差别集中在 **EC 43.2 ↔ 30.9**。
-
-**实测幅度**（DriveFuture Table 2 是唯一同时给两列的地方）：**DriveFuture 自己 86.4 → 89.9（+3.5）**、**DiffusionDriveV2 85.5 → 87.5（+2.0）**。
-
-→ **四条后果**：
-
-1. **§1 的表是一个"混装集"**：DriveFuture 表里的行是 **EPDMS（新）**，而从各论文自报抄来的行是 **EPDMS\*（旧）** → **同一张表内的数字分属两套实现**。§1 已加口径标注。
-2. **§3 子榜里"SimScale 53.2"这一行改回可用**（不是"来源不明"，是"新实现口径"），但**必须与 48.0 并列注明**。
-3. **§7.7.1 的"DiffusionDrive 24.2 vs 27.5"也大概率同源**（24.2 是新实现、27.5 是旧实现）——**但方向与 SimScale 相反**（新实现更低），**暂不归因**（可能是两家的 backbone / 输入权限不同）。
-4. **对路线 ③ 的含义**：SimScale 报的 **+5.1（DiffusionDrive）是 EPDMS\* 口径**；**若最终要在官方榜上比，必须用新实现重测**。→ 这给"第一步用它的 ckpt 跑评测"加了一条要求：**评测脚本要用哪一版 devkit，必须在实验协议里写明**。
-
-> **完整版（含 M_pen / M_avg 与 β 权重、三条约束）见 [benchmarks.md §2.9](../direction/benchmarks.md)。**
+> **完整版（含修复逻辑原文、M_pen / M_avg 与 β 权重、三条约束）见 [benchmarks.md §2.9](../direction/benchmarks.md)。**
 
 ---
 
@@ -520,9 +507,7 @@ DriveFuture 论文 **§3.3 原文**给出了区分：
 
 基准与划分（**navhard two-stage**）／**输入权限（sensor-only，无 GT 感知）**／输出模态（8 vs 40 poses）／命令维／**评测器实现版本（官方 `EPDMS`，不用论文自报的 `EPDMS*`）**／**数字来源（官方榜 / 论文自报 / 我们复跑）**。
 
-→ **在这六项上与本项目不同的方法，不得进主表比分**——这是"合理排除"的**唯一**依据，且它可辩护。**其中"输入协议 / backbone 是否同源"以代码血统为准（第七十三轮补）**：继承事实源见 [E2E 主干 §继承关系](../direction/lineage.md) 与 [扩散规划器 §继承关系](../topics/diffusion-planner/lineage.md)。
-
-> **§10.4 的排除规则与本节共用同一份继承事实源**——凡"同一基线才可横比"的判断，均引 [direction/lineage.md §继承关系](../direction/lineage.md) 与 [topics/diffusion-planner/lineage.md §继承关系](../topics/diffusion-planner/lineage.md)。
+→ **在这六项上与本项目不同的方法，不得进主表比分**——这是"合理排除"的**唯一**依据，且它可辩护。**其中"backbone 是否同源"以代码血统为准（第七十三轮补）**：继承事实源见 [direction/lineage.md §继承关系](../direction/lineage.md) 与 [topics/diffusion-planner/lineage.md §继承关系](../topics/diffusion-planner/lineage.md)（**§10.4 的排除同样引这两处**）。
 
 ### 10.2 主表 = 官方榜全列 + 标注列（**不做挑选**）
 
