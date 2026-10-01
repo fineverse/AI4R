@@ -9,14 +9,14 @@
 - [研究上下文与约束](context.md)
 - [当前状态](state.md)（当前阶段 / 待续清单 / 判断边界**索引**）
 - [判断边界（详细）](judgments.md)（每条判断的完整论证、出处与代码事实；**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**）
-- [逐轮工作记录](history.md)（**索引 + 54 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
+- [逐轮工作记录](history.md)（**索引 + 55 卷正文**：每轮做了什么、更正了什么、产出在哪）+ [CURRENT.md](history/CURRENT.md)（**并行会话同步（软通道，单写者）**：本轮在改文件清单；投递物登记表就是 `inbox/` 本身）
 - [工作空间设计](../../shared/workspace-design.md)
 
 ## 大方向层 `direction/`
 
 | 文件 | 内容 |
 |---|---|
-| [lineage.md](direction/lineage.md) | 端到端自动驾驶发展脉络（1989→2026，四阶段 + 三条轴） |
+| [lineage.md](direction/lineage.md) | 端到端自动驾驶发展脉络（1989→2026，四阶段 + 三条轴 + **继承关系（代码层面已核验，S1–S4 分级）**） |
 | [benchmarks.md](direction/benchmarks.md) | 基准与评价协议（NAVSIM v1/v2、Bench2Drive、nuPlan、nuScenes 等）+ **PDMS/EPDMS 的代码级口径**（§2）+ **§2.5 Agent 与评测接口** + **§2.6 nuPlan 闭环分数的代码级口径**（`final_score = (4 项乘性连乘) × [Σw·m / Σw]`；与 PDMS 结构不同、且分母依赖配置） + **§2.7 Bench2Drive 四项指标的代码级口径**（DS = `max(RC × IS, 0)` 且分母硬编码 220；SR = 零违规完成率；5 项 Ability；**Effi 是速度比、Comf 是时间占比**） + **§2.8 nuScenes 开环的代码级口径**（**同名 L2/碰撞在 UniAD / VAD / VADv2 / SparseDrive 里是四套不同实现**；UniAD 代码里有 `uniad` / `stp3` 两套 L2 定义） |
 | [surveys/](direction/surveys) | E2E 综述大表（S001–S045）+ CSV |
 | [notes/](direction/notes) | 领域级笔记 **16 篇**（E2E 代表工作 11 + 综述 S001/S002/S031/S032/S033） |
@@ -28,7 +28,7 @@
 | 文件 | 内容 |
 |---|---|
 | [README.md](topics/diffusion-planner/README.md) | 角色、边界、进度 |
-| [lineage.md](topics/diffusion-planner/lineage.md) | 扩散规划器发展脉络（2022→2026，五阶段 + 三次转移） |
+| [lineage.md](topics/diffusion-planner/lineage.md) | 扩散规划器发展脉络（2022→2026，五阶段 + 三次转移 + **继承关系（S1–S4 分级）**） |
 | [transfer.md](topics/diffusion-planner/transfer.md) | 来源 → 对象 的可借鉴机制表（待验证假设） |
 | [papers/](topics/diffusion-planner/papers) | AD 扩散规划器论文表（DP-A01–A34）+ CSV；**[navhard 竞品登记表](topics/diffusion-planner/papers/navhard_competitors.md)**（DP-C01–C07：非扩散 / 选择式**对手**，含逐行代码状态；**第七十轮更正 DP-C01 并新增 C06/C07**）；**[选优器 / 候选池专线](topics/diffusion-planner/papers/scoring_line.md)**（方向 B 的文献地基：4 条**摘要级**已核 + 17 条线索级，含 TOAD / Vault 两篇强对手） |
 | [surveys/](topics/diffusion-planner/surveys) | 扩散规划器综述表（DP-S01–S15）+ CSV |
@@ -38,8 +38,8 @@
 
 | 小方向 | 状态 |
 |---|---|
-| [vla/](topics/vla) | [README.md](topics/vla/README.md) — [论文表 **28 篇**](topics/vla/papers.md)（表 + 证据边界 + 边界外清单，**轻量入口**）+ [脉络](topics/vla/lineage.md)（四阶段）+ 3 篇 [notes/](topics/vla/notes)；**逐篇全文与代码核验结论拆到两册**：[verification.md](topics/vla/verification.md)（§4–§8）、[verification-2.md](topics/vla/verification-2.md)（§9–§14）→ **28/28 已读全文、14 篇已源码核验、28 篇全部核过代码可用性** |
-| [world-model/](topics/world-model) | [README.md](topics/world-model/README.md) — [论文表 **24 篇**](topics/world-model/papers.md)（表 + 证据边界 + 补录 + 代码可用性全表）+ [脉络](topics/world-model/lineage.md)（五类空间 + **五条接口路线**）+ 5 篇 [notes/](topics/world-model/notes)；**§4 逐篇全文核验结论拆到** [verification.md](topics/world-model/verification.md) → **24/24 已读全文、14 篇已源码核验** |
+| [vla/](topics/vla) | [README.md](topics/vla/README.md) — [论文表 **28 篇**](topics/vla/papers.md)（表 + 证据边界 + 边界外清单，**轻量入口**）+ [脉络](topics/vla/lineage.md)（四阶段 + **继承关系（论文级）**）+ 3 篇 [notes/](topics/vla/notes)；**逐篇全文与代码核验结论拆到两册**：[verification.md](topics/vla/verification.md)（§4–§8）、[verification-2.md](topics/vla/verification-2.md)（§9–§14）→ **28/28 已读全文、14 篇已源码核验、28 篇全部核过代码可用性** |
+| [world-model/](topics/world-model) | [README.md](topics/world-model/README.md) — [论文表 **24 篇**](topics/world-model/papers.md)（表 + 证据边界 + 补录 + 代码可用性全表）+ [脉络](topics/world-model/lineage.md)（五类空间 + **五条接口路线** + **继承关系（代码层面已核验）**）+ 5 篇 [notes/](topics/world-model/notes)；**§4 逐篇全文核验结论拆到** [verification.md](topics/world-model/verification.md) → **24/24 已读全文、14 篇已源码核验** |
 
 > 两个借鉴来源的可迁移机制汇总在 [transfer.md](topics/diffusion-planner/transfer.md) 第 2、3 节。质量筛选口径见 [shared/literature-quality.md](../../shared/literature-quality.md)。
 

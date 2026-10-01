@@ -116,7 +116,7 @@
 
 ## 继承关系（代码层面已核验）
 
-读法：本节汇总主干各方法的**代码/基线血统**；强度分级 S1–S4 的定义见 [workflows.md §代码脉络梳理](../../ai/workflows.md)。**逐篇细节仍在各笔记的 `## 在脉络中的位置`**，本节只做汇总与定级；扩散规划器侧的续段见 [topics/diffusion-planner/lineage.md §继承关系](../topics/diffusion-planner/lineage.md)。
+读法：本节汇总主干各方法的**代码/基线血统**；强度分级 S1–S4 的定义见 [workflows.md §代码脉络梳理](../../../ai/workflows.md)。**逐篇细节仍在各笔记的 `## 在脉络中的位置`**，本节只做汇总与定级；扩散规划器侧的续段见 [topics/diffusion-planner/lineage.md §继承关系](../topics/diffusion-planner/lineage.md)。
 
 | 工作 | 基线 / 来源库 | 强度 | 证据 |
 |---|---|---|---|

@@ -1,13 +1,13 @@
 # 自动驾驶项目状态
 
-更新时间：2026-09-30（第七十二轮：整合"论文对比方案"投递 → `sota-plan.md` 新增 §10）
-逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 54 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**本轮「在改」文件清单**（软通道，单写者 = 主线程；**第六十七轮起不再登记投递物**——登记表就是 `inbox/` 本身））；本文件只保留当前阶段、待续清单与判断边界。
+更新时间：2026-10-01（第七十三轮：重点代码继承关系系统梳理（三批）+ 决策文件消化）
+逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 55 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**本轮「在改」文件清单**（软通道，单写者 = 主线程；**第六十七轮起不再登记投递物**——登记表就是 `inbox/` 本身））；本文件只保留当前阶段、待续清单与判断边界。
 
 ## 当前阶段
 
-**项目未立项**。文献调研与代码核验已完成（第一至七十二轮），现处于 **idea 讨论 + 实验准备**阶段；最近两轮为**第七十一轮**（传播核查第 70 轮的三处前提级改动，16 个文件）与**第七十二轮**——整合**"论文对比方案"**投递：`sota-plan.md` **新增 §10 论文对比协议**（**表要全、claim 要窄、排除要写理由、自己上榜**；`§10.3` 的 claim 分层**待用户最终确认**）。
+**项目未立项**。文献调研与代码核验已完成（第一至七十三轮），现处于 **idea 讨论 + 实验准备**阶段；最近两轮为**第七十二轮**（整合**"论文对比方案"**投递：`sota-plan.md` **新增 §10 论文对比协议**，`§10.3` 的 claim 分层**待用户最终确认**）与**第七十三轮**——**重点代码继承关系系统梳理（三批）**：先在 `ai/workflows.md` 定 **S1–S4 继承强度分级**（唯一事实源），再按决策影响度分三批补齐——① **E2E 主干 + 扩散规划器**（`direction/lineage.md` 新增继承节 + `diffusion-planner/lineage.md` 增"强度"列）、② **世界模型**（`world-model/lineage.md` 新增继承节，**修复 C004 指向空章节的悬空指针**）、③ **VLA/具身**（论文级）；**并消化进** `preparation` §6.1/§6.2、`judgments` B/G 组、`sota-plan` §10.1（四者引同一事实源）。
 
-- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 54 卷，第一至七十二轮全覆盖）。
+- **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 55 卷，第一至七十三轮全覆盖）。
 - **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)（**单写者 = 主线程**，只写「在改」清单）；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 的「inbox 待整合」检查）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
 - **决策核心**：[sota-plan.md](ideas/sota-plan.md)（冲 SOTA 作战文件）、[preparation.md](ideas/preparation.md)（S1–S30 设计前提 + 候选方向）。
 - **关键阻塞**：路线 B 第一步（纯推理四项测量）协议已建、**未运行**，受 SimScale checkpoint（243.6 MB，已定位）与 navhard 数据阻塞。
@@ -55,6 +55,7 @@
 | 23 | **"选优器专线"的待核**（第六十八轮立；**第六十九轮解 ①、第七十轮解 ⑤**） | ~~① TOAD 的 56.3 属哪个 split~~ → **✅ `navhard-two-stage`**；~~⑤ TOAD 代码是否发布~~ → **✅ 已发布**（`valeoai/TOAD` 25★，`scorer.py` + `train_pdm_scorer.py` 都在）——**它因此成为方向 B 的"可运行直接对手"**。**剩余**：② **Vault 是否已中稿**（摘要写 "Under review at ICLR 2027"）**与有无代码**；③ [scoring_line.md](topics/diffusion-planner/papers/scoring_line.md) **§二 17 条线索级**（arXiv ID / venue / 代码全未核）；④ BeyondDrive 的 **"MeanFuser 同组"与"有代码"**（摘要均未提）；⑥ **TOAD 的 56.3 / 56.512 两个数字均未被独立复现**（论文自报 vs 官方榜，差 0.2） | [scoring_line.md](topics/diffusion-planner/papers/scoring_line.md)、[rounds-69.md](history/rounds-69.md) |
 | 24 | **官方榜的三项未查事项**（第七十轮立） | ① **`DriveFuture` 为何不在官方榜**（全文检索 0 命中）——未提交？还是用了另一套评测？**这个决定了 §1 与 §1.0 能否被看成"同一基准的两套数字"**；② **官方榜前 6 名里 4 个匿名队**（`guest9527` 60.561 / `CooWAIM` / `Aqua10086` / `zzzzz` / `Joctor`）身份未知，**榜首不可追溯**；③ **榜二的 `EABOT.AI&NJU` 与 `Rtwotwo/DriveTTO` 的对应关系未证实**（榜上无链接，且该仓是占位仓）。→ **这三项直接影响"子榜辩护"能不能写**，优先级高于 ②③④ | [sota-plan.md §1.0](ideas/sota-plan.md)、[judgments.md B 组](judgments.md) |
 | 25 | **官方榜是"易失效事实"，需定期重取**（第七十轮立） | 榜单**每天都在变**（20 行里有 11 行的提交日期在 2026-09）→ §1.0 的快照**会过期**。**已固化做法**：`ai/workflows.md` **§周扫**的"榜单线"（成本 = 1 次 POST）。**取数日期必须随数字一起写**（现为 2026-09-30） | [ai/workflows.md](../../ai/workflows.md) §周扫、[sota-plan.md §1.0](ideas/sota-plan.md) |
+| 26 | **两份文档超 64 KB（`check_links.py` 第 12 项持续报红）**（第七十三轮立） | **均为第七十二轮遗留、第七十三轮未引入**：`ideas/sota-plan.md` **67,243 B**（第 71 轮提交时 `HEAD~3` 已 66,711 B，超限早于第 73 轮）、`history.md` **66,025 B**（第 73 轮只按约定加一行索引，正文未改）。**要求**：按 [ai/templates.md](../../ai/templates.md) §分册约定 / 瘦身处理，**作为独立结构性任务**（第 73 轮未强改决策核心文件）。**趋势提醒**：`history.md` 每轮必增一行，其条目已远超必要详略（**根因是"逐轮条目越写越长"**）——瘦身时优先压缩旧条目 | [shared/scripts/check_links.py](../../shared/scripts/check_links.py) 第 12 项、[rounds-73.md](history/rounds-73.md) §已知告警 |
 
 ## 当前判断边界（索引）
 
