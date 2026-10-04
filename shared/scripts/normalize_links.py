@@ -8,7 +8,8 @@ import os
 import re
 import sys
 
-ROOT = '/home/verse/dev/AI4R'
+# 工作空间根 = 本脚本上溯两级（shared/scripts/ → 工作空间根）；用 __file__ 派生，迁移换路径不用改
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # 跳过目录（与 check_links.py 的 SKIP_DIRS 同口径，按目录名剪枝）：
 # · repos = 第三方代码快照（1.65 GB），实际位置在项目根 code/repos——第七十七轮修正：此前排除
 #   路径写的是 2026-09-23 重构前的旧址 topics/diffusion-planner/code/repos，条件永不命中，

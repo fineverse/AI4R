@@ -8,7 +8,7 @@
 所有 API key 存于 [tools.env](tools.env)（**已 gitignore，不进版本历史**）。使用前：
 
 ```bash
-source /home/verse/dev/AI4R/shared/tools.env
+source shared/tools.env   # 在工作空间根目录下执行
 ```
 
 | 变量 | 服务 | 性质 |

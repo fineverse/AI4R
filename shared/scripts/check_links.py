@@ -54,7 +54,8 @@
 """
 import os, re, sys, csv, subprocess
 
-ROOT = "/home/verse/dev/AI4R"
+# 工作空间根 = 本脚本上溯两级（shared/scripts/ → 工作空间根）；用 __file__ 派生，迁移换路径不用改
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SKIP_DIRS = {".git", "repos", "scratch", "__pycache__", "node_modules", "archive", ".trae", ".vscode"}
 
 link_re = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
