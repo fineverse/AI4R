@@ -56,7 +56,7 @@ import os, re, sys, csv, subprocess
 
 # 工作空间根 = 本脚本上溯两级（shared/scripts/ → 工作空间根）；用 __file__ 派生，迁移换路径不用改
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SKIP_DIRS = {".git", "repos", "scratch", "__pycache__", "node_modules", "archive", ".trae", ".vscode"}
+SKIP_DIRS = {".git", "repos", "scratch", "__pycache__", "node_modules", "archive", ".trae", ".vscode", "AD"}
 
 link_re = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 # 同上，但同时取出**链接文字**（分册引用归属检查要用文字里的 §X）
