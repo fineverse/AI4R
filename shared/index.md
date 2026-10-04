@@ -20,7 +20,7 @@
   - `normalize_links.py` — 把相对链接规范化为「相对当前文件位置」的标准形式（拆卷/迁移后修链接用）
 - [skills/](skills) — 工作空间技能（IDE 无关；每技能一个目录，入口为该目录下的 `SKILL.md`）
   - [zotero/SKILL.md](skills/zotero/SKILL.md) — 操作本地 Zotero Desktop 文献库（搜索、导出 BibTeX、读全文、导入），经本地 API `127.0.0.1:23119`；辅助脚本 `skills/zotero/scripts/zotero.py`
-- **工作空间的运行设施**（第四十八轮起，细则见 [ai/rules.md](../ai/rules.md) §执行与清理纪律）：① **已 git**——每轮收尾提交一次，`code/repos/`（1.6 GB）/ `inbox/scratch/` / `.trae/` 由 [`.gitignore`](../.gitignore) 忽略；② **临时产物根 = `inbox/scratch/`**（工作空间**内**——`/tmp` 虽沙箱可写，但不在权限模式的自动允许范围内，每次访问都会弹授权，故不再使用）；③ **并行会话的同步机制**——见 [ai/rules.md](../ai/rules.md) §支线协作纪律：软通道 [projects/autonomous-driving/history/CURRENT.md](../projects/autonomous-driving/history/CURRENT.md)（事先声明在改什么）+ 硬通道 `git log --oneline -5` / `git status --short`（写文件前必跑）；支线投递物模板见 [ai/templates.md](../ai/templates.md) §支线投递物。
+- **工作空间的运行设施**（第四十八轮起，细则见 [ai/rules.md](../ai/rules.md) §执行与清理纪律）：① **已 git**（私有远端 `fineverse/AI4R`，每轮收尾 commit + push）——`code/repos/`（1.6 GB）/ `inbox/scratch/` / `.trae/` 由 [`.gitignore`](../.gitignore) 忽略；② **临时产物根 = `inbox/scratch/`**（工作空间**内**——`/tmp` 虽沙箱可写，但不在权限模式的自动允许范围内，每次访问都会弹授权，故不再使用）；③ **并行会话的同步机制**——见 [ai/rules.md](../ai/rules.md) §支线协作纪律：软通道 [projects/autonomous-driving/history/CURRENT.md](../projects/autonomous-driving/history/CURRENT.md)（事先声明在改什么）+ 硬通道 `git log --oneline -5` / `git status --short`（写文件前必跑）；支线投递物模板见 [ai/templates.md](../ai/templates.md) §支线投递物。
 
 ## 工具与凭据
 

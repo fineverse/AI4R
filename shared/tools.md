@@ -117,9 +117,16 @@ export http_proxy=http://127.0.0.1:7897
 - 取仓库：`curl -L -o repo.tar.gz https://api.github.com/repos/{owner}/{repo}/tarball/{ref}`（302 到 codeload，实测 2.3 MB/s）
 - 列 Release 资产：`https://api.github.com/repos/{owner}/{repo}/releases`
 
-**GitHub API token**（`GITHUB_TOKEN`，见 [tools.env](tools.env)）：fine-grained，仅 `Contents: Read-only` + 自动的 `Metadata: Read-only`，账户权限全空。**认证后 5000/小时**（未认证 60/小时），**搜索 30/分钟**（未认证 10/分钟）。请求头用 `Authorization: Bearer $GITHUB_TOKEN`。
-- ⚠ **只用 API 时不需要代理**（`api.github.com` 直连可达）；**`git clone` 才需要走代理**（`github.com` 直连不通，见上）
-- ⚠ 该 token 曾以明文出现在对话记录中，建议轮换（低风险：仅公开仓库只读、无写权限）
+**GitHub API token**（`GITHUB_TOKEN`，见 [tools.env](tools.env)）：fine-grained；**2026-10-04 起加了 `Contents: Read and write`（仓库范围 = `fineverse/AI4R`）**，用于推送本站私有远端；此外仍是公开库只读、账户权限全空。**认证后 5000/小时**（未认证 60/小时），**搜索 30/分钟**（未认证 10/分钟）。请求头用 `Authorization: Bearer $GITHUB_TOKEN`。
+- ⚠ **只用 API 时不需要代理**（`api.github.com` 直连可达）；**`git clone` / `git push` 才需要走代理**（`github.com` 直连不通，见上）
+- ⚠ **该 token 现已有写权限**，且曾以明文出现在对话记录中 → **建议轮换**（风险已高于"只读"时期）
 - 曾出现 `/repos/*` 稳定返回 500，2026-09-29 复查已恢复，判断为 GitHub 侧瞬时故障或权限传播延迟，**非 token 配置问题**
+
+**私有远端（2026-10-04 建）**：`origin = https://github.com/fineverse/AI4R.git`（SSH 22 端口被封、443 端点无可用密钥，故走 HTTPS）。推送走带代理的一条命令，凭据从 `tools.env` 读、**不写进 `.git/config`、不入 shell 历史明文**：
+
+```bash
+set -a; . shared/tools.env; set +a
+git -c http.proxy=http://127.0.0.1:7897 -c credential.helper='!f(){ echo username=fineverse; echo "password=$GITHUB_TOKEN"; }; f' push origin master
+```
 
 **HuggingFace**（2026-09-30 实测，落盘自支线第三篇投递）：**直连不通（`http 000`）、走 `127.0.0.1:7897` 代理可达**。**根因同上**——`https_proxy` / `http_proxy` 未导出到 shell，**不是权限问题、不需要沙箱白名单**（沙箱的 `network.default = allow`，网络本身不设限）。**同一批实测**：`api.github.com` / `codeload.github.com` / `arxiv.org` / `semanticscholar.org` **直连与代理均通**，**只有 HF 直连不通** → **下载 checkpoint 前先确认代理已生效**（见 `state.md` 待续清单里已定位的 SimScale ckpt 直链）。

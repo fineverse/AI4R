@@ -33,7 +33,7 @@
 
 - GPU：**自备双卡 RTX 3090（48 GB）**；出成果后可租 **A800 80G（单卡）**（2026-09-24 定，详见 [autonomous-driving/state.md](../projects/autonomous-driving/state.md) 待续清单）
 - 研究目标（2026-09-24 定）：**发一篇自动驾驶方向 CCF-A 会议论文**——SOTA 是手段不是目的，评价标准 = 「提点幅度 × 可复现性 × 子榜可辩护性」
-- 存储与服务器权限：本地工作空间 + git；大数据盘路径待定（见 AD state.md 待续 #21）
+- 存储与服务器权限：本地工作空间 + 私有远端 `fineverse/AI4R`（git）；大数据盘路径待定（见 AD state.md 待续 #21）
 
 ## 当前领域
 

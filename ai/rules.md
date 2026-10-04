@@ -149,6 +149,7 @@
      git add -u && git add <本轮新增的文件路径> && git -c user.name=verse -c user.email=verse@localhost commit -m "第 N 轮：..."
      ```
      **不用 `git add -A`**：`-A` 会**静默扫走支线未提交的半成品**（同工作树是 last-write-wins，无警告）。改为 `-u`（已跟踪文件的改动）+ **显式列新文件**。**不写 `cd`**——Shell 工具的 `cwd` 默认就是工作空间。身份 `verse <verse@localhost>` 是默认值（本机无 git 身份配置）。
+   - **推送远端**（2026-10-04 起远端已建）：提交后 `git -c http.proxy=http://127.0.0.1:7897 push origin master`——`github.com` 直连不通，须带代理（用 `-c http.proxy`、不依赖全局 `https_proxy`）；凭据从 `shared/tools.env` 的 `GITHUB_TOKEN` 读，**不写进 `.git/config`**。详见 [tools.md](../shared/tools.md) §网络访问。
    - **轮次打 annotated tag**：`git tag -a round-N -m "<一句话>"`——让正文里"见第 N 轮"能落到 `git show round-N`。
    - **与第 8 条的关系**：有了 git，任何批量改写都能 `git diff` 复查、`git checkout` 回滚；第 8 条的 `cp` 备份防的是"未提交的工作丢失"。**两者并存**。
 10. **危险命令自守**（权限放宽后**"命令审批"就是最后一道闸**，自守承诺写成纪律、不靠临时判断）：
