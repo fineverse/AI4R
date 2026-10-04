@@ -14,6 +14,7 @@ inbox/scratch/
 # ── Python ──
 __pycache__/
 *.pyc
+AD/
 
 # ── IDE 产物（不属于知识树；check_links.py 的 SKIP_DIRS 亦跳过）──
 .trae/
