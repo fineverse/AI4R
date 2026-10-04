@@ -36,3 +36,8 @@ rasterio
 pyogrio
 pyinstrument
 pytest
+psutil
+fiona
+selenium
+notebook
+nest-asyncio
