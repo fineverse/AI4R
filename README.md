@@ -8,7 +8,7 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 | 项目 | 角色 | 状态 |
 |---|---|---|
-| [autonomous-driving](projects/autonomous-driving/project.md) · 自动驾驶 | **主方向** | 领域脉络 + 研究对象（扩散规划器）脉络完成（**继承关系 S1–S4 分级**）；两借鉴来源 **52 篇全部全文级**；重组地图 + 冲 SOTA 作战文件就绪 · 2026-10-01 |
+| [autonomous-driving](projects/autonomous-driving/project.md) · 自动驾驶 | **主方向** | 文献与代码核验完成；实验环境和资产部分就绪，真实传感器前向尚未通过，**尚未复现** · 2026-10-06 |
 | [embodied-ai](projects/embodied-ai/project.md) · 具身智能 | 次方向（来源领域） | 脉络初稿 + 两借鉴来源建表（28 篇，摘要级）；三表证据维度（T 档 / §1.1）已补齐 · 2026-10-01 |
 
 两个项目平级。项目内固定 `direction/`（大方向）+ `topics/`（小方向）两层。
@@ -89,17 +89,10 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 - **⚠ 防"成果搞丢"的两件事**（2026-09-30 实测：**删除有审批闸、覆盖没有闸**——写文件不弹窗，覆盖就是覆盖了；所以只有版本控制 + 异地副本能救）：
   1. ~~加私有远端~~ ✅ **已完成（2026-10-04）**——私有远端 `fineverse/AI4R`，`master` 已推送，另一台机器可 `git clone` 取全量历史；
   2. **备份 `.git`**（打 tar 到别的盘/远端）——**`.git` 是不可再生资产**：工作文件丢了能重写，**提交历史丢了永远没了**。
-- **`~/.bashrc` 加代理两行**（HF 直连不通的根因就是它，不是权限问题）：
-
-```bash
-export https_proxy=http://127.0.0.1:7897
-export http_proxy=http://127.0.0.1:7897
-```
-
 - 下载付费墙 PDF（**8 条**），清单见 [pdfs_pending.md](projects/autonomous-driving/pdfs_pending.md)
 - **Zotero 库备份**（2026-10-01 第七十八轮立）：工作空间规则是"PDF 留 Zotero"——**8 篇付费墙 PDF 下载后唯一载体就是 Zotero 库**（不可再生，工作空间只有笔记）；建议随 `.git` 一起做异地备份
 - **GITHUB_TOKEN 轮换**（tools.md §GitHub 已建议）：当前 fine-grained token 曾以明文出现在对话记录（低风险：仅公开仓库只读），建议顺手换新
-- 为路线 B 实验取得 SimScale 的 DiffusionDrive checkpoint，并准备 NAVSIM v2 `navhard` 数据；协议已写在 [experiments/protocol.md](projects/autonomous-driving/experiments/protocol.md)（**数据盘路径需加沙箱白名单**，见 [state.md](projects/autonomous-driving/state.md) 待续第 21 项）
+- 路线 B 的 checkpoint、场景 pickle 和传感器压缩包已落盘；下一步是闭合历史帧文件契约并跑通真实传感器单场景前向，详见 [state.md](projects/autonomous-driving/state.md) 与 [实验协议](projects/autonomous-driving/experiments/protocol.md)
 - 如要正式立项，仍需用户明确确认；GPU、预算和主基准已经确定，不再作为待决策项
 
 ## 想细看时

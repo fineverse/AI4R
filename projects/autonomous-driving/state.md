@@ -1,16 +1,17 @@
 # 自动驾驶项目状态
 
-更新时间：2026-10-01（第七十九轮：全工作空间修复——脚本数据破坏修复、A 组真错误 ×11、检查器 +3 项、archive 头部统一）
+更新时间：2026-10-06（阶段 1 事实校准；最近正式研究轮仍为第七十九轮）
 逐轮详细记录已迁出至 [history.md](history.md)（**2026-09-23 拆为 5 卷，后续各轮新增，共 61 卷，`history.md` 现为索引**，见 [history/](history/)；同目录 [CURRENT.md](history/CURRENT.md) 为**本轮「在改」文件清单**（软通道，单写者 = 主线程；**第六十七轮起不再登记投递物**——登记表就是 `inbox/` 本身））；本文件只保留当前阶段、待续清单与判断边界。
 
 ## 当前阶段
 
-**项目未立项**。文献调研与代码核验已完成（第一至七十九轮），现处于 **idea 讨论 + 实验准备**阶段；最近一轮为**第七十九轮（2026-10-01）**——**非专题研究轮（全工作空间修复，A–E 组）**：把同日巡查清单逐条落地。
+**项目未立项**。文献调研与代码核验已完成（第一至七十九轮），现处于 **idea 讨论 + 实验准备**阶段；最近正式研究轮仍为**第七十九轮（2026-10-01）**。2026-10-05 至 10-06 已完成一批服务器准备与冒烟检查，但它们不是实验结果。
 
 - **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 61 卷，第一至七十九轮全覆盖）。
 - **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)（**单写者 = 主线程**，只写「在改」清单）；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 的「inbox 待整合」检查）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
 - **决策核心**：[sota-plan.md](ideas/sota-plan.md)（冲 SOTA 作战文件）、[preparation.md](ideas/preparation.md)（S1–S30 设计前提 + 候选方向）。
-- **关键阻塞**：路线 B 第一步（纯推理四项测量）协议已建、**未运行**，受 SimScale checkpoint（243.6 MB，已定位）与 navhard 数据阻塞。
+- **运行准备现状**：SimScale checkpoint 已取得并校验（243,596,717 bytes；SHA-256 `8fdbdb3f…d963f`），Python 3.9.25 / PyTorch 2.2.1 环境、NAVSIM/nuPlan 运行副本与场景 pickle 已存在；current/history 传感器压缩包已落盘。目前只确认 `unpacked/current`，尚未确认历史帧资产闭合。
+- **关键阻塞**：路线 B 协议**尚未正式运行**。真实传感器输入前向仍未通过；agent 声明的 8 相机 × 4 帧输入与本地文件布局尚未闭合，依赖锁定、实际评分路径和 SimScale/NAVSIM 兼容性仍待核验。零输入前向、缓存或评分冒烟均不得写成模型复现成功。
 
 > **本节原有一段"第一至四十八轮日志"，已于 2026-09-30（第五十七轮）删除**：它累积 8000 余字，与 [history/](history/) 逐轮记录重复、且未随第四十九轮以后更新——**这正是"`state.md` 与 `history.md` 轮次不同步"的根因**。按第四十八轮给 README 定的规则（**当前态只留指针、不写结论**）移除；逐轮内容一律看 [history/](history/) 各卷。
 
@@ -39,8 +40,8 @@
 | 9 | 代码结论需运行环境才能验证：扩散规划器侧 5 项（§D）+ **§G DIVER 的 `num_cmd` 内部不一致**（**已解决**：是"命令组数"口径误读，见 [C005 §H.3](code/traces/e2e_trunk_code_traces.md)）+ **§H FeaXDrive 的违规率取自哪一列** + **§J HDP 的初始噪声 `0.1` 与训练端 `σ(1)≈1` 的尺度差** + 世界模型侧 5 项 + E2E 主干侧 4 项 | 依赖算力与数据 | 三份 [code/traces/](code/traces/) §D，及 [C003 §G/§H](code/traces/diffusion_planner_code_traces.md) 与 [C003-2 §J](code/traces/diffusion_planner_code_traces-2.md)（⚠ 第七十七轮修错册：§J 在第二册 §I–§P） |
 | 10 | **锚点/词表：只剩 VADv2 的 `carla_plan_vocabulary_4096.npy` 需自行重建** | 构造线索已明确（来源 = CARLA GT 轨迹、形状 **(4096,6,2)**、**累积位移空间**、配置注释留了 `#'./gt_trajs.npy'`）→ 缺 **Bench2Drive/CARLA 专家轨迹 + 自写聚类脚本**。其余全部结账（第二十四轮复查）：DiffusionDrive 20 锚点（已下载并与 V2 逐字节比对相同）、SparseDrive 四个 `kmeans_*.npy`（(3,6,6,2) 已实测匹配）、UniAD `motion_anchor_infos_mode6.pkl` 均可直下；DiffusionDriveV2 的 `navtrain_16384.pkl` 有官方 HF 直链但 **30.5 GB**（是成本非缺失，且非推理必需）。**注意** DIVER 的同名 `kmeans_plan_6.npy` 是 (6,6,6,2)，与公开的 (3,6,6,2) **不通用** | [E2E 主干脉络 §H/§H.4](code/traces/e2e_trunk_code_traces.md) |
 | 19 | **论文表质量维度的剩余缺口**（第六十三轮分档；已完成的补齐见 [rounds-57.md](history/rounds-57.md)、[rounds-60.md](history/rounds-60.md)） | **② 值得动且便宜（真正的工作项）**：**具身 4 条「代码未核验」**（DP-E13/E24/E26/E27，走 GitHub API/raw 即可，本空间已核过 40+ 仓）＋ **DP-A29 DriveFine**（只需补团队/录用信号；"零代码"已由 [C003 §K](code/traces/diffusion_planner_code_traces-2.md) 结账）＋ **DP-E16**（无代码，只剩团队信号）。**① 判据问题非信息缺口**：DP-S03/S05/S12 venue 不在白名单 → 扩白名单或按 T5 归，没有"去核"动作；**③ 无入口 / 等外部事件**（搁置）：DP-A04/A19/A25/A30/A32/A34、DP-S06/S08/S13、DP-E07、B011；**④ 需用户**：DP-S10（ICTC 2025）。**S 表其余 40 条「未核」永久搁置**（非选题依赖）；具身 VLA+WM 升全文级属"按需" | [rounds-63.md](history/rounds-63.md) |
-| 21 | **实验数据的落盘位置会触到沙箱白名单**（2026-09-30 实测，支线第三篇投递） | **NAVSIM 数据不能放工作空间**（**`navtrain` 300–445 GB、`navtest` 223 GB**）→ 若落在数据盘（如 `/data`、`/mnt/xxx`），**该路径必须加进沙箱允许区**，否则**连读取都做不到**（允许区的形状 = 工作空间 + 临时目录 + 包缓存，见 [ai/rules.md](../../ai/rules.md) §执行与清理纪律第 10 条下方的说明块）。**等数据盘定下来再处理** | [rounds-66.md](history/rounds-66.md) |
-| 22 | **用户侧三件事（①② 防搞丢 + ③ 网络）**（第六十七轮从 README「等待用户」同步进来，避免被后续轮次淹没） | **①已完成、②③未完成（第六十七轮立；第七十七轮用户指示放一放；2026-10-04 更新）**：① **加私有远端** ✅（2026-10-04：私有远端 `fineverse/AI4R`，`master` 已推送）；② **备份 `.git`** ❌（**实测 `.git` = 18 MB**——⚠ **更正**：第四十八轮记的"2.2 MB"是**初始提交**时的体积，已随轮次增长；异地成本极低）；③ **`~/.bashrc` 加代理两行** ❌（`grep` 无命中）。**为何列这三条**：**"删除有闸、覆盖没有闸"**（见 [ai/rules.md](../../ai/rules.md) §执行与清理纪律第 10 条下方）→ **搞丢成果的真实路径是覆盖**，而**版本控制 + 异地副本是唯一解**，沙箱白名单管不到 | [rounds-67.md](history/rounds-67.md)、[README.md](../../README.md) §等待用户 |
+| 21 | **把数据盘位置改成可配置运行参数** | 当前服务器的数据根已定为 `/root/autodl-tmp/ai4r_navsim`，本会话可读；旧环境的“沙箱白名单阻塞”不再是当前事实。后续需在阶段 4 用配置项替代硬编码，避免换机器后失效。 | [experiments/protocol.md](experiments/protocol.md)、[rounds-66.md](history/rounds-66.md) |
+| 22 | **用户侧防丢失事项** | ① 私有远端 ✅（2026-10-04 已建立并推送）；② `.git` 异地备份仍未完成。旧机器的 `~/.bashrc` 本地代理配置不迁移到当前服务器，网络配置按机器分别记录。 | [rounds-67.md](history/rounds-67.md)、[README.md](../../README.md) §等待用户 |
 | 23 | **"选优器专线"的待核**（第六十八轮立；**第六十九轮解 ①、第七十轮解 ⑤**） | ~~① TOAD 的 56.3 属哪个 split~~ → **✅ `navhard-two-stage`**；~~⑤ TOAD 代码是否发布~~ → **✅ 已发布**（`valeoai/TOAD` 25★，`scorer.py` + `train_pdm_scorer.py` 都在）——**它因此成为方向 B 的"可运行直接对手"**。**剩余**：② **Vault 是否已中稿**（摘要写 "Under review at ICLR 2027"）**与有无代码**；③ [scoring_line.md](topics/diffusion-planner/papers/scoring_line.md) **§二 15 条线索级**（arXiv ID / venue / 代码全未核）；④ BeyondDrive 的 **"MeanFuser 同组"与"有代码"**（摘要均未提）；⑥ **TOAD 的 56.3 / 56.512 两个数字均未被独立复现**（论文自报 vs 官方榜，差 0.2） | [scoring_line.md](topics/diffusion-planner/papers/scoring_line.md)、[rounds-69.md](history/rounds-69.md) |
 | 24 | **官方榜的三项未查事项**（第七十轮立） | ① **`DriveFuture` 为何不在官方榜**（全文检索 0 命中）——未提交？还是用了另一套评测？**这个决定了 §1 与 §1.0 能否被看成"同一基准的两套数字"**；② **官方榜前 6 名里 4 个匿名队**（`guest9527` 60.561 / `CooWAIM` / `Aqua10086` / `zzzzz` / `Joctor`）身份未知，**榜首不可追溯**；③ **榜二的 `EABOT.AI&NJU` 与 `Rtwotwo/DriveTTO` 的对应关系未证实**（榜上无链接，且该仓是占位仓）。→ **这三项直接影响"子榜辩护"能不能写**，优先级高于 ②③④ | [sota-plan.md §1.0](ideas/sota-plan.md)、[judgments.md B 组](judgments.md) |
 | 25 | **官方榜是"易失效事实"，需定期重取**（第七十轮立） | 榜单**每天都在变**（20 行里有 11 行的提交日期在 2026-09）→ §1.0 的快照**会过期**。**已固化做法**：`ai/workflows.md` **§周扫**的"榜单线"（成本 = 1 次 POST）。**取数日期必须随数字一起写**（现为 2026-09-30） | [ai/workflows.md](../../ai/workflows.md) §周扫、[sota-plan.md §1.0](ideas/sota-plan.md) |

@@ -1,7 +1,7 @@
 # NAVSIM v2 navhard：DiffusionDrive 候选池与选优损失测量协议
 
-更新时间：2026-09-28  
-状态：**预注册草案，尚未运行**。研究方向尚未正式立项；本协议只定义路线 B 的第一阶段纯推理测量，不预设训练方案或结果。**第五十四轮重构测量层级**：完整政策 EPDMS 与 Stage-1 候选诊断分开。
+更新时间：2026-10-06
+状态：**预注册草案，尚未正式运行**。研究方向尚未正式立项；本协议只定义路线 B 的第一阶段纯推理测量，不预设训练方案或结果。服务器准备、零输入模型前向、缓存与评分冒烟都不是本协议下的实验结果，也不构成复现。**第五十四轮重构测量层级**：完整政策 EPDMS 与 Stage-1 候选诊断分开。
 
 ## 1. 研究问题与决策用途
 
@@ -15,11 +15,11 @@
 |---|---|---|
 | 基准与 split | NAVSIM v2 `navhard` | 已定；见 [基准口径](../direction/benchmarks.md) §2、[作战计划](../ideas/sota-plan.md) §8.5 |
 | 评分器 | 本项目固定 devkit commit `0a380a9`（2025-10-27），使用修复后的 `EPDMS` | 已定；实际分数仍须运行确认 |
-| 生成器 | SimScale 发布的 DiffusionDrive navhard checkpoint | **待取得**；HF 走 `127.0.0.1:7897` 代理可达（第五十五轮实测）；阻塞见 [state.md](../state.md) §当前阶段「关键阻塞」 |
+| 生成器 | SimScale 发布的 DiffusionDrive navhard checkpoint | **已取得并校验**：243,596,717 bytes，SHA-256 `8fdbdb3fdfa7b496e7d7a438efbb5c2022377e59cbfd7095270d89623c5d963f`；曾成功加载 `state_dict`，但真实传感器前向尚未通过 |
 | 原始候选数 | 20；扩池条件为 100 | 20 锚点公开；100 候选的可实现方式、采样随机性与模型接口**待代码核验**，不可假定只需改配置 |
 | 推理输入 | 严格遵守 NAVSIM agent 契约；不得向 agent 暴露 GT、PDM / EPDMS 结果或评测后信息 | 约束已在 [benchmarks.md](../direction/benchmarks.md) §2.5 核验；执行时记录输入边界 |
 | 硬件 | 自备 2×RTX 3090；本阶段推理 | 资源已确认；是否需要分布式推理待环境检查 |
-| 运行环境 | 固定仓库 commit、依赖锁定、数据版本、配置、随机种子 | **待搭建并记录**；工作空间只做过静态核验，未安装或运行模型 |
+| 运行环境 | 固定仓库 commit、依赖锁定、数据版本、配置、随机种子 | **部分就绪，尚未冻结**：Python 3.9.25、PyTorch 2.2.1+cu121；SimScale `07c3305…`、nuPlan `ce3c323…`、NAVSIM `0a380a9…`。依赖锁、输入资产闭合和三者兼容性仍待核验 |
 
 跨论文分数只作背景。本实验内部比较必须使用同一 checkpoint、数据、devkit 和评价路径；若 checkpoint 的输出不能复用、扩池会改变推理路径，须登记为协议偏差。
 
@@ -47,7 +47,7 @@
 
 ## 4. 执行顺序与记录
 
-1. 获取并校验 checkpoint、navhard 数据与 devkit；记录来源、文件校验和、代码 commit、依赖版本及评分配置。
+1. 核对已取得的 checkpoint、navhard 数据与 devkit；补齐传感器资产校验和、依赖锁和评分配置记录。
 2. 用少量场景验证 agent 契约、候选张量、索引 0、随机性、轨迹时域与坐标系。
 3. 核对 Stage-1 到 Stage-2 的评测实现，明确完整政策的场景权重与聚合；分别运行 published policy 和 index-0 policy。
 4. 独立保存 Stage-1 候选诊断；确认 100 候选机制、资源成本与时延后，再决定是否扩池。
@@ -65,7 +65,7 @@
 
 ## 6. 启动阻塞项
 
-- 用户 / 环境侧取得 HuggingFace checkpoint，或提供可访问方式。
-- 确认 NAVSIM v2 `navhard` 数据可用并核实所需文件与存储空间。
-- 建立固定 devkit 与 agent 的运行环境；核验 SimScale checkpoint 的实际输出候选数量及 100 候选扩展是否合法。
+- 核清 agent 声明的 8 相机 × 4 帧输入实际需要哪些文件；确认 current/history 传感器覆盖完整，再做真实单场景前向。
+- 冻结并记录 devkit、agent、nuPlan、依赖与数据版本；核验当前 SimScale 运行副本和协议固定 NAVSIM commit 的兼容性。
+- 核验 checkpoint 的实际输出候选数量及 100 候选扩展是否合法；不得从配置名或零输入冒烟推定。
 - 运行小样本后补充种子数、场景数、时延上限及噪声判据，再冻结全量协议。
