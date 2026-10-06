@@ -21,9 +21,9 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 
 **上一轮：第七十七轮（2026-10-01）**——**工作空间遗留问题修复**（非专题研究轮）：5 个只读巡查智能体全面巡查 + 按批准计划七批次清账——修 `normalize_links.py` 数据风险、`check_links` 新增**第 13 项（README 轮次表完整性）**与 3 条计数登记、**「收尾同步 7 处」权威清单**落进 workflows、**具身侧补记第 55/57/59/60 四轮**并修正 55/59 轮归属误记、待续清单清账（删 11 行已结账、新增 #28/#29）、scratch/归档组织；更正 8 处事实级错误（→ [rounds-77.md](projects/autonomous-driving/history/rounds-77.md)）。
 
-**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 61 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，**本节只留指针、不写结论**（规则见 [ai/workflows.md](ai/workflows.md) §轮次收尾第 3 条）。
+**逐轮详情以 [autonomous-driving/history.md](projects/autonomous-driving/history.md)（索引 + 61 卷）为准**；当前阶段与待续清单见两个项目的 `state.md`，本节只留摘要与指针（规则见 [ai/workflows.md](ai/workflows.md) §任务收尾）。
 
-> **⚠ 第七十六轮补记**：本轮发现 **README 的「最近动态」被第 73–75 轮的收尾漏掉了**（它当时仍停在"54 卷 / 最新第七十二轮"）——**这是"收尾同步 7 处"里漏掉一处的又一次实证**，见 [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)。（**第七十七轮后续**：已把「收尾同步 7 处」定为权威清单并加第 13 项机器检查，见 [ai/workflows.md §轮次收尾](ai/workflows.md)；本轮并补上指针表漏掉的第 67/68 轮两行。）
+> **历史说明**：第 73–75 轮曾漏更新 README，第七十六、七十七轮因此建立过“多处同步”清单；该做法已在 2026-10-06 被按信息角色划分的单一事实源规则取代。事故与当时修复见 [rounds-76.md](projects/autonomous-driving/history/rounds-76.md)。
 
 | 轮次 | 指针 |
 |---|---|
@@ -39,7 +39,7 @@ AI 辅助深度学习科研：文献检索 → 研究脉络 → idea → 实验 
 | **第七十轮** | [rounds-70.md](projects/autonomous-driving/history/rounds-70.md) — 官方榜重建分数格局 + 三处代码翻案 + §周扫机制（→ [sota-plan.md §1.0](projects/autonomous-driving/ideas/sota-plan.md)） |
 | **第六十九届** | [rounds-69.md](projects/autonomous-driving/history/rounds-69.md) — 核实 TOAD split → navhard 榜一易主（⚠ 两处已被第 70 轮推翻）（→ [judgments.md](projects/autonomous-driving/judgments.md) D 组、[sota-plan.md §9.7](projects/autonomous-driving/ideas/sota-plan.md)） |
 | **第六十八轮** | [rounds-68.md](projects/autonomous-driving/history/rounds-68.md) — 整合支线投递：navhard 竞品表 +「选优器 / 候选池」专线（→ [navhard_competitors.md](projects/autonomous-driving/topics/diffusion-planner/papers/navhard_competitors.md)、[scoring_line.md](projects/autonomous-driving/topics/diffusion-planner/papers/scoring_line.md)） |
-| **第六十七轮** | [rounds-67.md](projects/autonomous-driving/history/rounds-67.md) — 整合两篇投递：理正收尾步序 + 取消 `CURRENT.md` 投递登记区（→ [ai/workflows.md §轮次收尾](ai/workflows.md)） |
+| **第六十七轮** | [rounds-67.md](projects/autonomous-driving/history/rounds-67.md) — 整合两篇投递：理正当时的收尾步序 + 取消 `CURRENT.md` 投递登记区 |
 | **第六十六轮** | [rounds-66.md](projects/autonomous-driving/history/rounds-66.md) — 机制实测 + 修规则自相矛盾 + 落盘沙箱/覆盖边界（→ [ai/rules.md §执行与清理纪律](ai/rules.md) 第 10 条） |
 | **第六十五轮** | [rounds-65.md](projects/autonomous-driving/history/rounds-65.md) — 收敛三处冗余（检查清单 / git 命令 / 两文原则节） |
 | **第六十四轮** | [rounds-64.md](projects/autonomous-driving/history/rounds-64.md) — `check_links` 的「文档体积预算」检查（→ [check_links.py](shared/scripts/check_links.py)） |

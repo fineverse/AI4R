@@ -8,7 +8,7 @@
 **项目未立项**。文献调研与代码核验已完成（第一至七十九轮），现处于 **idea 讨论 + 实验准备**阶段；最近正式研究轮仍为**第七十九轮（2026-10-01）**。2026-10-05 至 10-06 已完成一批服务器准备与冒烟检查，但它们不是实验结果。
 
 - **逐轮记录**（做了什么、更正了什么、产出在哪）：[history.md](history.md)（索引 + 61 卷，第一至七十九轮全覆盖）。
-- **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律（**软通道** = [history/CURRENT.md](history/CURRENT.md)（**单写者 = 主线程**，只写「在改」清单）；**硬通道** = 写文件前必跑 `git log --oneline -5` + `git status --short`；**机器兜底** = `check_links.py` 的「inbox 待整合」检查）；开轮 pre-flight 与投递物模板见 [ai/workflows.md](../../ai/workflows.md) §轮次开始、[ai/templates.md](../../ai/templates.md) §支线投递物。
+- **并行会话同步机制**：[ai/rules.md](../../ai/rules.md) §支线协作纪律——写前检查 Git 状态，以目标路径所有权隔离写入，提交只按明确路径暂存；目标重叠时等待、改派或使用 [投递物模板](../../ai/templates.md)。`history/CURRENT.md` 仅用于持续时间较长的并行研究任务。
 - **决策核心**：[sota-plan.md](ideas/sota-plan.md)（冲 SOTA 作战文件）、[preparation.md](ideas/preparation.md)（S1–S30 设计前提 + 候选方向）。
 - **运行准备现状**：SimScale checkpoint 已取得并校验（243,596,717 bytes；SHA-256 `8fdbdb3f…d963f`），Python 3.9.25 / PyTorch 2.2.1 环境、NAVSIM/nuPlan 运行副本与场景 pickle 已存在；current/history 传感器压缩包已落盘。目前只确认 `unpacked/current`，尚未确认历史帧资产闭合。
 - **关键阻塞**：路线 B 协议**尚未正式运行**。真实传感器输入前向仍未通过；agent 声明的 8 相机 × 4 帧输入与本地文件布局尚未闭合，依赖锁定、实际评分路径和 SimScale/NAVSIM 兼容性仍待核验。零输入前向、缓存或评分冒烟均不得写成模型复现成功。
@@ -29,7 +29,7 @@
 | 机制 | [transfer.md](topics/diffusion-planner/transfer.md)（来源 → 对象，**§1 现 15 条**——**⚠ 第四十四轮更正**：此处原写 16 条，第三十二轮把 §1 条数改正后漏改的两处之一） |
 | 规范 | [文献质量分档](../../shared/literature-quality.md)、[工作空间设计](../../shared/workspace-design.md) |
 | idea | [sota-plan.md](ideas/sota-plan.md)（**冲 SOTA 作战文件**：navhard 分数格局——**§1.0 官方公开榜 20 行 + §1 论文口径 13 行**——与逐行代码状态 + 子榜门槛 + 七方向重排 + 四条推荐路线）；[preparation.md](ideas/preparation.md)（**§2 = S1–S30 设计前提清单**、§5.0 = 七方向横向比较、§5 = 7 个候选方向，均未验证）；[recombination-map.md](ideas/recombination-map.md)（**重组地图：结构（血统）× 因果（受控增益）**——**只做连接、不复制论证**，含"结构相邻但因果未测"的 idea 候选区）；[judgments.md](judgments.md)（判断边界详细版**第一册 §A–§D**）+ [judgments-2.md](judgments-2.md)（**第二册 §E–§H**） |
-| 工作流 | [ai/rules.md](../../ai/rules.md)（证据等级含**代码核验 L1/L2/L3**、**子代理纪律**、**支线协作纪律**（第六十轮新增、**第六十一/六十二/六十七轮修订**）、尺寸阈值、**执行与清理纪律 10 条**）、[ai/workflows.md](../../ai/workflows.md)（**§轮次开始 pre-flight**（第六十二轮新增）+ **§轮次收尾 9 步**（第六十七轮理正第 7/8/9 步的先后）、**Idea 讨论准备**节）；**检查器**（[check_links.py](../../shared/scripts/check_links.py)；**逐项清单见脚本 docstring**——第六十五轮起本处不写数字、不枚举）；**工作空间已 git**（`.gitignore` 忽略 `code/repos/` + `inbox/scratch/` + `.trae/`；**收尾用 `git add -u` + 显式列新文件，不用 `-A`**），临时产物根 = **`inbox/scratch/`** |
+| 工作流 | [ai/rules.md](../../ai/rules.md) 定义证据、路径级协作、耐久资产保护与 Git 安全；[ai/workflows.md](../../ai/workflows.md) 按只读审计、快速维护、研究更新/实验运行、正式里程碑四类分流。提交只暂存明确路径；push 需用户授权；round tag 只在里程碑 commit 后创建。检查器现状见脚本 docstring，阶段 3 将拆分 content/environment/release profile。 |
 
 ## 待续清单（没做完的，按优先级）
 
