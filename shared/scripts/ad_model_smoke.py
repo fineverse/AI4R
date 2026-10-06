@@ -15,6 +15,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--sensor-root', type=Path)
 parser.add_argument('--log-root', type=Path)
 parser.add_argument('--synthetic-scenes', type=Path, default=Path('/root/autodl-tmp/ai4r_navsim/navhard/scene_pickles/navhard_two_stage/synthetic_scene_pickles'))
+parser.add_argument('--stage', choices=('one', 'two'), default='one')
+parser.add_argument('--max-scenes', type=int, default=100)
 args = parser.parse_args()
 config = TransfuserConfig()
 config.bkb_path = str(workspace / 'inbox/scratch/resnet34_model.bin')
@@ -35,12 +37,29 @@ if args.sensor_root:
     from hydra.utils import instantiate
     from omegaconf import OmegaConf
     scene_filter = OmegaConf.load(workspace / 'inbox/scratch/simscale-runtime/navsim/planning/script/config/common/train_test_split/scene_filter/navhard_two_stage.yaml')
-    scene_filter.max_scenes = 1
-    scene_filter.include_synthetic_scenes = True
-    scene_filter.log_names = None
-    loader = SceneLoader(data_path=args.log_root, original_sensor_path=args.sensor_root, synthetic_sensor_path=args.sensor_root, synthetic_scenes_path=args.synthetic_scenes, scene_filter=instantiate(scene_filter), sensor_config=agent.get_sensor_config())
-    token = next(iter(loader.synthetic_scenes_tokens))
-    agent_input = loader.get_agent_input_from_token(token)
+    scene_filter.max_scenes = args.max_scenes
+    scene_filter.include_synthetic_scenes = args.stage == 'two'
+    loader = SceneLoader(data_path=args.log_root, original_sensor_path=args.sensor_root, synthetic_sensor_path=args.sensor_root, synthetic_scenes_path=args.synthetic_scenes if args.stage == 'two' else None, scene_filter=instantiate(scene_filter), sensor_config=agent.get_sensor_config())
+    if args.stage == 'one':
+        agent_input = None
+        for token in loader.tokens_stage_one:
+            try:
+                agent_input = loader.get_agent_input_from_token(token)
+                break
+            except FileNotFoundError:
+                continue
+        if agent_input is None:
+            raise RuntimeError('No stage-one scene with complete sensor files was found')
+    else:
+        agent_input = None
+        for token in sorted(loader.synthetic_scenes_tokens):
+            try:
+                agent_input = loader.get_agent_input_from_token(token)
+                break
+            except FileNotFoundError:
+                continue
+        if agent_input is None:
+            raise RuntimeError('No synthetic scene with complete sensor files was found')
     features = agent.get_feature_builders()[0].compute_features(agent_input)
     features = {key: value.unsqueeze(0).cuda() for key, value in features.items()}
 with torch.inference_mode():
